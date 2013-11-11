@@ -82,7 +82,7 @@
 .home-page article .home-page-filter {
   margin: 0 auto;
   text-align: center;
-  width: 900px; }
+  width: 1000px; }
   .home-page article .home-page-filter * {
     text-align: left; }
   .home-page article .home-page-filter .uk-button-dropdown > button {
@@ -105,9 +105,9 @@
   .home-page article .home-page-filter [class*='uk-icon-'] {
     float: right; }
   .home-page article .home-page-filter #driver-map {
-    height: 500px;
+    height: 700px;
     margin: 20px auto 0 auto;
-    width: 900px; }
+    width: 1000px; }
 .home-page article.home-page-add-goods {
   margin: 0 auto;
   width: 500px; }
