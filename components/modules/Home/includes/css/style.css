@@ -9,22 +9,22 @@
   font-size: 30px;
   padding: 25px 0px 0px;
   text-align: center; }
-.home-page article .home-page-registration {
+.home-page article .home-page-sign-in {
   height: 145px;
   margin: 50px auto 0 auto;
   position: relative;
   width: 800px; }
-  .home-page article .home-page-registration > div {
+  .home-page article .home-page-sign-in > div {
     display: inline-block;
     height: 145px;
     left: 0;
     position: absolute;
     top: 0;
     width: 364px; }
-    .home-page article .home-page-registration > div h2 {
+    .home-page article .home-page-sign-in > div h2 {
       font-size: 24px;
       text-align: center; }
-    .home-page article .home-page-registration > div a {
+    .home-page article .home-page-sign-in > div a {
       background: #4C7EBA;
       border-radius: 5px;
       color: #FFFFFF;
@@ -33,7 +33,7 @@
       padding: 10px 20px 10px 65px;
       position: relative;
       width: 310px; }
-      .home-page article .home-page-registration > div a span {
+      .home-page article .home-page-sign-in > div a span {
         color: rgba(255, 255, 255, 0.506);
         float: left;
         font-size: 30px;
@@ -41,12 +41,12 @@
         position: absolute;
         top: 0px;
         vertical-align: middle; }
-    .home-page article .home-page-registration > div a:last-child {
+    .home-page article .home-page-sign-in > div a:last-child {
       background: #4d8eb2;
       display: block; }
-      .home-page article .home-page-registration > div a:last-child span {
+      .home-page article .home-page-sign-in > div a:last-child span {
         left: 10px; }
-    .home-page article .home-page-registration > div a:before {
+    .home-page article .home-page-sign-in > div a:before {
       border-left: 1px solid rgba(0, 0, 0, 0.2);
       border-right: 1px solid rgba(255, 255, 255, 0.2);
       content: '';
@@ -56,17 +56,17 @@
       position: absolute;
       top: 8px;
       width: 0px; }
-  .home-page article .home-page-registration > div:before {
+  .home-page article .home-page-sign-in > div:before {
     background: url(../img/have-goods.png);
     content: '';
     display: block;
     height: inherit;
     margin-bottom: -180px;
     width: inherit; }
-  .home-page article .home-page-registration > div:last-child {
+  .home-page article .home-page-sign-in > div:last-child {
     left: auto;
     right: 0; }
-  .home-page article .home-page-registration > div:last-child:before {
+  .home-page article .home-page-sign-in > div:last-child:before {
     background: url(../img/have-car.png); }
 .home-page article .home-page-list-map-switcher > span {
   background: #ff7f7f;
@@ -104,3 +104,34 @@
     width: 400px; }
   .home-page article .home-page-filter [class*='uk-icon-'] {
     float: right; }
+  .home-page article .home-page-filter #driver-map {
+    height: 500px;
+    margin: 20px auto 0 auto;
+    width: 900px; }
+.home-page article.home-page-add-goods {
+  margin: 0 auto;
+  width: 500px; }
+  .home-page article.home-page-add-goods .uk-button-dropdown > button {
+    background: #fff;
+    border-color: #A4B4BB;
+    color: inherit; }
+  .home-page article.home-page-add-goods button,
+  .home-page article.home-page-add-goods input {
+    height: 41px;
+    padding: 5px 20px !important;
+    margin: 5px 0;
+    text-align: left;
+    width: inherit; }
+  .home-page article.home-page-add-goods [name=date],
+  .home-page article.home-page-add-goods [name=time] + * {
+    width: 247px; }
+  .home-page article.home-page-add-goods > button {
+    text-align: center;
+    width: auto; }
+  .home-page article.home-page-add-goods .uk-dropdown-width-4 {
+    width: 400px; }
+  .home-page article.home-page-add-goods [class*='uk-icon-'] {
+    float: right; }
+  .home-page article.home-page-add-goods #user-map {
+    height: 200px;
+    width: 500px; }

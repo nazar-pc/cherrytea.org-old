@@ -1,0 +1,47 @@
+/**
+ * @package		CherryTea
+ * @category	themes
+ * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @license		MIT License, see license.txt
+ */
+
+body > footer {
+	background : #444444;
+	color      : #ffffff;
+	margin     : 20px auto 0 auto;
+	padding    : 15px 75px;
+	position   : relative;
+	width      : 1100px;
+
+	&:before {
+		background : #444444;
+		bottom     : 0;
+		content    : '';
+		display    : block;
+		height     : 128px;
+		left       : -2500px;
+		position   : absolute;
+		width      : 5000px;
+		z-index    : -2;
+	}
+
+	> a {
+		background : url(../img/logo.png) no-repeat;
+		display    : inline-block;
+		font-size  : 24px;
+		height     : 98px;
+		padding    : 33px 0 0 116px;
+	}
+
+	nav {
+		display  : inline-block;
+		position : absolute;
+		right    : 75px;
+		top      : 48px;
+
+		a {
+			padding : 0 20px;
+		}
+	}
+}

@@ -6,20 +6,30 @@
  * @license		MIT License, see license.txt
  */
 @import "common_config";
-
 //Whole body
 body {
-	color   : #5e5e5e;
+	color      : #5e5e5e;
 	font       : {
 		family : $base-font-family;
 		size   : $base-font-size;
 	}
-	margin  : 0;
-	padding : 0;
-	width   : 100%;
+	margin     : 0;
+	overflow-x : hidden;
+	padding    : 0;
+	width      : 100%;
 
-	> section {
+	> section,
+	> form {
 		width  : 1100px;
 		margin : 0 auto;
+	}
+
+	&.HybridAuth form {
+		padding : 20px 0;
+		width   : 800px;
+
+		p > input {
+			margin-top : 10px;
+		}
 	}
 }

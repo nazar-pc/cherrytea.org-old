@@ -10,111 +10,107 @@ namespace	cs;
 use			h;
 $Page		= Page::instance();
 $User		= User::instance();
-$content	= '';
-if (!$User->guest()) {
-	$content	=
-		h::{'h2.cs-center'}('Вхід на сайт').
-		h::{'div.home-page-registration'}(
-			h::div(
-				h::h2('У мене є речі').
-				h::a(
-					h::icon('facebook').
-					'Увійти через Facebook'
+if ($User->guest()) {
+	$Page->content(
+		h::{'section.home-page article'}(
+			h::{'h2.cs-center'}('Вхід на сайт').
+			h::{'div.home-page-sign-in'}(
+				h::div(
+					h::h2('У мене є речі').
+					h::{'a.fb'}(
+						h::icon('facebook').
+						'Увійти через Facebook'
+					).
+					h::{'a.vk'}(
+						h::icon('vk').
+						'Увійти через VK'
+					)
 				).
-				h::a(
-					h::icon('vk').
-					'Увійти через VK'
-				)
-			).
-			h::div(
-				h::h2('У мене є авто').
-				h::a(
-					h::icon('facebook').
-					'Увійти через Facebook'
-				).
-				h::a(
-					h::icon('vk').
-					'Увійти через VK'
-				)
-			)
-		);
-}
-$Page->content(
-	h::{'section.home-page article'}(
-		$content.
-		h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
-			'value'		=> ['list', 'map'],
-			'in'		=> ['Список', 'Карта'],
-			'checked'	=> 'list'
-		]).
-		h::{'div.home-page-filter.uk-form'}([
-			h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
-				h::button(
-					h::icon('caret-down').
-					'Район'
-				).
-				h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
-					'Деснянський',
-					'Дніпровський',
-					'Печерський'
-				)
-			).
-			h::input([
-				'placeholder'	=> 'Дата'
-			]).
-			h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
-				h::button(
-					h::icon('caret-down').
-					'Время'
-				).
-				h::{'div.uk-dropdown.uk-dropdown-width-4 div.uk-grid div.uk-width-1-4'}(
-					h::{'ul.uk-nav.uk-nav-dropdown.uk-panel li| a'}(
-						'6:00',
-						'6:30',
-						'7:00',
-						'7:30',
-						'8:00',
-						'8:30',
-						'9:00',
-						'9:30',
-						'10:00'
-					),
-					h::{'ul.uk-nav.uk-nav-dropdown.uk-panel li| a'}(
-						'10:30',
-						'11:00',
-						'11:30',
-						'12:00',
-						'12:30',
-						'13:00',
-						'13:30',
-						'14:00',
-						'14:30'
-					),
-					h::{'ul.uk-nav.uk-nav-dropdown.uk-panel li| a'}(
-						'15:00',
-						'15:30',
-						'16:00',
-						'16:30',
-						'17:00',
-						'17:30',
-						'18:00',
-						'18:30',
-						'19:00'
-					),
-					h::{'ul.uk-nav.uk-nav-dropdown.uk-panel li| a'}(
-						'19:30',
-						'20:00',
-						'20:30',
-						'21:00',
-						'21:30',
-						'22:00',
-						'22:30',
-						'23:00',
-						'23:30'
+				h::div(
+					h::h2('У мене є авто').
+					h::{'a.fb.driver'}(
+						h::icon('facebook').
+						'Увійти через Facebook'
+					).
+					h::{'a.vk.driver'}(
+						h::icon('vk').
+						'Увійти через VK'
 					)
 				)
+			)
+		)
+	);
+} elseif (!$User->driver) {
+	$Page->content(
+		h::{'section.home-page article'}(
+			h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
+				'value'		=> ['list', 'map'],
+				'in'		=> ['Список', 'Карта'],
+				'checked'	=> 'map'
+			]).
+			h::{'div.home-page-filter.uk-form'}([
+				h::{'input[name=date]'}([
+					'placeholder'	=> 'Дата'
+				]).
+				h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
+					h::button(
+						h::icon('caret-down').
+						'Час'
+					).
+					h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
+						'08:00 - 10:00',
+						'10:00 - 12:00',
+						'12:00 - 15:00',
+						'15:00 - 17:00',
+						'17:00 - 22:00',
+						'22:00 - 08:00'
+					)
+				).
+				h::{'button'}('Пошук').
+				h::{'div#driver-map[level=0]'}()
+			])
+		)
+	);
+} else {
+	$Index			= Index::instance();
+	$Index->form	= true;
+	$Index->buttons	= false;
+	$Index->content(
+		h::{'section.home-page article.home-page-add-goods'}(
+			h::{'h2.cs-center'}('В мене є речі').
+			h::{'input[name=name]'}([
+				'placeholder'	=> 'Ваше ім’я',
+				'value'			=> $User->username()
+			]).
+			h::{'input[name=phone]'}([
+				'placeholder'	=> 'Ваш номер телефону'
+			]).
+			h::{'input[name=address]'}([
+				'placeholder'	=> 'Ваша адреса'
+			]).
+			h::{'div#user-map[level=0]'}().
+			h::{'input[name=date]'}([
+				'placeholder'	=> 'Дата'
+			]).
+			h::{'input[type=hidden][name=time]'}().
+			h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
+				h::button(
+					h::icon('caret-down').
+					'Зручний час'
+				).
+				h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
+					'08:00 - 10:00',
+					'10:00 - 12:00',
+					'12:00 - 15:00',
+					'15:00 - 17:00',
+					'17:00 - 22:00',
+					'22:00 - 08:00'
+				)
 			).
-			h::{'button'}('Показати')
-		])
-	)
-);
+			h::{'textarea[name=comment][rows=4]'}([
+				'placeholder'	=> 'Ваш коментар'
+			]).
+			h::{'p.cs-right button[type=submit]'}('Надіслати')
+		)
+	);
+}

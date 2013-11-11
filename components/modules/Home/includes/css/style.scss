@@ -12,7 +12,7 @@
 		text-align : center;
 	}
 
-	.home-page-registration {
+	.home-page-sign-in {
 		height   : 145px;
 		margin   : 50px auto 0 auto;
 		position : relative;
@@ -107,7 +107,7 @@
 	}
 
 	.home-page-list-map-switcher {
-		margin: 15px 0;
+		margin : 15px 0;
 	}
 
 	.home-page-filter {
@@ -116,7 +116,7 @@
 		width      : 900px;
 
 		* {
-			text-align: left;
+			text-align : left;
 		}
 
 		.uk-button-dropdown > button {
@@ -148,6 +148,55 @@
 
 		[class*='uk-icon-'] {
 			float : right;
+		}
+
+		#driver-map {
+			height : 500px;
+			margin : 20px auto 0 auto;
+			width  : 900px;
+		}
+	}
+
+	&.home-page-add-goods {
+		margin : 0 auto;
+		width  : 500px;
+
+		.uk-button-dropdown > button {
+			background   : #fff;
+			border-color : #A4B4BB;
+			color        : inherit;
+		}
+
+		button,
+		input {
+			height     : 41px;
+			padding    : 5px 20px !important;
+			margin     : 5px 0;
+			text-align : left;
+			width      : inherit;
+		}
+
+		[name=date],
+		[name=time] + * {
+			width : 247px;
+		}
+
+		> button {
+			text-align : center;
+			width      : auto;
+		}
+
+		.uk-dropdown-width-4 {
+			width : 400px;
+		}
+
+		[class*='uk-icon-'] {
+			float : right;
+		}
+
+		#user-map {
+			height : 200px;
+			width  : 500px;
 		}
 	}
 }
