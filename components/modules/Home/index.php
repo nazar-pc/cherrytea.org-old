@@ -40,7 +40,7 @@ if ($User->guest()) {
 			)
 		)
 	);
-} elseif (!$User->driver) {
+} elseif ($User->driver) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
@@ -86,6 +86,9 @@ if ($User->guest()) {
 				'placeholder'	=> 'Ваш номер телефону'
 			]).
 			h::{'input[name=address]'}([
+				'placeholder'	=> 'Ваша адреса'
+			]).
+			h::{'input[type=hidden][name=coordinates]'}([
 				'placeholder'	=> 'Ваша адреса'
 			]).
 			h::{'div#user-map[level=0]'}().

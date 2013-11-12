@@ -21,6 +21,7 @@ Trigger::instance()->register(
 		$User	= User::instance();
 		if ($User->driver === false) {
 			$User->driver	= $driver;
+			Drivers::instance()->add($User->id);
 		}
 	}
 );

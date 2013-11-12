@@ -8,16 +8,35 @@
 $ ->
 	if !$('#user-map').length
 		return;
+	container	= $('.home-page-add-goods')
+	coordinates	= container.find('[name=coordinates]')
 	ymaps.ready ->
 		map			= new ymaps.Map 'user-map', {
 			center		: [50.4505, 30.523],
-			zoom		: 12,
+			zoom		: 13,
 			controls	: ['zoomControl']
 		}
+		icon_number	= Math.round(Math.random() * 11)
+		me			= new ymaps.Placemark [50.45056507697532,30.523316500663444], {}, {
+			draggable			: true
+			iconLayout			: 'default#image'
+			iconImageHref		: '/components/modules/Home/includes/img/map-icons.png'
+			iconImageSize		: [60, 58]
+			iconImageOffset		: [-24, -58]
+			iconImageClipRect	: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
+		}
+		map.geoObjects.add(me)
+		me.events.add(
+			'geometrychange',
+			(e) ->
+				coords	= cs.json_encode(e.get('originalEvent').originalEvent.newPosition)
+				coordinates.val(coords)
+		)
 		if navigator.geolocation
 			navigator.geolocation.getCurrentPosition(
 				(position) ->
 					map.panTo([position.coords.latitude, position.coords.longitude])
+					me.geometry.setCoordinates(map.getCenter())
 				->
 				{
 					enableHighAccuracy	: true,

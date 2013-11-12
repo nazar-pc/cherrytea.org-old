@@ -133,5 +133,5 @@
   .home-page article.home-page-add-goods [class*='uk-icon-'] {
     float: right; }
   .home-page article.home-page-add-goods #user-map {
-    height: 200px;
+    height: 300px;
     width: 500px; }

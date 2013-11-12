@@ -8,7 +8,8 @@
 $ ->
 	if !$('#driver-map').length
 		return;
-	$('.home-page-filter input[name=date]').Zebra_DatePicker(
+	container	= $('.home-page-filter')
+	container.find('input[name=date]').Zebra_DatePicker(
 		show_icon			: false
 		direction			: true
 		format				: 'd.m.Y'
@@ -23,7 +24,7 @@ $ ->
 	ymaps.ready ->
 		map			= new ymaps.Map 'driver-map', {
 			center		: [50.4505, 30.523],
-			zoom		: 12,
+			zoom		: 13,
 			controls	: ['geolocationControl', 'fullscreenControl', 'typeSelector', 'zoomControl']
 		}
 		if navigator.geolocation
