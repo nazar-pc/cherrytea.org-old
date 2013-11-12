@@ -19,8 +19,8 @@ Trigger::instance()->register(
 	'HybridAuth/add_session/after',
 	function () use ($driver) {
 		$User	= User::instance();
-		if ($User->driver === false) {
-			$User->driver	= $driver;
+		if ($User->get_data('driver') === false) {
+			$User->set_data('driver', $driver);
 			Drivers::instance()->add($User->id);
 		}
 	}

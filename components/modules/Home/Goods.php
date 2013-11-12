@@ -7,7 +7,8 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
-use			cs\CRUD,
+use			cs\User,
+			cs\CRUD,
 			cs\Singleton;
 
 class Goods {
@@ -28,24 +29,48 @@ class Goods {
 		return '0';
 	}
 	/**
-	 * Get giver's reputation
+	 * Get good
 	 *
 	 * @param int|int[]		$id
 	 *
 	 * @return array|bool
 	 */
 	function get ($id) {
-		return $this->read_simple($id);
+		$result	= $this->read_simple($id);
+		$User	= User::instance();
+		if (is_array($id)) {
+			foreach ($result as &$r) {
+				$r	+= $User->get_data([
+					'phone',
+					'address',
+					'coordinates',
+					'date',
+					'time'
+				], $r['giver']);
+			}
+		}
 	}
 	/**
 	 * Add new good
 	 *
 	 * @param int		$giver
 	 * @param string	$comment
+	 * @param string	$phone
+	 * @param string	$address
+	 * @param string	$coordinates	JSON [lat, lng]
+	 * @param string	$date
+	 * @param string	$time
 	 *
 	 * @return bool|int
 	 */
-	function add ($giver, $comment) {
+	function add ($giver, $comment, $phone, $address, $coordinates, $date, $time) {
+		User::instance()->set_data([
+			'phone'			=> $phone,
+			'address'		=> $address,
+			'coordinates'	=> $coordinates,
+			'date'			=> $date,
+			'time'			=> $time
+		], null, $giver);
 		return $this->create_simple([
 			$giver,
 			$comment,
@@ -55,7 +80,7 @@ class Goods {
 		]);
 	}
 	/**
-	 * Change giver reputation
+	 * Set driver
 	 *
 	 * @param int	$id
 	 * @param int	$driver
@@ -72,7 +97,7 @@ class Goods {
 		return $this->update_simple($data);
 	}
 	/**
-	 * Set driver's password
+	 * Set success of good delivery
 	 *
 	 * @param int	$id
 	 * @param int	$success	0 or 1

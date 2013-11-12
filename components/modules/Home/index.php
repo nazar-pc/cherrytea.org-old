@@ -40,7 +40,7 @@ if ($User->guest()) {
 			)
 		)
 	);
-} elseif ($User->driver) {
+} elseif ($User->get_data('driver')) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
