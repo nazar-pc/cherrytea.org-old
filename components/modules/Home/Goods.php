@@ -55,6 +55,7 @@ class Goods {
 				], $r['giver']);
 			}
 		}
+		return $result;
 	}
 	/**
 	 * Add new good
@@ -77,27 +78,29 @@ class Goods {
 			'date'			=> $date,
 			'time'			=> $time
 		], null, $giver);
-		$date	= _trim(explode('-', $date));
-		$date	= [
+		$date			= _trim(explode('-', $date));
+		$date			= [
 			explode('.', $date[0]),
 			explode('.', $date[1])
 		];
-		$date	= [
+		$date			= [
 			mktime(0, 0, 0, $date[0][1], $date[0][0], $date[0][2]),
 			mktime(23, 59, 59, $date[1][1], $date[1][0], $date[1][2])
 		];
-		$time	= _trim(explode('-', str_replace(':', '.', $time)));
+		$time			= _trim(explode('-', str_replace(':', '.', $time)));
+		$coordinates	= _json_decode($coordinates);
 		return $this->create_simple([
 			$giver,
 			$comment,
-			0,
-			0,
 			$date[0],
 			$date[1],
 			$time[0],
 			$time[1],
 			$coordinates[0],
 			$coordinates[1],
+			TIME,
+			0,
+			0,
 			-1
 		]);
 	}
@@ -133,6 +136,26 @@ class Goods {
 		}
 		$data['success']	= $success;
 		return $this->update_simple($data);
+	}
+	/**
+	 * Get good added by specified giver
+	 *
+	 * @param int			$giver
+	 *
+	 * @return array|bool
+	 */
+	function added_by_giver ($giver) {
+		return $this->get(
+			$this->db()->qfs([
+				"SELECT `id`
+				FROM `$this->table`
+				WHERE
+					`giver`		= '%s' AND
+					`success`	= '-1'
+				LIMIT 1",
+				$giver
+			])
+		);
 	}
 	/**
 	 * Search among goods

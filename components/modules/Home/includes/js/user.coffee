@@ -26,16 +26,16 @@ $ ->
 					.click ->
 						container
 							.find('[name=time]')
-								.val($(this).text())
+								.val($(@).text())
 	coordinates	= container.find('[name=coordinates]')
 	ymaps.ready ->
 		map			= new ymaps.Map 'user-map', {
-			center		: [50.4505, 30.523],
+			center		: cs.json_decode(coordinates.val()),
 			zoom		: 13,
 			controls	: ['zoomControl']
 		}
 		icon_number	= Math.round(Math.random() * 11)
-		me			= new ymaps.Placemark [50.45056507697532,30.523316500663444], {}, {
+		me			= new ymaps.Placemark coordinates.val(), {}, {
 			draggable			: true
 			iconLayout			: 'default#image'
 			iconImageHref		: '/components/modules/Home/includes/img/map-icons.png'
@@ -53,14 +53,38 @@ $ ->
 		if navigator.geolocation
 			navigator.geolocation.getCurrentPosition(
 				(position) ->
-					map.panTo([position.coords.latitude, position.coords.longitude])
-					me.geometry.setCoordinates(map.getCenter())
+					coords	= [position.coords.latitude, position.coords.longitude]
+					map.panTo(coords)
+					me.geometry.setCoordinates(coords)
 				->
 				{
 					enableHighAccuracy	: true,
 					timeout				: 120 * 1000	#Wait for 2 minutes max
 				}
 			)
+			address_timeout	= 0
+			container
+				.find('[name=address]')
+					.on(
+						'keyup change',
+						->
+							if ($(@).val().length < 4)
+								return
+							clearTimeout(address_timeout)
+							address_timeout	= setTimeout (->
+								ymaps.geocode(container.find('[name=address]').val()).then(
+									(res) ->
+										coords	= res.geoObjects.get(0).geometry.getCoordinates()
+										map.panTo(
+											coords
+											fly				: true
+											checkZoomRange	: true
+										)
+										me.geometry.setCoordinates(coords)
+										coordinates.val(coords)
+								)
+							), 300
+					)
 		###placemark	= new ymaps.Placemark(myMap.getCenter(), {
 			balloonContentBody: [
 				'<address>',

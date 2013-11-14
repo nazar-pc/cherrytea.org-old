@@ -177,7 +177,8 @@
 		}
 
 		[name=date],
-		[name=time] + * {
+		[name=time] + *,
+		.uk-button-dropdown input {
 			width : 247px;
 		}
 
@@ -197,6 +198,15 @@
 		#user-map {
 			height : 300px;
 			width  : 500px;
+		}
+	}
+
+	&.home-page-added-goods {
+		margin : 0 auto;
+		width  : 900px;
+
+		input {
+			width : 200px !important;
 		}
 	}
 }

@@ -60,23 +60,4 @@ class Givers {
 			$user
 		);
 	}
-	/**
-	 * Set driver's password
-	 *
-	 * @param int		$user
-	 * @param string	$password
-	 *
-	 * @return bool
-	 */
-	function set_password ($user, $password) {
-		$password	= (int)$password;
-		return $this->db_prime()->q(
-			"UPDATE `$this->table`
-			SET `password` = '%s'
-			WHERE `id` = '%s'
-			LIMIT 1",
-			$password,
-			$user
-		);
-	}
 }

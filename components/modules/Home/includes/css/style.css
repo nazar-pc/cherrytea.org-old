@@ -123,7 +123,8 @@
     text-align: left;
     width: inherit; }
   .home-page article.home-page-add-goods [name=date],
-  .home-page article.home-page-add-goods [name=time] + * {
+  .home-page article.home-page-add-goods [name=time] + *,
+  .home-page article.home-page-add-goods .uk-button-dropdown input {
     width: 247px; }
   .home-page article.home-page-add-goods > button {
     text-align: center;
@@ -135,3 +136,8 @@
   .home-page article.home-page-add-goods #user-map {
     height: 300px;
     width: 500px; }
+.home-page article.home-page-added-goods {
+  margin: 0 auto;
+  width: 900px; }
+  .home-page article.home-page-added-goods input {
+    width: 200px !important; }
