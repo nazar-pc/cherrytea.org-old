@@ -23,6 +23,9 @@
         return container.find('[name=date]').val(formated).pickmeup('hide');
       }
     });
+    container.find('[name=time]').next().find('a').click(function() {
+      return container.find('[name=time]').val($(this).text());
+    });
     return ymaps.ready(function() {
       var map;
       map = new ymaps.Map('driver-map', {
@@ -35,7 +38,7 @@
           return map.panTo([position.coords.latitude, position.coords.longitude]);
         }, function() {}, {
           enableHighAccuracy: true,
-          timeout: 120 * 1000
+          timeout: 30 * 60 * 1000
         });
       }
       /*placemark	= new ymaps.Placemark(myMap.getCenter(), {

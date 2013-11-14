@@ -11,14 +11,22 @@ $ ->
 	container	= $('.home-page-add-goods')
 	container
 		.find('[name=date]')
-		.pickmeup(
-			format		: 'd.m.Y'
-			mode		: 'range'
-			onChange	: (formated) ->
-				container
-					.find('[name=date]')
-					.val(formated.join(' — '));
-		)
+			.pickmeup(
+				format		: 'd.m.Y'
+				mode		: 'range'
+				onChange	: (formated) ->
+					container
+						.find('[name=date]')
+						.val(formated.join(' — '));
+			)
+	container
+		.find('[name=time]')
+			.next()
+				.find('a')
+					.click ->
+						container
+							.find('[name=time]')
+								.val($(this).text())
 	coordinates	= container.find('[name=coordinates]')
 	ymaps.ready ->
 		map			= new ymaps.Map 'user-map', {

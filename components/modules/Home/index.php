@@ -53,10 +53,9 @@ if (false && $User->guest()) {
 					'placeholder'	=> 'Дата'
 				]).
 				h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
-					h::button(
-						h::icon('caret-down').
-						'Час'
-					).
+					h::{'input[name=time]'}([
+						'placeholder'	=> 'Час'
+					]).
 					h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
 						'08:00 - 10:00',
 						'10:00 - 12:00',

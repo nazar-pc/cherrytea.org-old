@@ -24,6 +24,9 @@
         return container.find('[name=date]').val(formated.join(' — '));
       }
     });
+    container.find('[name=time]').next().find('a').click(function() {
+      return container.find('[name=time]').val($(this).text());
+    });
     coordinates = container.find('[name=coordinates]');
     return ymaps.ready(function() {
       var icon_number, map, me;

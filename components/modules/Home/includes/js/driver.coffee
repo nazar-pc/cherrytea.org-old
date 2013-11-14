@@ -9,14 +9,24 @@ $ ->
 	if !$('#driver-map').length
 		return;
 	container	= $('.home-page-filter')
-	container.find('input[name=date]').pickmeup(
-		format		: 'd.m.Y'
-		onChange	: (formated) ->
-			container
-				.find('[name=date]')
-				.val(formated)
-				.pickmeup('hide');
-	)
+	container
+		.find('input[name=date]')
+			.pickmeup(
+				format		: 'd.m.Y'
+				onChange	: (formated) ->
+					container
+						.find('[name=date]')
+						.val(formated)
+						.pickmeup('hide');
+			)
+	container
+		.find('[name=time]')
+			.next()
+				.find('a')
+					.click ->
+						container
+							.find('[name=time]')
+								.val($(this).text())
 	ymaps.ready ->
 		map			= new ymaps.Map 'driver-map', {
 			center		: [50.4505, 30.523],
@@ -30,7 +40,7 @@ $ ->
 				->
 				{
 					enableHighAccuracy	: true,
-					timeout				: 120 * 1000	#Wait for 2 minutes max
+					timeout				: 30 * 60 * 1000	#Wait for 30 minutes max
 				}
 			)
 		###placemark	= new ymaps.Placemark(myMap.getCenter(), {
