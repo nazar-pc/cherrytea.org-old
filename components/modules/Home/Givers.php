@@ -9,7 +9,9 @@
 namespace	cs\modules\Home;
 use			cs\CRUD,
 			cs\Singleton;
-
+/**
+ * @method static \cs\modules\Home\Givers instance($check = false)
+ */
 class Givers {
 	use	CRUD,
 		Singleton;

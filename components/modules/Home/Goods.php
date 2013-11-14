@@ -10,7 +10,9 @@ namespace	cs\modules\Home;
 use			cs\User,
 			cs\CRUD,
 			cs\Singleton;
-
+/**
+ * @method static \cs\modules\Home\Goods instance($check = false)
+ */
 class Goods {
 	use	CRUD,
 		Singleton;
@@ -21,6 +23,12 @@ class Goods {
 		'giver'		=> 'int',
 		'comment'	=> 'text',
 		'driver'	=> 'int',
+		'date_from'	=> 'int:0',
+		'date_to'	=> 'int:0',
+		'time_from'	=> 'int:0',
+		'time_to'	=> 'int:0',
+		'lat'		=> 'float',
+		'lng'		=> 'float',
 		'given'		=> 'int',
 		'success'	=> 'int:-1..1'
 	];
@@ -42,10 +50,7 @@ class Goods {
 			foreach ($result as &$r) {
 				$r	+= $User->get_data([
 					'phone',
-					'address',
-					'coordinates',
-					'date',
-					'time'
+					'address'
 				], $r['giver']);
 			}
 		}
@@ -71,11 +76,27 @@ class Goods {
 			'date'			=> $date,
 			'time'			=> $time
 		], null, $giver);
+		$date	= _trim(explode('-', $date));
+		$date	= [
+			explode('.', $date[0]),
+			explode('.', $date[1])
+		];
+		$date	= [
+			mktime(0, 0, 0, $date[0][1], $date[0][0], $date[0][2]),
+			mktime(0, 0, 0, $date[1][1], $date[1][0], $date[1][2])
+		];
+		$time	= _trim(explode('-', str_replace(':', '.', $time)));
 		return $this->create_simple([
 			$giver,
 			$comment,
 			0,
 			0,
+			$date[0],
+			$date[1],
+			$time[0],
+			$time[1],
+			$coordinates[0],
+			$coordinates[1],
 			-1
 		]);
 	}

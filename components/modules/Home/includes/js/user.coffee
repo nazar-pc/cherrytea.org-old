@@ -17,7 +17,7 @@ $ ->
 				onChange	: (formated) ->
 					container
 						.find('[name=date]')
-						.val(formated.join(' — '));
+						.val(formated.join(' - '));
 			)
 	container
 		.find('[name=time]')

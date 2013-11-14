@@ -9,7 +9,9 @@
 namespace	cs\modules\Home;
 use			cs\CRUD,
 			cs\Singleton;
-
+/**
+ * @method static \cs\modules\Home\Drivers instance($check = false)
+ */
 class Drivers {
 	use	CRUD,
 		Singleton;

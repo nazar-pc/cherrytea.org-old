@@ -21,7 +21,7 @@
       format: 'd.m.Y',
       mode: 'range',
       onChange: function(formated) {
-        return container.find('[name=date]').val(formated.join(' — '));
+        return container.find('[name=date]').val(formated.join(' - '));
       }
     });
     container.find('[name=time]').next().find('a').click(function() {
