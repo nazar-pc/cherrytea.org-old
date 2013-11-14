@@ -43,16 +43,17 @@ if ($User->guest()) {
 } elseif ($User->get_data('driver') || $User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
-			h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
+		 h::{'h2.cs-center'}('В мене є машина').
+			/*h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
 				'value'		=> ['list', 'map'],
 				'in'		=> ['Список', 'Карта'],
 				'checked'	=> 'map'
-			]).
+			]).*/
 			h::{'div.home-page-filter.uk-form'}([
 				h::{'input[name=date]'}([
 					'placeholder'	=> 'Дата'
 				]).
-				h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
+				h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 					h::{'input[name=time]'}([
 						'placeholder'	=> 'Час'
 					]).
@@ -95,7 +96,7 @@ if ($User->guest()) {
 				'placeholder'	=> 'Дата'
 			]).
 			h::{'input[type=hidden][name=time]'}().
-			h::{'div.uk-button-dropdown[data-uk-dropdown=]'}(
+			h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 				h::button(
 					h::icon('caret-down').
 					'Зручний час'

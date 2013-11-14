@@ -93,25 +93,25 @@
 		}
 	}
 
-	.home-page-list-map-switcher > span {
-		background    : #ff7f7f;
-		border        : 2px solid #ff7f7f;
-		border-radius : 4px;
+	.home-page-list-map-switcher {
+		margin : 15px 0 0;
 
-		label,
-		label:hover {
-			border  : none;
-			cursor  : pointer;
-			padding : 7px 50px;
+		> span {
+			background    : #ff7f7f;
+			border        : 2px solid #ff7f7f;
+			border-radius : 4px;
+
+			label,
+			label:hover {
+				border  : none;
+				cursor  : pointer;
+				padding : 7px 50px;
+			}
 		}
 	}
 
-	.home-page-list-map-switcher {
-		margin : 15px 0;
-	}
-
 	.home-page-filter {
-		margin     : 0 auto;
+		margin     : 15px auto 0;
 		text-align : center;
 		width      : 1000px;
 

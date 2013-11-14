@@ -6,6 +6,9 @@
  * @license		MIT License, see license.txt
  */
 @import "common_config";
+html {
+	font-size : $base-font-size;
+}
 //Whole body
 body {
 	color      : #5e5e5e;

@@ -19,17 +19,18 @@ class Goods {
 
 	protected $table		= '[prefix]goods';
 	protected $data_model	= [
-		'id'		=> 'int',
-		'giver'		=> 'int',
+		'id'		=> 'int:0',
+		'giver'		=> 'int:0',
 		'comment'	=> 'text',
-		'driver'	=> 'int',
 		'date_from'	=> 'int:0',
 		'date_to'	=> 'int:0',
 		'time_from'	=> 'int:0',
 		'time_to'	=> 'int:0',
 		'lat'		=> 'float',
 		'lng'		=> 'float',
-		'given'		=> 'int',
+		'added'		=> 'int:0',
+		'driver'	=> 'int:0',
+		'given'		=> 'int:0',
 		'success'	=> 'int:-1..1'
 	];
 
@@ -83,7 +84,7 @@ class Goods {
 		];
 		$date	= [
 			mktime(0, 0, 0, $date[0][1], $date[0][0], $date[0][2]),
-			mktime(0, 0, 0, $date[1][1], $date[1][0], $date[1][2])
+			mktime(23, 59, 59, $date[1][1], $date[1][0], $date[1][2])
 		];
 		$time	= _trim(explode('-', str_replace(':', '.', $time)));
 		return $this->create_simple([
@@ -132,5 +133,35 @@ class Goods {
 		}
 		$data['success']	= $success;
 		return $this->update_simple($data);
+	}
+	/**
+	 * Search among goods
+	 *
+	 * @param array	$params	date/time
+	 *
+	 * @return array
+	 */
+	function search ($params) {
+		$where	= [];
+		$subst	= [];
+		if (isset($params['date'])) {
+			$where[]	= "`date_from` <= %s `date` AND `date_to` >= %s";
+			$subst[]	= (int)$params['date'];
+			$subst[]	= (int)$params['date'];
+		}
+		if (isset($params['time'])) {
+			$where[]	= "`time_from` <= %s `time` AND `time_to` >= %s";
+			$subst[]	= (float)$params['time'];
+			$subst[]	= (float)$params['time'];
+		}
+		if ($where) {
+			$where	= 'WHERE '.implode(' AND ', $where);
+		}
+		return $this->db()->qfas([
+			"SELECT `id`
+			FROM `$this->table`
+			$where",
+			$subst
+		]);
 	}
 }

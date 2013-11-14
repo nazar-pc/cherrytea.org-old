@@ -68,19 +68,19 @@
     right: 0; }
   .home-page article .home-page-sign-in > div:last-child:before {
     background: url(../img/have-car.png); }
-.home-page article .home-page-list-map-switcher > span {
-  background: #ff7f7f;
-  border: 2px solid #ff7f7f;
-  border-radius: 4px; }
-  .home-page article .home-page-list-map-switcher > span label,
-  .home-page article .home-page-list-map-switcher > span label:hover {
-    border: none;
-    cursor: pointer;
-    padding: 7px 50px; }
 .home-page article .home-page-list-map-switcher {
-  margin: 15px 0; }
+  margin: 15px 0 0; }
+  .home-page article .home-page-list-map-switcher > span {
+    background: #ff7f7f;
+    border: 2px solid #ff7f7f;
+    border-radius: 4px; }
+    .home-page article .home-page-list-map-switcher > span label,
+    .home-page article .home-page-list-map-switcher > span label:hover {
+      border: none;
+      cursor: pointer;
+      padding: 7px 50px; }
 .home-page article .home-page-filter {
-  margin: 0 auto;
+  margin: 15px auto 0;
   text-align: center;
   width: 1000px; }
   .home-page article .home-page-filter * {

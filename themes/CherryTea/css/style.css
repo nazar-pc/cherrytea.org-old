@@ -368,6 +368,9 @@ a {
  * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
+html {
+  font-size: 18px; }
+
 body {
   color: #5e5e5e;
   font-family: "Open Sans", "Open Sans Embedded", Tahoma, Verdana, sans-serif;
