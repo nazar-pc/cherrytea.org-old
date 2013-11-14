@@ -435,7 +435,7 @@ body > header {
     body > header ul li {
       color: #ff7f7f;
       display: inline-block;
-      margin: 0px 50px;
+      margin: 0px 45px;
       width: 200px; }
     body > header ul li:before {
       content: '';

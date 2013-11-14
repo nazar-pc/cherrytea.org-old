@@ -10,7 +10,7 @@ namespace	cs;
 use			h;
 $Page		= Page::instance();
 $User		= User::instance();
-if ($User->guest()) {
+if (false && $User->guest()) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::{'h2.cs-center'}('Вхід на сайт').
@@ -40,7 +40,7 @@ if ($User->guest()) {
 			)
 		)
 	);
-} elseif ($User->get_data('driver')) {
+} elseif (!$User->get_data('driver')) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([

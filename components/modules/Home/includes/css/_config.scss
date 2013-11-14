@@ -1,0 +1,20 @@
+$border-radius						: .4em;
+$background							: #FEF8EE;
+$color								: #424242;
+$color-hover						: #ff7f7f;
+$nav-color							: #ff7f7f;
+$not-in-month						: #ffdfd2;
+$not-in-month-hover					: #ffdfd2;
+$disabled							: #ffdcce;
+$selected-background 				: #ffd7d1;
+$not-in-month-selected-background	: #17384d;
+$day-of-week						: $nav-color;
+
+.pickmeup {
+	box-shadow: 0 0 3px #7C7C7C;
+
+	> div > div > div,
+	.pmu-day-of-week {
+		width: 210px;
+	}
+}

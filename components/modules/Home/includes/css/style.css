@@ -93,7 +93,7 @@
   .home-page article .home-page-filter input {
     height: 41px;
     min-width: 200px;
-    padding: 5px 20px !important;
+    padding: 5px 16px !important;
     text-align: left; }
   .home-page article .home-page-filter > button {
     text-align: center;
@@ -118,7 +118,7 @@
   .home-page article.home-page-add-goods button,
   .home-page article.home-page-add-goods input {
     height: 41px;
-    padding: 5px 20px !important;
+    padding: 5px 16px !important;
     margin: 5px 0;
     text-align: left;
     width: inherit; }

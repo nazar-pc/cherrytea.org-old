@@ -17,6 +17,13 @@
       return;
     }
     container = $('.home-page-add-goods');
+    container.find('[name=date]').pickmeup({
+      format: 'd.m.Y',
+      mode: 'range',
+      onChange: function(formated) {
+        return container.find('[name=date]').val(formated.join(' — '));
+      }
+    });
     coordinates = container.find('[name=coordinates]');
     return ymaps.ready(function() {
       var icon_number, map, me;

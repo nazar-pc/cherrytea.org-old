@@ -8,7 +8,4 @@
  */
 namespace	cs;
 use			h;
-$Page		= Page::instance();
-if (User::instance()->user()) {
-	$Page->js('//api-maps.yandex.ru/2.1-dev/?lang=ru-RU&load=package.full&lang=uk-UA');
-}
+Page::instance()->js('//api-maps.yandex.ru/2.1-dev/?lang=ru-RU&load=package.full&lang=uk-UA');

@@ -17,17 +17,11 @@
       return;
     }
     container = $('.home-page-filter');
-    container.find('input[name=date]').Zebra_DatePicker({
-      show_icon: false,
-      direction: true,
+    container.find('input[name=date]').pickmeup({
       format: 'd.m.Y',
-      days: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-      months: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
-      header_navigation: ['<span class="uk-icon-chevron-left"></span>', '<span class="uk-icon-chevron-right"></span>'],
-      offset: [-244, 300],
-      view: 'days',
-      show_clear_date: false,
-      show_select_today: false
+      onChange: function(formated) {
+        return container.find('[name=date]').val(formated).pickmeup('hide');
+      }
     });
     return ymaps.ready(function() {
       var map;
