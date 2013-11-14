@@ -6,7 +6,7 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
-	if !$('#user-map').length
+	if !$('#giver-map').length
 		return;
 	container	= $('.home-page-add-goods')
 	container
@@ -29,7 +29,7 @@ $ ->
 								.val($(@).text())
 	coordinates	= container.find('[name=coordinates]')
 	ymaps.ready ->
-		map			= new ymaps.Map 'user-map', {
+		map			= new ymaps.Map 'giver-map', {
 			center		: cs.json_decode(coordinates.val()),
 			zoom		: 13,
 			controls	: ['zoomControl']
@@ -85,18 +85,3 @@ $ ->
 								)
 							), 300
 					)
-		###placemark	= new ymaps.Placemark(myMap.getCenter(), {
-			balloonContentBody: [
-				'<address>',
-				'<strong>Офис Яндекса в Москве</strong>',
-				'<br/>',
-				'Адрес: 119021, Москва, ул. Льва Толстого, 16',
-				'<br/>',
-				'Подробнее: <a href="http://company.yandex.ru/">http://company.yandex.ru/<a>',
-				'</address>'
-			].join('')
-		}, {
-			preset: 'islands#redDotIcon'
-		})
-		map.geoObjects.add(myPlacemark)
-		###

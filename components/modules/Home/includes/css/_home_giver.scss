@@ -1,0 +1,61 @@
+/**
+ * @package		Home
+ * @category	modules
+ * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @license		MIT License, see license.txt
+ */
+.home-page article {
+	&.home-page-add-goods {
+		margin : 0 auto;
+		width  : 500px;
+
+		.uk-button-dropdown > button {
+			background   : #fff;
+			border-color : #A4B4BB;
+			color        : inherit;
+		}
+
+		button,
+		input {
+			height     : 41px;
+			padding    : 5px 16px !important;
+			margin     : 5px 0;
+			text-align : left;
+			width      : inherit;
+		}
+
+		[name=date],
+		[name=time] + *,
+		.uk-button-dropdown input {
+			width : 247px;
+		}
+
+		> button {
+			text-align : center;
+			width      : auto;
+		}
+
+		.uk-dropdown-width-4 {
+			width : 400px;
+		}
+
+		[class*='uk-icon-'] {
+			float : right;
+		}
+
+		#giver-map {
+			height : 300px;
+			width  : 500px;
+		}
+	}
+
+	&.home-page-added-goods {
+		margin : 0 auto;
+		width  : 900px;
+
+		input {
+			width : 200px !important;
+		}
+	}
+}

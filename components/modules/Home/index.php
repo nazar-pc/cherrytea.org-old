@@ -16,7 +16,7 @@ $User		= User::instance();
 if ($User->guest()) {
 	$Page->content(
 		h::{'section.home-page article'}(
-			h::{'h2.cs-center'}('Вхід на сайт').
+			h::h2('Вхід на сайт').
 			h::{'div.home-page-sign-in'}(
 				h::div(
 					h::h2('У мене є речі').
@@ -43,10 +43,10 @@ if ($User->guest()) {
 			)
 		)
 	);
-} elseif ($User->get_data('driver')/* || $User->admin()*/) {
+} elseif ($User->get_data('driver') || $User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
-		 h::{'h2.cs-center'}('В мене є машина').
+		 h::h2('В мене є автомобіль').
 			/*h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
 				'value'		=> ['list', 'map'],
 				'in'		=> ['Список', 'Карта'],
@@ -54,22 +54,20 @@ if ($User->guest()) {
 			]).*/
 			h::{'div.home-page-filter.uk-form'}([
 				h::{'input[name=date]'}([
-					'placeholder'	=> 'Дата'
+					'placeholder'	=> 'Будь-яка дата'
 				]).
 				h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 					h::{'input[name=time]'}([
-						'placeholder'	=> 'Час'
+						'placeholder'	=> 'Будь-який час'
 					]).
 					h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
 						'08:00 - 10:00',
 						'10:00 - 12:00',
 						'12:00 - 15:00',
 						'15:00 - 17:00',
-						'17:00 - 22:00',
-						'22:00 - 08:00'
+						'17:00 - 22:00'
 					)
 				).
-				h::{'button'}('Пошук').
 				h::{'div#driver-map[level=0]'}()
 			])
 		)
@@ -92,12 +90,20 @@ if ($User->guest()) {
 			$_POST['time']
 		);
 	}
+	if ($good && isset($_POST['confirmation_code'])) {
+		if ($driver = Drivers::instance()->get_by_code($_POST['confirmation_code'])) {
+			$Goods->set_driver($good['id'], $driver['id']);
+			$good	= false;
+		} else {
+			$Page->warning('Код неправильний, спробуйте ще раз');
+		}
+	}
 	if ($good) {
 		$Index->content(
 			h::{'section.home-page article.home-page-added-goods'}(
-				h::{'h2.cs-cs-center'}('Дякуємо за розміщену інформацію про наявні речі!').
+				h::h2('Дякуємо за розміщену інформацію про наявні речі!').
 				h::{'p.cs-center'}('Вільний водій зв’яжеться з вами за першої нагоди.').
-				h::p('Коли віддаватимете речі - спитайте про код, який має кожен водій. Цей код використовується за для безпеки та контролю чесності та надійності водіїв.').
+				h::p('Коли віддаватимете речі - спитайте про код, який має кожен водій. Цей код використовується за для контролю чесності та надійності водіїв.').
 				h::p('Код може бути текстовим - його необхідно ввести в поле нижче, або QR-код - його можно відсканувати за допомогою смартфону та перейти за посиланням, цей варіант зручний і швидкий.').
 				h::p(
 					h::{'input[name=confirmation_code]'}([
@@ -111,7 +117,7 @@ if ($User->guest()) {
 	}
 	$Index->content(
 		h::{'section.home-page article.home-page-add-goods'}(
-			h::{'h2.cs-center'}('В мене є речі').
+			h::h2('В мене є речі').
 			h::{'input[name=name][required]'}([
 				'placeholder'	=> 'Ваше ім’я',
 				'value'			=> $User->username()
@@ -127,7 +133,7 @@ if ($User->guest()) {
 			h::{'input[type=hidden][name=coordinates][required]'}([
 				'value'			=> is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]'
 			]).
-			h::{'div#user-map[level=0]'}().
+			h::{'div#giver-map[level=0]'}().
 			h::{'input[name=date][required]'}([
 				'placeholder'	=> 'Дата'
 			]).
@@ -140,8 +146,7 @@ if ($User->guest()) {
 					'10:00 - 12:00',
 					'12:00 - 15:00',
 					'15:00 - 17:00',
-					'17:00 - 22:00',
-					'22:00 - 08:00'
+					'17:00 - 22:00'
 				)
 			).
 			h::{'textarea[name=comment][rows=4][required]'}([

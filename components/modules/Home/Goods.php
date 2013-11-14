@@ -53,6 +53,12 @@ class Goods {
 					'phone',
 					'address'
 				], $r['giver']);
+				$r['username']	= $User->username($r['driver']);
+				$r['date']		= date('d.m', $r['date_from']).' - '.date('d.m', $r['date_to']);
+				$r['time']		=
+					str_replace('.', ':', str_pad(str_pad($r['time_from'], 3, ':'), 5, '0')).
+					' - '.
+					str_replace('.', ':', str_pad(str_pad($r['time_to'], 3, ':'), 5, '0'));
 			}
 		}
 		return $result;
@@ -72,8 +78,8 @@ class Goods {
 	 */
 	function add ($giver, $comment, $phone, $address, $coordinates, $date, $time) {
 		User::instance()->set_data([
-			'phone'			=> $phone,
-			'address'		=> $address,
+			'phone'			=> xap($phone),
+			'address'		=> xap($address),
 			'coordinates'	=> $coordinates,
 			'date'			=> $date,
 			'time'			=> $time
@@ -150,8 +156,8 @@ class Goods {
 				"SELECT `id`
 				FROM `$this->table`
 				WHERE
-					`giver`		= '%s' AND
-					`success`	= '-1'
+					`giver`	= '%s' AND
+					`given`	= '0'
 				LIMIT 1",
 				$giver
 			])
@@ -168,23 +174,29 @@ class Goods {
 		$where	= [];
 		$subst	= [];
 		if (isset($params['date'])) {
-			$where[]	= "`date_from` <= %s `date` AND `date_to` >= %s";
+			$where[]	= "`date_from` <= %s AND `date_to` >= %s";
 			$subst[]	= (int)$params['date'];
 			$subst[]	= (int)$params['date'];
 		}
 		if (isset($params['time'])) {
-			$where[]	= "`time_from` <= %s `time` AND `time_to` >= %s";
-			$subst[]	= (float)$params['time'];
-			$subst[]	= (float)$params['time'];
+			$where[]	= "((`time_from` >= %s AND `time_from` <= %s) OR (`time_to` >= %s AND `time_from` <= %s))";
+			$subst[]	= (float)$params['time'][0];
+			$subst[]	= (float)$params['time'][1];
+			$subst[]	= (float)$params['time'][0];
+			$subst[]	= (float)$params['time'][1];
 		}
 		if ($where) {
 			$where	= 'WHERE '.implode(' AND ', $where);
+		} else {
+			$where	= '';
 		}
-		return $this->db()->qfas([
-			"SELECT `id`
-			FROM `$this->table`
-			$where",
-			$subst
-		]);
+		return $this->get(
+			$this->db()->qfas([
+				"SELECT `id`
+				FROM `$this->table`
+				$where",
+				$subst
+			])
+		);
 	}
 }

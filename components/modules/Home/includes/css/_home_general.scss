@@ -5,8 +5,8 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-@import 'home_general';
-@import 'home_guest';
-@import 'home_giver';
-@import 'home_driver';
-@import 'home_map';
+.home-page article > h2 {
+	font-size  : 30px;
+	padding    : 25px 0px 0px;
+	text-align : center;
+}

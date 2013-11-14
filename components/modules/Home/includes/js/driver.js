@@ -12,51 +12,82 @@
 (function() {
 
   $(function() {
-    var container;
-    if (!$('#driver-map').length) {
+    var container, driver_map;
+    driver_map = $('#driver-map');
+    if (!driver_map.length) {
       return;
     }
     container = $('.home-page-filter');
     container.find('input[name=date]').pickmeup({
       format: 'd.m.Y',
       onChange: function(formated) {
-        return container.find('[name=date]').val(formated).pickmeup('hide');
+        return container.find('[name=date]').val(formated).pickmeup('hide').change();
       }
     });
     container.find('[name=time]').next().find('a').click(function() {
-      return container.find('[name=time]').val($(this).text());
+      return container.find('[name=time]').val($(this).text()).change();
     });
     return ymaps.ready(function() {
-      var map;
+      var clusterer, find_givers, map, search_timeout;
       map = new ymaps.Map('driver-map', {
         center: [50.4505, 30.523],
         zoom: 13,
         controls: ['geolocationControl', 'fullscreenControl', 'typeSelector', 'zoomControl']
       });
+      driver_map.get(0).close_balloon = function() {
+        return map.balloon.close();
+      };
       if (navigator.geolocation) {
-        return navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
           return map.panTo([position.coords.latitude, position.coords.longitude]);
         }, function() {}, {
           enableHighAccuracy: true,
           timeout: 30 * 60 * 1000
         });
       }
-      /*placemark	= new ymaps.Placemark(myMap.getCenter(), {
-      			balloonContentBody: [
-      				'<address>',
-      				'<strong>Офис Яндекса в Москве</strong>',
-      				'<br/>',
-      				'Адрес: 119021, Москва, ул. Льва Толстого, 16',
-      				'<br/>',
-      				'Подробнее: <a href="http://company.yandex.ru/">http://company.yandex.ru/<a>',
-      				'</address>'
-      			].join('')
-      		}, {
-      			preset: 'islands#redDotIcon'
-      		})
-      		map.geoObjects.add(myPlacemark)
-      */
-
+      clusterer = new ymaps.Clusterer();
+      map.geoObjects.add(clusterer);
+      find_givers = function() {
+        return $.ajax({
+          url: 'api/Home/find_givers',
+          data: {
+            date: container.find('input[name=date]').val(),
+            time: container.find('[name=time]').val()
+          },
+          type: 'get',
+          success: function(result) {
+            var giver, icon_number, lat, lng, _i, _len;
+            clusterer.removeAll();
+            if (result && result.length) {
+              lat = [0, 0];
+              lng = [0, 0];
+              for (_i = 0, _len = result.length; _i < _len; _i++) {
+                giver = result[_i];
+                lat = [Math.min(lat[0], giver.lat), Math.max(lat[0], giver.lat)];
+                lng = [Math.min(lng[0], giver.lng), Math.max(lng[0], giver.lng)];
+                icon_number = Math.round(Math.random() * 11);
+                clusterer.add(new ymaps.Placemark([giver.lat, giver.lng], {
+                  hintContent: giver.username + ' ' + giver.phone
+                }, {
+                  iconLayout: 'default#image',
+                  iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
+                  iconImageSize: [60, 58],
+                  iconImageOffset: [-24, -58],
+                  iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
+                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + giver.username + " <small>" + giver.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + giver.address + "</address>\n		<time>" + giver.date + " (" + giver.time + ")</time>\n		<p>" + giver.comment + "</p>\n	</article>\n</section>")
+                }));
+              }
+            }
+            return clusterer.refresh();
+          }
+        });
+      };
+      find_givers();
+      search_timeout = 0;
+      return container.on('keyup change', '[name=date], [name=title]', function() {
+        clearTimeout(search_timeout);
+        return search_timeout = setTimeout(find_givers, 300);
+      });
     });
   });
 

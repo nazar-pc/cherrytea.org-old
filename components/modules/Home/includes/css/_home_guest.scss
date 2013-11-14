@@ -1,0 +1,89 @@
+/**
+ * @package		Home
+ * @category	modules
+ * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @license		MIT License, see license.txt
+ */
+.home-page article {
+	.home-page-sign-in {
+		height   : 145px;
+		margin   : 50px auto 0 auto;
+		position : relative;
+		width    : 800px;
+
+		> div {
+			display  : inline-block;
+			height   : 145px;
+			left     : 0;
+			position : absolute;
+			top      : 0;
+			width    : 364px;
+
+			h2 {
+				font-size  : 24px;
+				text-align : center;
+			}
+
+			a {
+				background    : #4C7EBA;
+				border-radius : 5px;
+				color         : #FFFFFF;
+				display       : block;
+				margin        : 10px 0px 10px 25px;
+				padding       : 10px 20px 10px 65px;
+				position      : relative;
+				width         : 310px;
+
+				span {
+					color          : rgba(255, 255, 255, 0.506);
+					float          : left;
+					font-size      : 30px;
+					left           : 20px;
+					position       : absolute;
+					top            : 0px;
+					vertical-align : middle;
+				}
+			}
+
+			a:last-child {
+				background : #4d8eb2;
+				display    : block;
+
+				span {
+					left : 10px;
+				}
+			}
+
+			a:before {
+				border-left  : 1px solid rgba(0, 0, 0, .2);
+				border-right : 1px solid rgba(255, 255, 255, .2);
+				content      : '';
+				display      : block;
+				height       : 30px;
+				left         : 50px;
+				position     : absolute;
+				top          : 8px;
+				width        : 0px;
+			}
+		}
+
+		> div:before {
+			background    : url(../img/have-goods.png);
+			content       : '';
+			display       : block;
+			height        : inherit;
+			margin-bottom : -180px;
+			width         : inherit;
+		}
+
+		> div:last-child {
+			left  : auto;
+			right : 0;
+		}
+
+		> div:last-child:before {
+			background : url(../img/have-car.png);
+		}
+	}
+}

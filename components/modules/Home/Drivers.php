@@ -39,6 +39,23 @@ class Drivers {
 		return $this->read_simple($user);
 	}
 	/**
+	 * Find driver by his code
+	 *
+	 * @param string		$code
+	 *
+	 * @return array|bool
+	 */
+	function get_by_code ($code) {
+		return $this->get(
+			$this->db()->qfs([
+				"SELECT `id`
+				FROM `$this->table`
+				WHERE `code` = '%s'",
+				$code
+			])
+		);
+	}
+	/**
 	 * Add new driver (inactive by default)
 	 *
 	 * @param int		$user
