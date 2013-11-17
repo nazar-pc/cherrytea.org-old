@@ -17,7 +17,5 @@ RewriteBase /
 	RewriteEngine Off
 </Files>
 
-php_value zlib.output_compression off
-
 RewriteRule .* index.php
 
