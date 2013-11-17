@@ -46,8 +46,8 @@ $ ->
 					timeout				: 30 * 60 * 1000	#Wait for 30 minutes max
 				}
 			)
-		clusterer	= new ymaps.Clusterer()
-		map.geoObjects.add(clusterer);
+		#clusterer	= new ymaps.Clusterer()
+		#map.geoObjects.add(clusterer);
 		find_givers	= ->
 			$.ajax(
 				url		: 'api/Home/find_givers'
@@ -56,7 +56,7 @@ $ ->
 					time	: container.find('[name=time]').val()
 				type	: 'get'
 				success	: (result) ->
-					clusterer.removeAll()
+					#clusterer.removeAll()
 					if result && result.length
 						lat	= [0, 0]
 						lng	= [0, 0]
@@ -70,7 +70,7 @@ $ ->
 								Math.max(lng[0], giver.lng)
 							]
 							icon_number	= Math.round(Math.random() * 11)
-							clusterer.add(
+							map.geoObjects.add(
 								new ymaps.Placemark(
 									[
 										giver.lat
@@ -98,7 +98,7 @@ $ ->
 									}
 								)
 							)
-					clusterer.refresh()
+					#clusterer.refresh()
 			)
 		find_givers()
 		search_timeout	= 0

@@ -163,8 +163,9 @@ class Goods {
 				"SELECT `id`
 				FROM `$this->table`
 				WHERE
-					`giver`	= '%s' AND
-					`given`	= '0'
+					`giver`		= '%s' AND
+					`given`		= '0' AND
+					`status`	= '-1'
 				LIMIT 1",
 				$giver
 			])

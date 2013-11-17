@@ -28,7 +28,7 @@
       return container.find('[name=time]').val($(this).text()).change();
     });
     return ymaps.ready(function() {
-      var clusterer, find_givers, map, search_timeout;
+      var find_givers, map, search_timeout;
       map = new ymaps.Map('driver-map', {
         center: [50.4505, 30.523],
         zoom: 13,
@@ -45,8 +45,6 @@
           timeout: 30 * 60 * 1000
         });
       }
-      clusterer = new ymaps.Clusterer();
-      map.geoObjects.add(clusterer);
       find_givers = function() {
         return $.ajax({
           url: 'api/Home/find_givers',
@@ -56,17 +54,17 @@
           },
           type: 'get',
           success: function(result) {
-            var giver, icon_number, lat, lng, _i, _len;
-            clusterer.removeAll();
+            var giver, icon_number, lat, lng, _i, _len, _results;
             if (result && result.length) {
               lat = [0, 0];
               lng = [0, 0];
+              _results = [];
               for (_i = 0, _len = result.length; _i < _len; _i++) {
                 giver = result[_i];
                 lat = [Math.min(lat[0], giver.lat), Math.max(lat[0], giver.lat)];
                 lng = [Math.min(lng[0], giver.lng), Math.max(lng[0], giver.lng)];
                 icon_number = Math.round(Math.random() * 11);
-                clusterer.add(new ymaps.Placemark([giver.lat, giver.lng], {
+                _results.push(map.geoObjects.add(new ymaps.Placemark([giver.lat, giver.lng], {
                   hintContent: giver.username + ' ' + giver.phone
                 }, {
                   iconLayout: 'default#image',
@@ -75,10 +73,10 @@
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
                   balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + giver.username + " <small>" + giver.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + giver.address + "</address>\n		<time>" + giver.date + " (" + giver.time + ")</time>\n		<p>" + giver.comment + "</p>\n	</article>\n</section>")
-                }));
+                })));
               }
+              return _results;
             }
-            return clusterer.refresh();
           }
         });
       };
