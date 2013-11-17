@@ -1,0 +1,19 @@
+/**
+ * @package		CherryTea
+ * @category	themes
+ * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @license		MIT License, see license.txt
+ */
+
+.cs-blogs-post-latest,
+.cs-blogs-post {
+	padding : 20px 0;
+
+	article a {
+		text-decoration : underline !important;
+	}
+}
+.cs-blogs-new-post-content a {
+	text-decoration : underline !important;
+}
