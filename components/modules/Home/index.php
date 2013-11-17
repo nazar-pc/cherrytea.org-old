@@ -89,6 +89,7 @@ if ($User->guest()) {
 		$Goods->add(
 			$User->id,
 			$_POST['comment'],
+			$_POST['name'],
 			$_POST['phone'],
 			$_POST['address'],
 			$_POST['coordinates'],

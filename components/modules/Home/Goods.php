@@ -68,6 +68,7 @@ class Goods {
 	 *
 	 * @param int		$giver
 	 * @param string	$comment
+	 * @param string	$username
 	 * @param string	$phone
 	 * @param string	$address
 	 * @param string	$coordinates	JSON [lat, lng]
@@ -76,8 +77,10 @@ class Goods {
 	 *
 	 * @return bool|int
 	 */
-	function add ($giver, $comment, $phone, $address, $coordinates, $date, $time) {
-		User::instance()->set_data([
+	function add ($giver, $comment, $username, $phone, $address, $coordinates, $date, $time) {
+		$User			= User::instance();
+		$User->set('username', $username, $giver);
+		$User->set_data([
 			'phone'			=> xap($phone),
 			'address'		=> xap($address),
 			'coordinates'	=> $coordinates,
@@ -145,6 +148,7 @@ class Goods {
 			Drivers::instance()->change_reputation($data['driver'], $success);
 			Givers::instance()->change_reputation($data['giver'], $success ?: .5);
 		}
+		return true;
 	}
 	/**
 	 * Get good added by specified giver
