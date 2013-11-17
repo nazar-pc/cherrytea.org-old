@@ -413,7 +413,7 @@ body > header {
     width: 100%;
     z-index: -2; }
   body > header > a {
-    background: url(../img/logo.png) no-repeat;
+    background: url(../img/logo-header.png) no-repeat;
     display: inline-block;
     font-size: 24px;
     height: 98px;
@@ -505,7 +505,7 @@ body > footer {
     width: 5000px;
     z-index: -2; }
   body > footer > a {
-    background: url(../img/logo.png) no-repeat;
+    background: url(../img/logo-footer.png) no-repeat;
     display: inline-block;
     font-size: 24px;
     height: 98px;
