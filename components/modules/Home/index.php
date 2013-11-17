@@ -96,6 +96,7 @@ if ($User->guest()) {
 			$_POST['date'],
 			$_POST['time']
 		);
+		$good	= $Goods->added_by_giver($User->id);
 	}
 	if ($good && isset($_POST['confirmation_code'])) {
 		if ($driver = Drivers::instance()->get_by_code($_POST['confirmation_code'])) {
