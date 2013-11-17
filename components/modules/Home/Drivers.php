@@ -176,6 +176,7 @@ class Drivers {
 			FROM `$this->table` AS `d`
 			LEFT JOIN `[prefix]users_social_integration` AS `s`
 			ON `d`.`id` = `s`.`id`
+			GROUP BY `d`.`id`
 			ORDER BY
 			 	(CASE WHEN (`d`.`active` = -1) THEN 2 ELSE `d`.`active` END) DESC,
 				`d`.`id` DESC"
