@@ -8,4 +8,4 @@
  */
 namespace	cs;
 use			h;
-Page::instance()->post_Body	.= '<script src="//api-maps.yandex.ru/2.1-dev/?lang=ru-RU&load=package.full&lang=uk-UA" async></script>';
+Page::instance()->post_Body	.= '<script src="//api-maps.yandex.ru/2.1-dev/?lang=ru-RU&load=package.full&lang=uk-UA"></script>';
