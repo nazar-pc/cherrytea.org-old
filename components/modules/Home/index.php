@@ -43,15 +43,10 @@ if ($User->guest()) {
 			)
 		)
 	);
-} elseif ($User->get_data('driver') || $User->admin()) {
+} elseif (Drivers::instance()->active($User->id) || $User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
-		 h::h2('В мене є автомобіль').
-			/*h::{'p.cs-center.home-page-list-map-switcher input[type=radio]'}([
-				'value'		=> ['list', 'map'],
-				'in'		=> ['Список', 'Карта'],
-				'checked'	=> 'map'
-			]).*/
+			h::h2('В мене є автомобіль').
 			h::{'div.home-page-filter.uk-form'}([
 				h::{'input[name=date]'}([
 					'placeholder'	=> 'Будь-яка дата'
@@ -69,7 +64,8 @@ if ($User->guest()) {
 					)
 				).
 				h::{'div#driver-map[level=0]'}()
-			])
+			]).
+			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
 		)
 	);
 } else {

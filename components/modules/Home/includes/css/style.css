@@ -132,52 +132,35 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page article {
-  	/*.home-page-list-map-switcher {
-  		margin : 15px 0 0;
-  
-  		> span {
-  			background    : #ff7f7f;
-  			border        : 2px solid #ff7f7f;
-  			border-radius : 4px;
-  
-  			label,
-  			label:hover {
-  				border  : none;
-  				cursor  : pointer;
-  				padding : 7px 50px;
-  			}
-  		}
-  	}*/ }
-  .home-page article .home-page-filter {
-    margin: 15px auto 0;
+.home-page article .home-page-filter {
+  margin: 15px auto 0;
+  text-align: center;
+  width: 1000px; }
+  .home-page article .home-page-filter * {
+    text-align: left; }
+  .home-page article .home-page-filter .uk-button-dropdown > button {
+    background: #fff;
+    border-color: #A4B4BB;
+    color: inherit; }
+  .home-page article .home-page-filter button,
+  .home-page article .home-page-filter input {
+    height: 41px;
+    min-width: 200px;
+    padding: 5px 16px !important;
+    text-align: left; }
+  .home-page article .home-page-filter > button {
     text-align: center;
+    width: auto; }
+  .home-page article .home-page-filter input {
+    width: auto !important; }
+  .home-page article .home-page-filter .uk-dropdown-width-4 {
+    width: 400px; }
+  .home-page article .home-page-filter [class*='uk-icon-'] {
+    float: right; }
+  .home-page article .home-page-filter #driver-map {
+    height: 700px;
+    margin: 20px auto 0 auto;
     width: 1000px; }
-    .home-page article .home-page-filter * {
-      text-align: left; }
-    .home-page article .home-page-filter .uk-button-dropdown > button {
-      background: #fff;
-      border-color: #A4B4BB;
-      color: inherit; }
-    .home-page article .home-page-filter button,
-    .home-page article .home-page-filter input {
-      height: 41px;
-      min-width: 200px;
-      padding: 5px 16px !important;
-      text-align: left; }
-    .home-page article .home-page-filter > button {
-      text-align: center;
-      width: auto; }
-    .home-page article .home-page-filter input {
-      width: auto !important; }
-    .home-page article .home-page-filter .uk-dropdown-width-4 {
-      width: 400px; }
-    .home-page article .home-page-filter [class*='uk-icon-'] {
-      float: right; }
-    .home-page article .home-page-filter #driver-map {
-      height: 700px;
-      margin: 20px auto 0 auto;
-      width: 1000px; }
 
 /**
  * @package		Home

@@ -1,4 +1,9 @@
-<!doctype html>
+<?php
+namespace	cs;
+use			cs\modules\Home\Drivers;
+$User			= User::instance();
+$active_driver	= Drivers::instance()->active($User->id);
+?><!doctype html>
 <!--pre_Html--><!--head-->
 <body class="<?=MODULE?>">
 <!--pre_Body--><!--debug_info-->
@@ -6,7 +11,9 @@
 <!--header-->
 		<a href="/">CherryTea.org</a>
 		<nav>
-			<a href="/about">Про ініціативу</a>
+			<a href="about">Про ініціативу</a>
+			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
+			<?=$User->admin() ? '<a href="admin/Home" target="_blank">Адміністрування</a>' : ''?>
 		</nav>
 		<h1>Не словом, а ділом!</h1>
 		<ul>
@@ -21,7 +28,9 @@
 <!--header-->
 		<a href="/">CherryTea.org</a>
 		<nav>
-			<a href="/about">Про ініціативу</a>
+			<a href="about">Про ініціативу</a>
+			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
+			<?=$User->admin() ? '<a href="admin/Home" target="_blank">Адміністрування</a>' : ''?>
 		</nav>
 	</footer>
 <!--post_Body-->

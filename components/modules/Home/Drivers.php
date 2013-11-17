@@ -7,8 +7,10 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
-use			cs\CRUD,
+use			cs\User,
+			cs\CRUD,
 			cs\Singleton;
+
 /**
  * @method static \cs\modules\Home\Drivers instance($check = false)
  */
@@ -63,7 +65,7 @@ class Drivers {
 	 * @return bool|int
 	 */
 	function add ($user) {
-		$code	= substr(md5(MICROTIME.uniqid()), 0, 6);
+		$code	= mt_rand(10000, 99999);
 		while ($this->db_prime()->qfs(
 			"SELECT `id`
 			FROM `$this->table`
@@ -71,7 +73,7 @@ class Drivers {
 			LIMIT 1",
 			$code
 		)) {
-			$code	= substr(md5(MICROTIME.uniqid()), 0, 6);
+			$code	= mt_rand(10000, 99999);
 		}
 		return $this->create_simple([
 			$user,
@@ -80,6 +82,17 @@ class Drivers {
 			0,
 			0
 		]);
+	}
+	/**
+	 * Is this user active driver?
+	 *
+	 * @param int	$user
+	 *
+	 * @return bool
+	 */
+	function active ($user) {
+		$driver	= User::instance()->get_data('driver', $user) ? $this->get($user) : false;
+		return (bool)($driver && $driver['active']);
 	}
 	/**
 	 * Activate driver
