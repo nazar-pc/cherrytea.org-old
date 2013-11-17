@@ -11,12 +11,8 @@ use			cs\Page,
 			cs\User;
 $User		= User::instance();
 $Drivers	= Drivers::instance();
-$driver		= $Drivers->get($User->id);
 if (
-	!$User->admin() &&
-	(
-		!$driver || !$driver['active']
-	)
+	!$User->admin() && !$Drivers->active($User->id)
 ) {
 	error_code(403);
 	return;

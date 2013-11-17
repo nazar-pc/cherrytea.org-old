@@ -13,6 +13,8 @@ use			h,
 			cs\User;
 $Page		= Page::instance();
 $User		= User::instance();
+$Drivers	= Drivers::instance();
+$driver		= $Drivers->get($User->id);
 if ($User->guest()) {
 	$Page->content(
 		h::{'section.home-page article'}(
@@ -43,7 +45,7 @@ if ($User->guest()) {
 			)
 		)
 	);
-} elseif (Drivers::instance()->active($User->id) || $User->admin()) {
+} elseif ($Drivers->active($User->id) || $User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::h2('В мене є автомобіль').
@@ -68,6 +70,10 @@ if ($User->guest()) {
 			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
 		)
 	);
+} elseif ($driver && $driver['active'] == '0') {
+	$Page->warning('Ваш аккаунт водія заблоковано адміністратором');
+} elseif ($driver && $driver['active'] == '-1') {
+	$Page->success('Ваш аккаунт водія потребує активації адміністратором. Найближчим часом з вами зв’яжуться в соціальній мережі');
 } else {
 	$Index			= Index::instance();
 	$Index->action	= '';
