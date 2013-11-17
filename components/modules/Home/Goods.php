@@ -141,7 +141,10 @@ class Goods {
 			return false;
 		}
 		$data['success']	= $success;
-		return $this->update_simple($data);
+		if ($this->update_simple($data)) {
+			Drivers::instance()->change_reputation($data['driver'], $success);
+			Givers::instance()->change_reputation($data['giver'], $success ?: .5);
+		}
 	}
 	/**
 	 * Get good added by specified giver

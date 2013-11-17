@@ -13,7 +13,7 @@ $active_driver	= Drivers::instance()->active($User->id);
 		<nav>
 			<a href="about">Про ініціативу</a>
 			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
-			<?=$User->admin() ? '<a href="admin/Home" target="_blank">Адміністрування</a>' : ''?>
+			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
 		</nav>
 		<h1>Не словом, а ділом!</h1>
 		<ul>
@@ -30,7 +30,7 @@ $active_driver	= Drivers::instance()->active($User->id);
 		<nav>
 			<a href="about">Про ініціативу</a>
 			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
-			<?=$User->admin() ? '<a href="admin/Home" target="_blank">Адміністрування</a>' : ''?>
+			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
 		</nav>
 	</footer>
 <!--post_Body-->
