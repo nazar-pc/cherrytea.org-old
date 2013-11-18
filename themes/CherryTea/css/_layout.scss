@@ -23,12 +23,12 @@ body {
 
 	> section,
 	> form {
-		width  : 1100px;
-		margin : 0 auto;
+		width  : 1000px;
+		margin : 20px auto;
 	}
 
 	&.HybridAuth form {
-		padding : 20px 0;
+		padding : 0;
 		width   : 800px;
 
 		p > input {

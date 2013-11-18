@@ -5,7 +5,7 @@ $User			= User::instance();
 $active_driver	= Drivers::instance()->active($User->id);
 ?><!doctype html>
 <!--pre_Html--><!--head-->
-<body class="<?=MODULE?>">
+<body class="<?=MODULE?> <?=$User->guest() ? 'guest' : ''?>">
 <!--pre_Body--><!--debug_info-->
 	<header>
 <!--header-->
@@ -14,13 +14,16 @@ $active_driver	= Drivers::instance()->active($User->id);
 			<a href="Блоги">Блог</a>
 			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
 			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
-		</nav>
-		<h1>Не словом, а ділом!</h1>
+		</nav><?php
+		if ($User->guest()) {
+		?><h1>Не словом, а ділом!</h1>
 		<ul>
 			<li>Зберіть непотрібні речі</li>
 			<li>Ми приїдемо їх забрати</li>
 			<li>Відвеземо тим, кому вони потрібні</li>
-		</ul>
+		</ul><?php
+		}
+		?>
 	</header>
 <!--top_blocks-->
 <!--content-->

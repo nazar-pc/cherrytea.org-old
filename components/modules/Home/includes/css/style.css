@@ -12,10 +12,45 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page article > h2 {
+.home-page article > header img {
+  border-radius: 140px;
+  float: left;
+  height: 140px;
+  margin: 0 30px 30px 0;
+  width: 140px; }
+.home-page article > header .cs-header-sign-out-process {
+  color: #ababab;
+  cursor: pointer;
+  float: right;
+  margin-top: 19px; }
+.home-page article > header h2 {
   font-size: 30px;
-  padding: 25px 0px 0px;
-  text-align: center; }
+  padding: 10px 0px 0px; }
+.home-page article > header p {
+  color: #ababab; }
+  .home-page article > header p b {
+    color: #ff7f7f;
+    font-weight: normal; }
+.home-page article > header .uk-icon-heart {
+  color: #ff7f7f;
+  font-size: 36px;
+  font-weight: normal;
+  margin-right: 10px;
+  vertical-align: middle; }
+.home-page article > header:before {
+  background: #fcfcfc;
+  content: '';
+  display: block;
+  height: 190px;
+  left: 0px;
+  position: absolute;
+  top: 138px;
+  width: 100%;
+  z-index: -1; }
+.home-page article > header:after {
+  clear: both;
+  content: '';
+  display: block; }
 
 /**
  * @package		Home
@@ -114,8 +149,6 @@
     width: auto; }
   .home-page article.home-page-add-goods .uk-dropdown-width-4 {
     width: 400px; }
-  .home-page article.home-page-add-goods [class*='uk-icon-'] {
-    float: right; }
   .home-page article.home-page-add-goods #giver-map {
     height: 300px;
     width: 500px; }
@@ -134,10 +167,7 @@
  */
 .home-page article .home-page-filter {
   margin: 15px auto 0;
-  text-align: center;
   width: 1000px; }
-  .home-page article .home-page-filter * {
-    text-align: left; }
   .home-page article .home-page-filter .uk-button-dropdown > button {
     background: #fff;
     border-color: #A4B4BB;
@@ -156,7 +186,9 @@
   .home-page article .home-page-filter .uk-dropdown-width-4 {
     width: 400px; }
   .home-page article .home-page-filter [class*='uk-icon-'] {
-    float: right; }
+    color: #d7d7d7;
+    margin: 0 12px 0 -30px;
+    position: relative; }
   .home-page article .home-page-filter #driver-map {
     height: 700px;
     margin: 20px auto 0 auto;

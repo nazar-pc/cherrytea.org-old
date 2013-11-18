@@ -5,8 +5,61 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page article > h2 {
-	font-size  : 30px;
-	padding    : 25px 0px 0px;
-	text-align : center;
+.home-page article > {
+	header {
+		img {
+			border-radius : 140px;
+			float         : left;
+			height        : 140px;
+			margin        : 0 30px 30px 0;
+			width         : 140px;
+		}
+
+		.cs-header-sign-out-process {
+			color      : #ababab;
+			cursor     : pointer;
+			float      : right;
+			margin-top : 19px
+		}
+
+		h2 {
+			font-size : 30px;
+			padding   : 10px 0px 0px;
+		}
+
+		p {
+			color : #ababab;
+
+			b {
+				color       : #ff7f7f;
+				font-weight : normal;
+			}
+		}
+
+		.uk-icon-heart {
+			color          : #ff7f7f;
+			font-size      : 36px;
+			font-weight    : normal;
+			margin-right   : 10px;
+			vertical-align : middle;
+		}
+	}
+
+	header:before {
+		background : #fcfcfc;
+		content    : '';
+		display    : block;
+		height     : 190px;
+		left       : 0px;
+		position   : absolute;
+		top        : 138px;
+		width      : 100%;
+		z-index    : -1;
+	}
+
+	header:after {
+		clear   : both;
+		content : '';
+		display : block;
+	}
 }

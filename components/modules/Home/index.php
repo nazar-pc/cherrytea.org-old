@@ -49,14 +49,26 @@ if ($User->guest()) {
 <p>Так з\'явилася ідея CherryTea.org - зігріваючого вишневого чаю, омофону до слова charity (англ. благодійність, милосердя).</p>'
 		)
 	);
-} elseif ($Drivers->active($User->id) || $User->admin()) {
+} elseif ($Drivers->active($User->id) || !$User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
-			h::h2('В мене є автомобіль').
+			h::header(
+				h::img([
+					'src'	=> $User->avatar(140)
+				]).
+				h::{'span.cs-header-sign-out-process'}('Вихід').
+				h::h2($User->username()).
+				h::p('Персональний код водія: '.h::b($driver['code'])).
+				h::p(
+					h::icon('heart').
+					h::b($driver['reputation'])
+				)
+			).
 			h::{'div.home-page-filter.uk-form'}([
 				h::{'input[name=date]'}([
 					'placeholder'	=> 'Будь-яка дата'
 				]).
+				h::icon('calendar').
 				h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 					h::{'input[name=time]'}([
 						'placeholder'	=> 'Будь-який час'
@@ -69,6 +81,7 @@ if ($User->guest()) {
 						'17:00 - 22:00'
 					)
 				).
+				h::icon('time').
 				h::{'div#driver-map[level=0]'}()
 			]).
 			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
@@ -106,9 +119,21 @@ if ($User->guest()) {
 			$Page->warning('Код неправильний, спробуйте ще раз');
 		}
 	}
+	$header	= h::header(
+		h::img([
+			'src'	=> $User->avatar(140)
+		]).
+		h::{'span.cs-header-sign-out-process'}('Вихід').
+		h::h2($User->username()).
+		h::p(
+			h::icon('heart').
+			h::b(Givers::instance()->get($User->id)['reputation'])
+		)
+	);
 	if ($good) {
 		$Index->content(
 			h::{'section.home-page article.home-page-added-goods'}(
+				$header.
 				h::h2('Дякуємо за розміщену інформацію про наявні речі!').
 				h::{'p.cs-center'}('Вільний водій зв’яжеться з вами за першої нагоди.').
 				h::p('Коли віддаватимете речі - спитайте про код, який має кожен водій. Цей код використовується за для контролю чесності та надійності водіїв.').
@@ -125,6 +150,7 @@ if ($User->guest()) {
 	}
 	$Index->content(
 		h::{'section.home-page article.home-page-add-goods'}(
+			$header.
 			h::h2('В мене є речі').
 			h::{'input[name=name][required]'}([
 				'placeholder'	=> 'Ваше ім’я',

@@ -33,7 +33,17 @@ class Givers {
 	 * @return array|bool
 	 */
 	function get ($user) {
-		return $this->read_simple($user);
+		$result	= $this->read_simple($user);
+		if (!$result) {
+			if (!$this->create_simple([
+				$user,
+				0
+			])) {
+				return false;
+			}
+			$result	= $this->get($user);
+		}
+		return $result;
 	}
 	/**
 	 * Change giver reputation
@@ -44,12 +54,6 @@ class Givers {
 	 * @return bool
 	 */
 	function change_reputation ($user, $value) {
-		if (!$this->get($user)) {
-			return (bool)$this->create_simple([
-				$user,
-				$value
-			]);
-		}
 		$value	= (int)$value;
 		return $this->db_prime()->q(
 			"UPDATE `$this->table`
