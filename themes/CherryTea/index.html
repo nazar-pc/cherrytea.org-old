@@ -12,7 +12,6 @@ $active_driver	= Drivers::instance()->active($User->id);
 		<a href="/">CherryTea.org</a>
 		<nav>
 			<a href="Блоги">Блог</a>
-			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
 			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
 		</nav><?php
 		if ($User->guest()) {
@@ -32,7 +31,6 @@ $active_driver	= Drivers::instance()->active($User->id);
 		<a href="/">CherryTea.org</a>
 		<nav>
 			<a href="Блоги">Блог</a>
-			<?=$active_driver ? '<a href="Profile">Профіль</a>' : ''?>
 			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
 		</nav>
 	</footer>
