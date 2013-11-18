@@ -18,7 +18,7 @@ $driver		= $Drivers->get($User->id);
 if ($User->guest()) {
 	$Page->content(
 		h::{'section.home-page article'}(
-			h::h2('Вхід на сайт').
+			h::{'h2.cs-center'}('Вхід на сайт').
 			h::{'div.home-page-sign-in'}(
 				h::div(
 					h::h2('У мене є речі').
