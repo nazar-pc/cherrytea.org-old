@@ -2,7 +2,6 @@
 namespace	cs;
 use			cs\modules\Home\Drivers;
 $User			= User::instance();
-$active_driver	= Drivers::instance()->active($User->id);
 ?><!doctype html>
 <!--pre_Html--><!--head-->
 <body class="<?=MODULE?> <?=$User->guest() ? 'guest' : ''?>">
@@ -12,6 +11,7 @@ $active_driver	= Drivers::instance()->active($User->id);
 		<a href="/">CherryTea.org</a>
 		<nav>
 			<a href="Блоги">Блог</a>
+			<a href="Зворотній_зв'язок">Зворотній зв'язок</a>
 			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
 		</nav><?php
 		if ($User->guest()) {
@@ -31,6 +31,7 @@ $active_driver	= Drivers::instance()->active($User->id);
 		<a href="/">CherryTea.org</a>
 		<nav>
 			<a href="Блоги">Блог</a>
+			<a href="Зворотній_зв'язок">Зворотній зв'язок</a>
 			<?=$User->admin() ? '<a href="admin/Home">Адміністрування</a>' : ''?>
 		</nav>
 	</footer>
