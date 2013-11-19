@@ -165,7 +165,7 @@ class Goods {
 				WHERE
 					`giver`		= '%s' AND
 					`given`		= '0' AND
-					`status`	= '-1'
+					`success`	= '-1'
 				LIMIT 1",
 				$giver
 			])
@@ -194,10 +194,11 @@ class Goods {
 			$subst[]	= (float)$params['time'][1];
 		}
 		if ($where) {
-			$where	= 'WHERE '.implode(' AND ', $where);
+			$where	= 'WHERE '.implode(' AND ', $where).' AND ';
 		} else {
-			$where	= '';
+			$where	= 'WHERE ';
 		}
+		$where	.= '`given` = 0 AND  `success` = \'-1\'';
 		return $this->get(
 			$this->db()->qfas([
 				"SELECT `id`

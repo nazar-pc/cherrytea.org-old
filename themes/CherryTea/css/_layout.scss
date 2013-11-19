@@ -29,10 +29,13 @@ body {
 
 	&.HybridAuth form {
 		padding : 0;
-		width   : 800px;
+		width   : 500px;
 
 		p > input {
 			margin-top : 10px;
 		}
 	}
+}
+.uk-button {
+	padding: 0 20px;
 }

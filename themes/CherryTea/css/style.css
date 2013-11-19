@@ -385,9 +385,12 @@ body {
     margin: 20px auto; }
   body.HybridAuth form {
     padding: 0;
-    width: 800px; }
+    width: 500px; }
     body.HybridAuth form p > input {
       margin-top: 10px; }
+
+.uk-button {
+  padding: 0 20px; }
 
 /**
  * @package		CherryTea
