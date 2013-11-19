@@ -7,12 +7,13 @@
  */
 .home-page article > {
 	header {
-		img {
-			border-radius : 140px;
-			float         : left;
-			height        : 140px;
-			margin        : 0 30px 30px 0;
-			width         : 140px;
+		.avatar {
+			background-size : cover;
+			border-radius   : 140px;
+			float           : left;
+			height          : 140px;
+			margin          : 0 30px 30px 0;
+			width           : 140px;
 		}
 
 		.cs-header-sign-out-process {

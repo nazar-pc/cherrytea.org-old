@@ -53,8 +53,8 @@ if ($User->guest()) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(
-				h::img([
-					'src'	=> $User->avatar(140)
+				h::{'div.avatar'}([
+					'style'	=> 'background:url('.$User->avatar(140).')'
 				]).
 				h::{'span.cs-header-sign-out-process'}('Вихід').
 				h::h2($User->username()).
@@ -120,8 +120,8 @@ if ($User->guest()) {
 		}
 	}
 	$header	= h::header(
-		h::img([
-			'src'	=> $User->avatar(140)
+		h::{'div.avatar'}([
+			'style'	=> 'background:url('.$User->avatar(140).')'
 		]).
 		h::{'span.cs-header-sign-out-process'}('Вихід').
 		h::h2($User->username()).

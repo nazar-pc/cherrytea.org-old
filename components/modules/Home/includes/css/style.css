@@ -12,7 +12,8 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page article > header img {
+.home-page article > header .avatar {
+  background-size: cover;
   border-radius: 140px;
   float: left;
   height: 140px;
