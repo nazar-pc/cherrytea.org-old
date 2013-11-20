@@ -35,7 +35,7 @@ $ ->
 			controls	: ['zoomControl']
 		}
 		icon_number	= Math.round(Math.random() * 11)
-		me			= new ymaps.Placemark coordinates.val(), {}, {
+		me			= new ymaps.Placemark cs.json_decode(coordinates.val()), {}, {
 			draggable			: true
 			iconLayout			: 'default#image'
 			iconImageHref		: '/components/modules/Home/includes/img/map-icons.png'
@@ -81,7 +81,7 @@ $ ->
 											checkZoomRange	: true
 										)
 										me.geometry.setCoordinates(coords)
-										coordinates.val(coords)
+										coordinates.val(cs.json_encode(coords))
 								)
 							), 300
 					)
