@@ -523,9 +523,9 @@ if (isset($rc[1]) && $rc[1] == 'endpoint') {
 			$contacts					= $HybridAuth_data['contacts'];
 			$email						= $_POST['email'];
 			try {
-				$HybridAuth					= get_hybridauth_instance($rc[0]);
-				$adapter					= $HybridAuth->authenticate($rc[0]);
-				$body	= $L->reg_success_mail_body(
+				$HybridAuth		= get_hybridauth_instance($rc[0]);
+				$adapter		= $HybridAuth->getAdapter($rc[0]);
+				$body			= $L->reg_success_mail_body(
 					isset($profile_info['username']) ? $profile_info['username'] : strstr($email, '@', true),
 					get_core_ml_text('name'),
 					$Config->base_url().'/profile/'.$User->get('login', $result['id']),
