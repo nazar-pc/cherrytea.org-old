@@ -16,11 +16,11 @@ $driver	= 0;
 Trigger::instance()->register(
 	'HybridAuth/registration/before',
 	function () use (&$driver) {
-		$driver	= User::instance()->get_session_data('driver') ? 1 : 0;var_dump($driver);die;
+		$driver	= User::instance()->get_session_data('driver') ? 1 : 0;
 	}
 )->register(
 	'HybridAuth/add_session/after',
-	function () use ($driver) {
+	function () use (&$driver) {file_put_contents(DIR.'/test', var_export($driver, true), FILE_APPEND);file_put_contents(DIR.'/test', var_export(User::instance()->get_data('driver'), true), FILE_APPEND);
 		$User	= User::instance();
 		if ($User->get_data('driver') === false) {
 			$User->set_data('driver', $driver);
