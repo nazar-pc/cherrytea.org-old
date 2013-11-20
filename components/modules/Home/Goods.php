@@ -53,7 +53,7 @@ class Goods {
 					'phone',
 					'address'
 				], $r['giver']);
-				$r['username']	= $User->username($r['driver'], $r['giver']);
+				$r['username']	= $User->username($r['giver']);
 				$r['date']		= date('d.m', $r['date_from']).' - '.date('d.m', $r['date_to']);
 				$r['time']		=
 					str_replace('.', ':', str_pad(str_pad($r['time_from'], 3, ':'), 5, '0')).
