@@ -12,4 +12,4 @@ if ($User->user()) {
 	error_code(403);
 	return;
 }
-$User->set_session_data('driver', $_POST['driver']);
+$User->set_session_data('driver', isset($_POST['driver']) && $_POST['driver'] ? 1 : 0);

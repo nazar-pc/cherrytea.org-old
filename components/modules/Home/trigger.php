@@ -22,7 +22,7 @@ Trigger::instance()->register(
 	'HybridAuth/add_session/after',
 	function () use ($driver) {
 		$User	= User::instance();
-		if ($User->get_data('driver') === false) {file_put_contents(DIR.'/test', var_export($driver, true));
+		if ($User->get_data('driver') === false) {
 			$User->set_data('driver', $driver);
 			Drivers::instance()->add($User->id);
 			Mail::instance()->send_to(
