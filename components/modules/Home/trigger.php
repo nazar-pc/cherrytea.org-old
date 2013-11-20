@@ -20,7 +20,7 @@ Trigger::instance()->register(
 	}
 )->register(
 	'HybridAuth/add_session/after',
-	function () use (&$driver) {file_put_contents(DIR.'/test', var_export($driver, true), FILE_APPEND);file_put_contents(DIR.'/test', var_export(User::instance()->get_data('driver'), true), FILE_APPEND);
+	function () use (&$driver) {
 		$User	= User::instance();
 		if ($User->get_data('driver') === false) {
 			$User->set_data('driver', $driver);
