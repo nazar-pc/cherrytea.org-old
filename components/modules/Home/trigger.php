@@ -14,9 +14,9 @@ use			h,
 			cs\Trigger;
 $driver	= 0;
 Trigger::instance()->register(
-	'HybridAuth/add_session/before',
+	'HybridAuth/registration/before',
 	function () use (&$driver) {
-		$driver	= User::instance()->get_session_data('driver') ? 1 : 0;
+		$driver	= User::instance()->get_session_data('driver') ? 1 : 0;var_dump($driver);die;
 	}
 )->register(
 	'HybridAuth/add_session/after',
