@@ -70,7 +70,13 @@ $Index->content(
 							]
 						),
 						$driver['reputation'],
-						$action
+						$action.
+						h::{'button[type=submit][name=not_driver]'}(
+							'Не водій',
+							[
+								'value'	=> $driver['id']
+							]
+						)
 					]),
 					[
 						'class'	=> $class
