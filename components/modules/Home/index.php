@@ -61,7 +61,7 @@ if ($User->guest()) {
 				h::p('Персональний код водія: '.h::b($driver['code'])).
 				h::p(
 					h::icon('heart').
-					h::b($driver['reputation'])
+					h::b($driver['reputation'] ?: 0)
 				)
 			).
 			h::{'div.home-page-filter.uk-form'}([
@@ -127,7 +127,7 @@ if ($User->guest()) {
 		h::h2($User->username()).
 		h::p(
 			h::icon('heart').
-			h::b(Givers::instance()->get($User->id)['reputation'])
+			h::b(Givers::instance()->get($User->id)['reputation'] ?: 0)
 		)
 	);
 	if ($good) {
