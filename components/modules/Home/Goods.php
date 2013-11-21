@@ -208,4 +208,15 @@ class Goods {
 			])
 		);
 	}
+	function for_approving () {
+		return $this->get(
+			$this->db()->qfas(
+				"SELECT `id`
+				FROM `$this->table`
+				WHERE
+					`given`		!= 0 AND
+					`success`	= '-1'"
+			)
+		);
+	}
 }

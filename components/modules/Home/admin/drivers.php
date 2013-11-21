@@ -27,7 +27,7 @@ $Index->content(
 				switch ($driver['active']) {
 					case '1':
 						$class	= 'uk-alert-success';
-						$action	= h::{'button[type=submit][name=deactivate]'}(
+						$action	= h::{'button[type=submit][name=driver_deactivate]'}(
 							'Деактивувати',
 							[
 								'value'	=> $driver['id']
@@ -36,7 +36,7 @@ $Index->content(
 					break;
 					case '0':
 						$class = 'uk-alert-danger';
-						$action	= h::{'button[type=submit][name=activate]'}(
+						$action	= h::{'button[type=submit][name=driver_activate]'}(
 							'Активувати',
 							[
 								'value'	=> $driver['id']
@@ -46,13 +46,13 @@ $Index->content(
 					default:
 						$class = false;
 						$action	=
-							h::{'button[type=submit][name=deactivate]'}(
+							h::{'button[type=submit][name=driver_deactivate]'}(
 								'Деактивувати',
 								[
 									'value'	=> $driver['id']
 								]
 							).
-							h::{'button[type=submit][name=activate]'}(
+							h::{'button[type=submit][name=driver_activate]'}(
 								'Активувати',
 								[
 									'value'	=> $driver['id']

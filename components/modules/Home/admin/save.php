@@ -14,13 +14,16 @@ use			h,
 $Index		= Index::instance();
 $Drivers	= Drivers::instance();
 $User		= User::instance();
-if (isset($_POST['activate'])) {
+/**
+ * For drivers
+ */
+if (isset($_POST['driver_activate'])) {
 	$Index->save(
-		$Drivers->activate($_POST['activate'])
+		$Drivers->activate($_POST['driver_activate'])
 	);
-} elseif (isset($_POST['deactivate'])) {
+} elseif (isset($_POST['driver_deactivate'])) {
 	$Index->save(
-		$Drivers->deactivate($_POST['deactivate'])
+		$Drivers->deactivate($_POST['driver_deactivate'])
 	);
 } elseif (isset($_POST['not_driver'])) {
 	DB::instance()->q(
@@ -28,6 +31,19 @@ if (isset($_POST['activate'])) {
 		$_POST['not_driver']
 	);
 	$Index->save(
-		  (bool)$User->set_data('driver', 0, $_POST['not_driver'])
+		(bool)$User->set_data('driver', 0, $_POST['not_driver'])
+	);
+}
+/**
+ * For goods
+ */
+$Goods	= Goods::instance();
+if (isset($_POST['good_success'])) {
+	$Index->save(
+		$Goods->set_success($_POST['good_success'], 1)
+	);
+} elseif (isset($_POST['good_failed'])) {
+	$Index->save(
+		$Goods->set_success($_POST['good_failed'], 0)
 	);
 }
