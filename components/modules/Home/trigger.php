@@ -24,12 +24,14 @@ Trigger::instance()->register(
 		$User	= User::instance();
 		if ($User->get_data('driver') === false) {
 			$User->set_data('driver', $driver);
-			Drivers::instance()->add($User->id);
-			Mail::instance()->send_to(
-				Config::instance()->core['admin_email'],
-				'На CherryTea.org новий водій!)',
-				h::p('На <a href="http://cherrytea.org">CherryTea.org</a> зареєструвався новий водій <b>'.$User->username().'</b>, він чекає активації!')
-			);
+			if ($driver) {
+				Drivers::instance()->add($User->id);
+				Mail::instance()->send_to(
+					Config::instance()->core['admin_email'],
+					'На CherryTea.org новий водій!)',
+					h::p('На <a href="http://cherrytea.org">CherryTea.org</a> зареєструвався новий водій <b>'.$User->username().'</b>, він чекає активації!')
+				);
+			}
 		}
 	}
 );
