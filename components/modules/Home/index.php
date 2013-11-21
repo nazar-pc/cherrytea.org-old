@@ -99,17 +99,21 @@ if ($User->guest()) {
 	$Goods			= Goods::instance();
 	$good			= $Goods->added_by_giver($User->id);
 	if (!$good && isset($_POST['name'])) {
-		$Goods->add(
-			$User->id,
-			$_POST['comment'],
-			$_POST['name'],
-			$_POST['phone'],
-			$_POST['address'],
-			$_POST['coordinates'],
-			$_POST['date'],
-			$_POST['time']
-		);
-		$good	= $Goods->added_by_giver($User->id);
+		if ($_POST['comment'] && $_POST['name'] && $_POST['phone'] && $_POST['address'] && $_POST['coordinates'] && $_POST['date'] && $_POST['time']) {
+			$Goods->add(
+				$User->id,
+				$_POST['comment'],
+				$_POST['name'],
+				$_POST['phone'],
+				$_POST['address'],
+				$_POST['coordinates'],
+				$_POST['date'],
+				$_POST['time']
+			);
+			$good	= $Goods->added_by_giver($User->id);
+		} else {
+			$Page->warning('Всі поля обов’язкові для заповнення');
+		}
 	}
 	if ($good && isset($_POST['confirmation_code'])) {
 		if ($driver = Drivers::instance()->get_by_code($_POST['confirmation_code'])) {
@@ -155,26 +159,28 @@ if ($User->guest()) {
 			h::h2('В мене є речі').
 			h::{'input[name=name][required]'}([
 				'placeholder'	=> 'Ваше ім’я',
-				'value'			=> $User->username()
+				'value'			=> isset($_POST['name']) ? $_POST['name'] : ($User->username())
 			]).
 			h::{'input[name=phone][required]'}([
 				'placeholder'	=> 'Ваш номер телефону',
-				'value'			=> $User->get_data('phone') ?: ''
+				'value'			=> isset($_POST['phone']) ? $_POST['phone'] : ($User->get_data('phone') ?: '')
 			]).
 			h::{'input[name=address][required]'}([
 				'placeholder'	=> 'Ваша адреса',
-				'value'			=> $User->get_data('address') ?: ''
+				'value'			=> isset($_POST['address']) ? $_POST['address'] : ($User->get_data('address') ?: '')
 			]).
 			h::{'input[type=hidden][name=coordinates][required]'}([
-				'value'			=> is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]'
+				'value'			=> isset($_POST['coordinates']) ? $_POST['coordinates'] : (is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]')
 			]).
 			h::{'div#giver-map[level=0]'}().
 			h::{'input[name=date][required]'}([
-				'placeholder'	=> 'Дата (від і до)'
+				'placeholder'	=> 'Дата (від і до)',
+				'value'			=> isset($_POST['date']) ? $_POST['date'] : ''
 			]).
 			h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 				h::{'input[name=time][required]'}([
-					'placeholder'	=> 'Зручний час (від і до)'
+					'placeholder'	=> 'Зручний час (від і до)',
+					'value'			=> isset($_POST['time']) ? $_POST['time'] : ''
 				]).
 				h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
 					'08:00 - 10:00',
@@ -184,9 +190,12 @@ if ($User->guest()) {
 					'17:00 - 22:00'
 				)
 			).
-			h::{'textarea[name=comment][rows=4][required]'}([
-				'placeholder'	=> 'Ваш коментар'
-			]).
+			h::{'textarea[name=comment][rows=4][required]'}(
+				isset($_POST['comment']) ? $_POST['comment'] : '',
+				[
+					'placeholder'	=> 'Ваш коментар'
+				]
+			).
 			h::{'p.cs-right button[type=submit]'}('Надіслати')
 		)
 	);
