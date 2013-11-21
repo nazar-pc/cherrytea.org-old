@@ -18,7 +18,7 @@ body {
 			background : #ff7f7f url(../img/header-bg.png);
 			content    : '';
 			display    : block;
-			height: 138px;
+			height     : 138px;
 			left       : 0;
 			position   : absolute;
 			top        : 0;
@@ -104,21 +104,22 @@ body {
 		}
 
 		ul:after {
-			border-color : #ff7f7f transparent transparent transparent;
-			border-style : solid;
-			border-width : 15px 25px 0 25px;
-			content      : '';
-			display      : block;
-			height       : 0px;
-			left         : 50%;
-			margin-left  : -12px;
-			position     : absolute;
-			top          : 225px;
-			width        : 0px;
+			border-color  : #ff7f7f transparent transparent transparent;
+			border-radius : 1px;
+			border-style  : solid;
+			border-width  : 15px 25px 0 25px;
+			content       : '';
+			display       : block;
+			height        : 0px;
+			left          : 50%;
+			margin-left   : -12px;
+			position      : absolute;
+			top           : 225px;
+			width         : 0px;
 		}
 	}
 
 	&.guest > header:before {
-		height     : 225px;
+		height : 225px;
 	}
 }

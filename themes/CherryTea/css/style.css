@@ -471,6 +471,7 @@ body > header {
     z-index: -1; }
   body > header ul:after {
     border-color: #ff7f7f transparent transparent transparent;
+    border-radius: 1px;
     border-style: solid;
     border-width: 15px 25px 0 25px;
     content: '';
