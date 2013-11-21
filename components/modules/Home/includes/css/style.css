@@ -139,6 +139,9 @@
 .home-page article.home-page-add-goods {
   margin: 0 auto;
   width: 500px; }
+  .home-page article.home-page-add-goods > header {
+    margin-left: -250px;
+    width: 1000px; }
   .home-page article.home-page-add-goods .uk-button-dropdown > button {
     background: #fff;
     border-color: #A4B4BB;

@@ -10,6 +10,11 @@
 		margin : 0 auto;
 		width  : 500px;
 
+		> header {
+			margin-left : -250px;
+			width       : 1000px;
+		}
+
 		.uk-button-dropdown > button {
 			background   : #fff;
 			border-color : #A4B4BB;

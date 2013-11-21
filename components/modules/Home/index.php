@@ -49,7 +49,7 @@ if ($User->guest()) {
 <p>Так з\'явилася ідея CherryTea.org - зігріваючого вишневого чаю, омофону до слова charity (англ. благодійність, милосердя).</p>'
 		)
 	);
-} elseif ($Drivers->active($User->id) || $User->admin()) {
+} elseif (!$Drivers->active($User->id) || !$User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(
@@ -156,7 +156,7 @@ if ($User->guest()) {
 	$Index->content(
 		h::{'section.home-page article.home-page-add-goods'}(
 			$header.
-			h::h2('В мене є речі').
+			h::{'h2.cs-center'}('В мене є речі').
 			h::{'input[name=name][required]'}([
 				'placeholder'	=> 'Ваше ім’я',
 				'value'			=> isset($_POST['name']) ? $_POST['name'] : ($User->username())
