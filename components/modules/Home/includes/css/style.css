@@ -119,6 +119,15 @@
     right: 0; }
   .home-page article .home-page-sign-in > div:last-child:before {
     background: url(../img/have-car.png); }
+.home-page article .home-page-sign-in:before {
+  background: #fcfcfc;
+  content: '';
+  display: block;
+  height: 249px;
+  left: -2000px;
+  position: absolute;
+  top: -104px;
+  width: 4000px; }
 
 /**
  * @package		Home
