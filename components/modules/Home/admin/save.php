@@ -13,6 +13,8 @@ use			h,
 			cs\User;
 $Index		= Index::instance();
 $Drivers	= Drivers::instance();
+$Givers		= Givers::instance();
+$Goods		= Goods::instance();
 $User		= User::instance();
 /**
  * For drivers
@@ -30,6 +32,7 @@ if (isset($_POST['driver_activate'])) {
 		"DELETE FROM `[prefix]drivers` WHERE `id` = '%s'",
 		$_POST['not_driver']
 	);
+	$Givers->get($_POST['not_driver']);
 	$Index->save(
 		(bool)$User->set_data('driver', 0, $_POST['not_driver'])
 	);
@@ -37,7 +40,6 @@ if (isset($_POST['driver_activate'])) {
 /**
  * For goods
  */
-$Goods	= Goods::instance();
 if (isset($_POST['good_success'])) {
 	$Index->save(
 		$Goods->set_success($_POST['good_success'], 1)
@@ -45,5 +47,15 @@ if (isset($_POST['good_success'])) {
 } elseif (isset($_POST['good_failed'])) {
 	$Index->save(
 		$Goods->set_success($_POST['good_failed'], 0)
+	);
+} elseif (isset($_POST['is_driver'])) {
+	DB::instance()->q(
+		"DELETE FROM `[prefix]givers` WHERE `id` = '%s'",
+		$_POST['is_driver']
+	);
+	$Drivers->add($_POST['is_driver']);
+	$Drivers->activate($_POST['is_driver']);
+	$Index->save(
+		(bool)$User->set_data('driver', 1, $_POST['is_driver'])
 	);
 }

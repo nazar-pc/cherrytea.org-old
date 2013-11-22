@@ -64,4 +64,22 @@ class Givers {
 			$user
 		);
 	}
+	/**
+	 * Get list of all givers
+	 *
+	 * @return array|bool|string
+	 */
+	function get_list () {
+		return $this->db()->qfa(
+			"SELECT
+				`g`.*,
+				`s`.`profile`
+			FROM `$this->table` AS `g`
+			LEFT JOIN `[prefix]users_social_integration` AS `s`
+			ON `g`.`id` = `s`.`id`
+			WHERE `g`.`id` NOT IN (SELECT `id` FROM `[prefix]drivers`)
+			GROUP BY `g`.`id`
+			ORDER BY `g`.`id` DESC"
+		);
+	}
 }

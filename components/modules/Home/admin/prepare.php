@@ -19,6 +19,12 @@ $Index->main_sub_menu	= [
 		]
 	],
 	[
+		'Мають речі',
+		[
+			'href'	=> 'admin/Home/givers'
+		]
+	],
+	[
 		'Відвезені речі',
 		[
 			'href'	=> 'admin/Home/goods'
