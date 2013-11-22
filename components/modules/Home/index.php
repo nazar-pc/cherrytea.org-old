@@ -49,7 +49,7 @@ if ($User->guest()) {
 <p>Так з\'явилася ідея CherryTea.org - зігріваючого вишневого чаю, омофону до слова charity (англ. благодійність, милосердя).</p>'
 		)
 	);
-} elseif (!$Drivers->active($User->id) || !$User->admin()) {
+} elseif ($Drivers->active($User->id) || $User->admin()) {
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(

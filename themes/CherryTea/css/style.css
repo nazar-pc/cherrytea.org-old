@@ -380,7 +380,8 @@ body {
   padding: 0;
   width: 100%; }
   body > section,
-  body > form {
+  body > form,
+  body > p {
     width: 1000px;
     margin: 20px auto; }
   body.HybridAuth form {
