@@ -229,25 +229,7 @@
   font-size: 14px;
   left: -150px;
   position: relative;
-  width: 330px;
-  	/*&:before,
-  	&:after {
-  		background  : #fff;
-  		bottom      : -5px;
-  		content     : '';
-  		display     : block;
-  		height      : 10px;
-  		left        : 50%;
-  		margin-left : -10px;
-  		position    : absolute;
-  		transform   : rotate(45deg);
-  		width       : 10px;
-  	}
-  
-  	&:after {
-  		box-shadow : 0 0 3px #7C7C7C;
-  		z-index    : -1;
-  	}*/ }
+  width: 330px; }
   .home-page-map-balloon-container header {
     background: #ff7f7f;
     border-radius: 5px 5px 0 0; }
@@ -270,3 +252,8 @@
       margin: 0; }
     .home-page-map-balloon-container article p {
       margin: 10px 0 0; }
+  .home-page-map-balloon-container footer {
+    padding: 0 10px 10px;
+    text-align: right; }
+    .home-page-map-balloon-container footer button {
+      min-width: auto !important; }

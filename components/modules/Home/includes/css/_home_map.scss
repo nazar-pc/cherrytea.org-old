@@ -50,22 +50,12 @@
 		}
 	}
 
-	/*&:before,
-	&:after {
-		background  : #fff;
-		bottom      : -5px;
-		content     : '';
-		display     : block;
-		height      : 10px;
-		left        : 50%;
-		margin-left : -10px;
-		position    : absolute;
-		transform   : rotate(45deg);
-		width       : 10px;
-	}
+	footer {
+		padding    : 0 10px 10px;
+		text-align : right;
 
-	&:after {
-		box-shadow : 0 0 3px #7C7C7C;
-		z-index    : -1;
-	}*/
+		button {
+			min-width : auto !important;
+		}
+	}
 }

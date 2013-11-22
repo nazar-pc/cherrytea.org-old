@@ -46,7 +46,7 @@
         });
       }
       find_givers = function() {
-        return $.ajax({
+        $.ajax({
           url: 'api/Home/find_givers',
           data: {
             date: container.find('input[name=date]').val(),
@@ -54,35 +54,58 @@
           },
           type: 'get',
           success: function(result) {
-            var giver, icon_number, lat, lng, _i, _len, _results;
+            var good, icon_number, lat, lng, _i, _len, _results;
+            map.geoObjects.removeAll();
             if (result && result.length) {
               lat = [0, 0];
               lng = [0, 0];
               _results = [];
               for (_i = 0, _len = result.length; _i < _len; _i++) {
-                giver = result[_i];
-                lat = [Math.min(lat[0], giver.lat), Math.max(lat[0], giver.lat)];
-                lng = [Math.min(lng[0], giver.lng), Math.max(lng[0], giver.lng)];
+                good = result[_i];
+                lat = [Math.min(lat[0], good.lat), Math.max(lat[0], good.lat)];
+                lng = [Math.min(lng[0], good.lng), Math.max(lng[0], good.lng)];
                 icon_number = Math.round(Math.random() * 11);
-                _results.push(map.geoObjects.add(new ymaps.Placemark([giver.lat, giver.lng], {
-                  hintContent: giver.username + ' ' + giver.phone
+                _results.push(map.geoObjects.add(new ymaps.Placemark([good.lat, good.lng], {
+                  hintContent: good.username + ' ' + good.phone
                 }, {
                   iconLayout: 'default#image',
                   iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
                   iconImageSize: [60, 58],
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
-                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + giver.username + " <small>" + giver.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + giver.address + "</address>\n		<time>" + giver.date + " (" + giver.time + ")</time>\n		<p>" + giver.comment + "</p>\n	</article>\n</section>")
+                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer><button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button></footer>\n</section>")
                 })));
               }
               return _results;
             }
           }
         });
+        return container.on('click', '.reservation', function() {
+          var reservation;
+          reservation = $(this);
+          return $.ajax({
+            url: 'api/Home/reservation',
+            data: {
+              id: reservation.data('id')
+            },
+            success: function() {
+              reservation.html('Зарезервовано').prop('disabled', true);
+              alert('Прийнято! Дякуємо та чекаємо вашого приїзду!');
+              return find_givers();
+            },
+            error: function(xhr) {
+              if (xhr.responseText) {
+                return alert(cs.json_decode(xhr.responseText).error_description);
+              } else {
+                return alert(L.auth_connection_error);
+              }
+            }
+          });
+        });
       };
       find_givers();
       search_timeout = 0;
-      return container.on('keyup change', '[name=date], [name=title]', function() {
+      return container.on('keyup change', '[name=date], [name=time]', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_givers, 300);
       });

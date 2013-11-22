@@ -172,6 +172,31 @@ class Goods {
 		);
 	}
 	/**
+	 * Good reservation for 24 hours
+	 *
+	 * @param int	$id
+	 * @param int	$driver
+	 *
+	 * @return bool
+	 */
+	function reservation ($id, $driver) {
+		$this->db_prime()->q(
+			"UPDATE `$this->table`
+			SET
+				`reserved`			= '%s',
+				`reserved_driver`	= '%s'
+			WHERE
+				`id`		= '%s' AND
+				`reserved`	< '%s'
+			LIMIT 1",
+			TIME + 24 * 60 * 60,	//24 hours
+			$driver,
+			(int)$id,
+			TIME
+		);
+		return $this->db_prime()->affected() == 1;
+	}
+	/**
 	 * Search among goods
 	 *
 	 * @param array	$params	date/time
@@ -198,7 +223,7 @@ class Goods {
 		} else {
 			$where	= 'WHERE ';
 		}
-		$where	.= '`given` = 0 AND  `success` = \'-1\'';
+		$where	.= "`given` = 0 AND  `success` = '-1' AND `reserved` < ".TIME;
 		return $this->get(
 			$this->db()->qfas([
 				"SELECT `id`
@@ -208,6 +233,11 @@ class Goods {
 			])
 		);
 	}
+	/**
+	 * Get goods that needs approving
+	 *
+	 * @return array|bool
+	 */
 	function for_approving () {
 		return $this->get(
 			$this->db()->qfas(
