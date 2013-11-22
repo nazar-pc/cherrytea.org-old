@@ -22,6 +22,7 @@ $ ->
 	container
 		.find('[name=time]')
 			.next()
+			.next()
 				.find('a')
 					.click ->
 						container
