@@ -30,10 +30,21 @@
 			width      : inherit;
 		}
 
+		label,
 		[name=date],
-		[name=time] + *,
 		.uk-button-dropdown input {
-			width : 247px;
+			display : inline-block;
+			width   : 252px;
+		}
+
+		[name=time] + * + * {
+			width   : 242px;
+		}
+
+		.uk-icon-calendar,
+		.uk-icon-time {
+			color  : #d7d7d7;
+			margin : 0px 0px 0px -30px;
 		}
 
 		> button {

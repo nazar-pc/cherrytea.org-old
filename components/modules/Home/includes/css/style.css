@@ -153,10 +153,17 @@
     margin: 5px 0;
     text-align: left;
     width: inherit; }
+  .home-page article.home-page-add-goods label,
   .home-page article.home-page-add-goods [name=date],
-  .home-page article.home-page-add-goods [name=time] + *,
   .home-page article.home-page-add-goods .uk-button-dropdown input {
-    width: 247px; }
+    display: inline-block;
+    width: 252px; }
+  .home-page article.home-page-add-goods [name=time] + * + * {
+    width: 242px; }
+  .home-page article.home-page-add-goods .uk-icon-calendar,
+  .home-page article.home-page-add-goods .uk-icon-time {
+    color: #d7d7d7;
+    margin: 0px 0px 0px -30px; }
   .home-page article.home-page-add-goods > button {
     text-align: center;
     width: auto; }

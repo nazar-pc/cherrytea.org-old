@@ -173,15 +173,19 @@ if ($User->guest()) {
 				'value'			=> isset($_POST['coordinates']) ? $_POST['coordinates'] : (is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]')
 			]).
 			h::{'div#giver-map[level=0]'}().
-			h::{'input[name=date][required]'}([
-				'placeholder'	=> 'Дата (від і до)',
-				'value'			=> isset($_POST['date']) ? $_POST['date'] : ''
-			]).
+			h::label(
+				h::{'input[name=date][required]'}([
+					'placeholder'	=> 'Дата (від і до)',
+					'value'			=> isset($_POST['date']) ? $_POST['date'] : ''
+				]).
+				h::icon('calendar')
+			).
 			h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 				h::{'input[name=time][required]'}([
 					'placeholder'	=> 'Зручний час (від і до)',
 					'value'			=> isset($_POST['time']) ? $_POST['time'] : ''
 				]).
+				h::icon('time').
 				h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
 					'08:00 - 10:00',
 					'10:00 - 12:00',
