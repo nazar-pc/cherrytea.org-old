@@ -50,8 +50,9 @@ $ ->
 			$.ajax(
 				url		: 'api/Home/find_givers'
 				data	:
-					date	: container.find('input[name=date]').val()
-					time	: container.find('[name=time]').val()
+					date		: container.find('input[name=date]').val()
+					time		: container.find('[name=time]').val()
+					reserved	: if $('.home-page-map-switcher .uk-active input').val() == 'reserved_goods' then 1 else 0
 				type	: 'get'
 				success	: (result) ->
 					map.geoObjects.removeAll()
@@ -68,6 +69,11 @@ $ ->
 								Math.max(lng[0], good.lng)
 							]
 							icon_number	= Math.round(Math.random() * 11)
+							reservation	=
+								if driver_id == parseInt(good.reserved_driver, 10)
+									"""<button class="reservation uk-button" data-id="#{good.id}" disabled>Зарезервовано</button>"""
+								else
+									"""<button class="reservation uk-button" data-id="#{good.id}">Заберу за 24 години</button>"""
 							map.geoObjects.add(
 								new ymaps.Placemark(
 									[
@@ -91,7 +97,7 @@ $ ->
 													<time>#{good.date} (#{good.time})</time>
 													<p>#{good.comment}</p>
 												</article>
-												<footer><button class="reservation uk-button" data-id="#{good.id}">Заберу за 24 години</button></footer>
+												<footer>#{reservation}</footer>
 											</section>"""
 										)
 									}
@@ -125,7 +131,7 @@ $ ->
 		search_timeout	= 0
 		container.on(
 			'keyup change'
-			'[name=date], [name=time]'
+			'[name=date], [name=time], .home-page-map-switcher'
 			->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_givers, 300)

@@ -50,6 +50,7 @@ if ($User->guest()) {
 		)
 	);
 } elseif ($Drivers->active($User->id) || $User->admin()) {
+	$Page->js("var driver_id = ".$User->id, 'code');
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(
@@ -82,6 +83,11 @@ if ($User->guest()) {
 					)
 				).
 				h::icon('time').
+				h::{'div.home-page-map-switcher input[type=radio]'}([
+					'value'		=> ['available_goods', 'reserved_goods'],
+					'in'		=> ['Доступні речі', 'Зарезервовані'],
+					'checked'	=> 'available_goods'
+				]).
 				h::{'div#driver-map[level=0]'}()
 			]).
 			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')

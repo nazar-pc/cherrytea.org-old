@@ -50,11 +50,12 @@
           url: 'api/Home/find_givers',
           data: {
             date: container.find('input[name=date]').val(),
-            time: container.find('[name=time]').val()
+            time: container.find('[name=time]').val(),
+            reserved: $('.home-page-map-switcher .uk-active input').val() === 'reserved_goods' ? 1 : 0
           },
           type: 'get',
           success: function(result) {
-            var good, icon_number, lat, lng, _i, _len, _results;
+            var good, icon_number, lat, lng, reservation, _i, _len, _results;
             map.geoObjects.removeAll();
             if (result && result.length) {
               lat = [0, 0];
@@ -65,6 +66,7 @@
                 lat = [Math.min(lat[0], good.lat), Math.max(lat[0], good.lat)];
                 lng = [Math.min(lng[0], good.lng), Math.max(lng[0], good.lng)];
                 icon_number = Math.round(Math.random() * 11);
+                reservation = driver_id === parseInt(good.reserved_driver, 10) ? "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\" disabled>Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
                 _results.push(map.geoObjects.add(new ymaps.Placemark([good.lat, good.lng], {
                   hintContent: good.username + ' ' + good.phone
                 }, {
@@ -73,7 +75,7 @@
                   iconImageSize: [60, 58],
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
-                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer><button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button></footer>\n</section>")
+                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>")
                 })));
               }
               return _results;
@@ -105,7 +107,7 @@
       };
       find_givers();
       search_timeout = 0;
-      return container.on('keyup change', '[name=date], [name=time]', function() {
+      return container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_givers, 300);
       });

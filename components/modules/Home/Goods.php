@@ -19,19 +19,21 @@ class Goods {
 
 	protected $table		= '[prefix]goods';
 	protected $data_model	= [
-		'id'		=> 'int:0',
-		'giver'		=> 'int:0',
-		'comment'	=> 'text',
-		'date_from'	=> 'int:0',
-		'date_to'	=> 'int:0',
-		'time_from'	=> 'int:0',
-		'time_to'	=> 'int:0',
-		'lat'		=> 'float',
-		'lng'		=> 'float',
-		'added'		=> 'int:0',
-		'driver'	=> 'int:0',
-		'given'		=> 'int:0',
-		'success'	=> 'int:-1..1'
+		'id'				=> 'int:0',
+		'giver'				=> 'int:0',
+		'comment'			=> 'text',
+		'date_from'			=> 'int:0',
+		'date_to'			=> 'int:0',
+		'time_from'			=> 'int:0',
+		'time_to'			=> 'int:0',
+		'lat'				=> 'float',
+		'lng'				=> 'float',
+		'added'				=> 'int:0',
+		'driver'			=> 'int:0',
+		'given'				=> 'int:0',
+		'reserved'			=> 'int:0',
+		'reserved_driver'	=> 'int:0',
+		'success'			=> 'int:-1..1'
 	];
 
 	protected function cdb () {
@@ -108,6 +110,8 @@ class Goods {
 			$coordinates[0],
 			$coordinates[1],
 			TIME,
+			0,
+			0,
 			0,
 			0,
 			-1
@@ -200,10 +204,11 @@ class Goods {
 	 * Search among goods
 	 *
 	 * @param array	$params	date/time
+	 * @param int	$driver
 	 *
 	 * @return array
 	 */
-	function search ($params) {
+	function search ($params, $driver) {
 		$where	= [];
 		$subst	= [];
 		if (isset($params['date'])) {
@@ -218,12 +223,18 @@ class Goods {
 			$subst[]	= (float)$params['time'][0];
 			$subst[]	= (float)$params['time'][1];
 		}
+		if (isset($params['reserved']) && $params['reserved']) {
+			$where[]	= "`reserved` > ".TIME." AND `reserved_driver` = '%s'";
+			$subst[]	= $driver;
+		} else {
+			$where[]	= '`reserved` < '.TIME;
+		}
 		if ($where) {
 			$where	= 'WHERE '.implode(' AND ', $where).' AND ';
 		} else {
 			$where	= 'WHERE ';
 		}
-		$where	.= "`given` = 0 AND  `success` = '-1' AND `reserved` < ".TIME;
+		$where	.= "`given` = 0 AND  `success` = '-1'";
 		return $this->get(
 			$this->db()->qfas([
 				"SELECT `id`

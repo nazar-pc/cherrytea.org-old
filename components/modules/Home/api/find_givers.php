@@ -27,6 +27,9 @@ if (isset($_GET['date']) && $_GET['date']) {
 if (isset($_GET['time']) && $_GET['time']) {
 	$params['time']	= _trim(explode('-', str_replace(':', '.', $_GET['time'])));
 }
+if (isset($_GET['reserved']) && $_GET['reserved']) {
+	$params['reserved']	= 1;
+}
 $Page->json(
-	Goods::instance()->search($params)
+	Goods::instance()->search($params, $User->id)
 );
