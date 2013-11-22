@@ -17,6 +17,7 @@ $drivers		= Drivers::instance()->get_list();
 $Index->content(
 	h::{'table.admin-home-page.cs-table.cs-center-all'}(
 		h::{'thead tr th'}(
+			'Id',
 			'Ім’я',
 			'Сторінка в соціальній мережі',
 			'Репутація',
@@ -61,6 +62,7 @@ $Index->content(
 				}
 				return [
 					h::td([
+						$driver['id'],
 						$User->username($driver['id']),
 						h::a(
 							$driver['profile'],

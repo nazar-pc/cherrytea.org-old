@@ -17,6 +17,7 @@ $givers			= Givers::instance()->get_list();
 $Index->content(
 	h::{'table.admin-home-page.cs-table.cs-center-all'}(
 		h::{'thead tr th'}(
+			'Id',
 			'Ім’я',
 			'Сторінка в соціальній мережі',
 			'Репутація',
@@ -25,6 +26,7 @@ $Index->content(
 		h::{'tbody tr| td'}(array_map(
 			function ($giver) use ($User) {
 				return [
+					$giver['id'],
 					$User->username($giver['id']),
 					h::a(
 						$giver['profile'],
