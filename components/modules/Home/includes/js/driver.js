@@ -28,7 +28,7 @@
       return container.find('[name=time]').val($(this).text()).change();
     });
     return ymaps.ready(function() {
-      var find_givers, map, search_timeout;
+      var add_destination, find_givers, map, search_timeout;
       map = new ymaps.Map('driver-map', {
         center: [50.4505, 30.523],
         zoom: 13,
@@ -45,6 +45,27 @@
           timeout: 30 * 60 * 1000
         });
       }
+      add_destination = function() {
+        map.geoObjects.add(new ymaps.Placemark([50.487124, 30.596273], {
+          hintContent: 'Благодійний фонд Карітас-Київ'
+        }, {
+          iconLayout: 'default#image',
+          iconImageHref: '/components/modules/Home/includes/img/destination.png',
+          iconImageSize: [60, 58],
+          iconImageOffset: [-24, -58],
+          balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>Благодійний фонд Карітас-Київ</h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>вулиця Івана Микитенка, 7б</address>\n		<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>\n	</article>\n</section>")
+        }));
+        return map.geoObjects.add(new ymaps.Placemark([50.461404, 30.519216], {
+          hintContent: 'Благодійний фонд Карітас-Київ'
+        }, {
+          iconLayout: 'default#image',
+          iconImageHref: '/components/modules/Home/includes/img/destination.png',
+          iconImageSize: [60, 58],
+          iconImageOffset: [-24, -58],
+          balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>Книжковий магазин Свічадо</h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>вулиця Покровська, 6</address>\n		<time>Будні: з 10:00 до 17:00</time>\n	</article>\n</section>")
+        }));
+      };
+      add_destination();
       find_givers = function() {
         $.ajax({
           url: 'api/Home/find_givers',
@@ -57,6 +78,7 @@
           success: function(result) {
             var good, icon_number, lat, lng, reservation, _i, _len, _results;
             map.geoObjects.removeAll();
+            add_destination();
             if (result && result.length) {
               lat = [0, 0];
               lng = [0, 0];

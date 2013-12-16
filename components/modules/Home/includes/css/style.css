@@ -170,7 +170,7 @@
   .home-page article.home-page-add-goods .uk-dropdown-width-4 {
     width: 400px; }
   .home-page article.home-page-add-goods #giver-map {
-    height: 300px;
+    height: 500px;
     width: 500px; }
 .home-page article.home-page-added-goods {
   margin: 0 auto;
@@ -239,6 +239,7 @@
   font-size: 14px;
   left: -150px;
   position: relative;
+  top: -100px;
   width: 330px; }
   .home-page-map-balloon-container header {
     background: #ff7f7f;

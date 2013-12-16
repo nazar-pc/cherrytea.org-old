@@ -426,7 +426,7 @@ body > header {
     margin-right: -474px;
     position: absolute;
     right: 50%;
-    top: 52px; }
+    top: 50px; }
     body > header nav a {
       padding: 0 20px; }
   body > header h1 {
@@ -520,7 +520,7 @@ body > footer {
     display: inline-block;
     position: absolute;
     right: 75px;
-    top: 48px; }
+    top: 55px; }
     body > footer nav a {
       padding: 0 20px; }
   body > footer iframe {
