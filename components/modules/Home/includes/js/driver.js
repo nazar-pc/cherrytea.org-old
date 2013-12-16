@@ -76,7 +76,7 @@
           },
           type: 'get',
           success: function(result) {
-            var good, icon_number, lat, lng, reservation, _i, _len, _results;
+            var admin, good, icon_number, lat, lng, reservation, _i, _len, _results;
             map.geoObjects.removeAll();
             add_destination();
             if (result && result.length) {
@@ -89,6 +89,7 @@
                 lng = [Math.min(lng[0], good.lng), Math.max(lng[0], good.lng)];
                 icon_number = Math.round(Math.random() * 11);
                 reservation = driver_id === parseInt(good.reserved_driver, 10) ? "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\" disabled>Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
+                admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
                 _results.push(map.geoObjects.add(new ymaps.Placemark([good.lat, good.lng], {
                   hintContent: good.username + ' ' + good.phone
                 }, {
@@ -97,7 +98,7 @@
                   iconImageSize: [60, 58],
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
-                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> <a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>")
+                  balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"$('#driver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>")
                 })));
               }
               return _results;
@@ -129,9 +130,26 @@
       };
       find_givers();
       search_timeout = 0;
-      return container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher', function() {
+      container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_givers, 300);
+      });
+      return driver_map.on('click', '.delete-good', function() {
+        if (!window.cs.is_admin) {
+          return;
+        }
+        if (!confirm('Точно видалити?')) {
+          return;
+        }
+        return $.ajax({
+          url: 'api/Home/delete_good',
+          data: {
+            id: $(this).data('id')
+          },
+          success: function() {
+            return find_givers();
+          }
+        });
       });
     });
   });

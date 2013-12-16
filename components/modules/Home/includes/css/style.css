@@ -248,6 +248,11 @@
       color: #fff;
       font-size: 16px;
       padding-left: 10px; }
+    .home-page-map-balloon-container header .delete-good {
+      cursor: pointer;
+      position: absolute !important;
+      right: 15px;
+      top: 12px; }
     .home-page-map-balloon-container header .uk-close {
       color: #fff;
       position: absolute;

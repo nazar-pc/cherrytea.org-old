@@ -260,4 +260,19 @@ class Goods {
 			)
 		);
 	}
+	/**
+	 * Delete good
+	 *
+	 * @param int	$id
+	 *
+	 * @return bool
+	 */
+	function delete ($id) {
+		return (bool)$this->db_prime()->q(
+			"DELETE FROM `$this->table`
+			WHERE `id` = '%s'
+			LIMIT 1",
+			$id
+		);
+	}
 }

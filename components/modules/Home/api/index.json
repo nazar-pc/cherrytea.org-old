@@ -2,5 +2,6 @@
 	"blank",
 	"i_am_driver",
 	"find_givers",
-	"reservation"
+	"reservation",
+	"delete_good"
 ]

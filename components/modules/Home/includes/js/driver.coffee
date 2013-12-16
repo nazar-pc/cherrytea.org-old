@@ -123,6 +123,11 @@ $ ->
 									"""<button class="reservation uk-button" data-id="#{good.id}" disabled>Зарезервовано</button>"""
 								else
 									"""<button class="reservation uk-button" data-id="#{good.id}">Заберу за 24 години</button>"""
+							admin		=
+								if window.cs.is_admin
+									"""<span class="uk-icon-trash delete-good" data-id="#{good.id}"></span>"""
+								else
+									''
 							map.geoObjects.add(
 								new ymaps.Placemark(
 									[
@@ -140,7 +145,7 @@ $ ->
 										iconImageClipRect	: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
 										balloonLayout		: ymaps.templateLayoutFactory.createClass(
 											"""<section class="home-page-map-balloon-container">
-												<header><h1>#{good.username} <small>#{good.phone}</small></h1> <a class="uk-close" onclick="$('#driver-map').get(0).close_balloon()"></a></header>
+												<header><h1>#{good.username} <small>#{good.phone}</small></h1> #{admin}<a class="uk-close" onclick="$('#driver-map').get(0).close_balloon()"></a></header>
 												<article>
 													<address>#{good.address}</address>
 													<time>#{good.date} (#{good.time})</time>
@@ -184,4 +189,20 @@ $ ->
 			->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_givers, 300)
+		)
+		driver_map.on(
+			'click',
+			'.delete-good'
+			->
+				if !window.cs.is_admin
+					return
+				if !confirm('Точно видалити?')
+					return
+				$.ajax(
+					url		: 'api/Home/delete_good'
+					data	:
+						id	: $(this).data('id')
+					success	: ->
+						find_givers()
+				)
 		)
