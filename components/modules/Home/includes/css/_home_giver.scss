@@ -5,8 +5,8 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page article {
-	&.home-page-add-goods {
+.home-page {
+	.home-page-add-goods {
 		margin : 0 auto;
 		width  : 500px;
 
@@ -75,7 +75,7 @@
 		}
 	}
 
-	&.home-page-added-goods {
+	.home-page-added-goods {
 		margin : 0 auto;
 		width  : 900px;
 
