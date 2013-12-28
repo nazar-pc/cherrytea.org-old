@@ -66,10 +66,11 @@ if ($User->guest()) {
 				)
 			).
 			h::{'div.home-page-filter.uk-form'}([
+				h::icon('calendar').
 				h::{'input[name=date]'}([
 					'placeholder'	=> 'Будь-яка дата'
 				]).
-				h::icon('calendar').
+				h::icon('time').
 				h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 					h::{'input[name=time]'}([
 						'placeholder'	=> 'Будь-який час'
@@ -82,7 +83,6 @@ if ($User->guest()) {
 						'17:00 - 22:00'
 					)
 				).
-				h::icon('time').
 				h::{'div.home-page-map-switcher input[type=radio]'}([
 					'value'		=> ['available_goods', 'reserved_goods'],
 					'in'		=> ['Доступні речі', 'Зарезервовані'],
@@ -180,18 +180,18 @@ if ($User->guest()) {
 			]).
 			h::{'div#giver-map[level=0]'}().
 			h::label(
+				h::icon('calendar').
 				h::{'input[name=date][required]'}([
 					'placeholder'	=> 'Дата (від і до)',
 					'value'			=> isset($_POST['date']) ? $_POST['date'] : ''
-				]).
-				h::icon('calendar')
+				])
 			).
 			h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
+				h::icon('time').
 				h::{'input[name=time][required]'}([
 					'placeholder'	=> 'Зручний час (від і до)',
 					'value'			=> isset($_POST['time']) ? $_POST['time'] : ''
 				]).
-				h::icon('time').
 				h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
 					'08:00 - 10:00',
 					'10:00 - 12:00',

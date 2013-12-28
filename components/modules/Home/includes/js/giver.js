@@ -12,8 +12,9 @@
 (function() {
 
   $(function() {
-    var container, coordinates;
-    if (!$('#giver-map').length) {
+    var container, coordinates, giver_map;
+    giver_map = $('#giver-map');
+    if (!giver_map.length) {
       return;
     }
     container = $('.home-page-add-goods');

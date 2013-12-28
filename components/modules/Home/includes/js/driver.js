@@ -17,6 +17,11 @@
     if (!driver_map.length) {
       return;
     }
+    (function(w) {
+      return driver_map.width(w).css({
+        marginLeft: 500 - w / 2
+      });
+    })($(window).width());
     container = $('.home-page-filter');
     container.find('input[name=date]').pickmeup({
       format: 'd.m.Y',

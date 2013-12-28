@@ -9,6 +9,12 @@ $ ->
 	driver_map	= $('#driver-map')
 	if !driver_map.length
 		return
+	do (w = $(window).width()) ->
+		driver_map
+			.width(w)
+			.css(
+				marginLeft	: 500 - w / 2
+			)
 	container	= $('.home-page-filter')
 	container.find('input[name=date]')
 		.pickmeup(

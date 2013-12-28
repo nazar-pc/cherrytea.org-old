@@ -6,7 +6,8 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
-	if !$('#giver-map').length
+	giver_map	= $('#giver-map')
+	if !giver_map.length
 		return;
 	container	= $('.home-page-add-goods')
 	container

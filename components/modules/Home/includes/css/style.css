@@ -157,13 +157,22 @@
   .home-page article.home-page-add-goods [name=date],
   .home-page article.home-page-add-goods .uk-button-dropdown input {
     display: inline-block;
-    width: 252px; }
+    width: 247.5px; }
+  .home-page article.home-page-add-goods label,
+  .home-page article.home-page-add-goods .uk-button-dropdown {
+    position: relative; }
+  .home-page article.home-page-add-goods [name=date],
+  .home-page article.home-page-add-goods .uk-button-dropdown input {
+    padding-left: 27px !important; }
   .home-page article.home-page-add-goods [name=time] + * + * {
     width: 242px; }
   .home-page article.home-page-add-goods .uk-icon-calendar,
   .home-page article.home-page-add-goods .uk-icon-time {
     color: #d7d7d7;
-    margin: 0px 0px 0px -30px; }
+    left: 6px;
+    position: absolute;
+    top: 15px;
+    z-index: 100; }
   .home-page article.home-page-add-goods > button {
     text-align: center;
     width: auto; }
@@ -196,7 +205,7 @@
   .home-page article .home-page-filter input {
     height: 41px;
     min-width: 200px;
-    padding: 5px 16px !important;
+    padding: 5px 16px 5px 28px !important;
     text-align: left; }
   .home-page article .home-page-filter > button {
     text-align: center;
@@ -207,8 +216,9 @@
     width: 400px; }
   .home-page article .home-page-filter [class*='uk-icon-'] {
     color: #d7d7d7;
-    margin: 0 12px 0 -30px;
-    position: relative; }
+    margin: 0 -30px 0 12px;
+    position: relative;
+    z-index: 100; }
   .home-page article .home-page-filter .home-page-map-switcher {
     display: inline-block; }
     .home-page article .home-page-filter .home-page-map-switcher > span {

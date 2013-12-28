@@ -34,17 +34,30 @@
 		[name=date],
 		.uk-button-dropdown input {
 			display : inline-block;
-			width   : 252px;
+			width   : 247.5px;
+		}
+
+		label,
+		.uk-button-dropdown {
+			position : relative;
+		}
+
+		[name=date],
+		.uk-button-dropdown input {
+			padding-left : 27px !important;
 		}
 
 		[name=time] + * + * {
-			width   : 242px;
+			width : 242px;
 		}
 
 		.uk-icon-calendar,
 		.uk-icon-time {
-			color  : #d7d7d7;
-			margin : 0px 0px 0px -30px;
+			color    : #d7d7d7;
+			left     : 6px;
+			position : absolute;
+			top      : 15px;
+			z-index  : 100;
 		}
 
 		> button {
