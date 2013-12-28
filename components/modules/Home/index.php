@@ -65,6 +65,11 @@ if ($User->guest()) {
 					h::b($driver['reputation'] ?: 0)
 				)
 			).
+			h::{'div.home-page-map-switcher input[type=radio]'}([
+				'value'		=> ['available_goods', 'reserved_goods'],
+				'in'		=> ['Доступні речі', 'Зарезервовані'],
+				'checked'	=> 'available_goods'
+			]).
 			h::{'div.home-page-filter.uk-form'}([
 				h::icon('calendar').
 				h::{'input[name=date]'}([
@@ -83,11 +88,6 @@ if ($User->guest()) {
 						'17:00 - 22:00'
 					)
 				).
-				h::{'div.home-page-map-switcher input[type=radio]'}([
-					'value'		=> ['available_goods', 'reserved_goods'],
-					'in'		=> ['Доступні речі', 'Зарезервовані'],
-					'checked'	=> 'available_goods'
-				]).
 				h::{'div#driver-map[level=0]'}()
 			]).
 			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
