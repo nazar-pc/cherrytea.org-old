@@ -65,7 +65,7 @@ $ ->
 						iconImageSize		: [60, 58]
 						iconImageOffset		: [-24, -58]
 						balloonLayout		: ymaps.templateLayoutFactory.createClass(
-							"""<section class="home-page-map-balloon-container">
+							"""<section class="home-page-map-balloon-container centers">
 								<header><h1>Благодійний фонд Карітас-Київ</h1> <a class="uk-close" onclick="$('#driver-map').get(0).close_balloon()"></a></header>
 								<article>
 									<address>вулиця Івана Микитенка, 7б</address>
@@ -88,7 +88,7 @@ $ ->
 						iconImageSize		: [60, 58]
 						iconImageOffset		: [-24, -58]
 						balloonLayout		: ymaps.templateLayoutFactory.createClass(
-							"""<section class="home-page-map-balloon-container">
+							"""<section class="home-page-map-balloon-container centers">
 								<header><h1>Книжковий магазин Свічадо</h1> <a class="uk-close" onclick="$('#driver-map').get(0).close_balloon()"></a></header>
 								<article>
 									<address>вулиця Покровська, 6</address>

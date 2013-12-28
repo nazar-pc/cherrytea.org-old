@@ -66,4 +66,17 @@
 			min-width : auto !important;
 		}
 	}
+
+	&.centers {
+		header {
+			background : #0097fc;
+		}
+
+		article {
+			address,
+			time {
+				color : #0097fc;
+			}
+		}
+	}
 }

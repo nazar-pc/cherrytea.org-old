@@ -286,3 +286,8 @@
     text-align: right; }
     .home-page-map-balloon-container footer button {
       min-width: auto !important; }
+  .home-page-map-balloon-container.centers header {
+    background: #0097fc; }
+  .home-page-map-balloon-container.centers article address,
+  .home-page-map-balloon-container.centers article time {
+    color: #0097fc; }
