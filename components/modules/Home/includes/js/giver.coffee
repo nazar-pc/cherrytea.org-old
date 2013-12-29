@@ -13,16 +13,15 @@ $ ->
 	container
 		.find('[name=date]')
 			.pickmeup(
-				format		: 'd.m.Y'
-				mode		: 'range'
-				onChange	: (formated) ->
+				format	: 'd.m.Y'
+				mode	: 'range'
+				change	: (formated) ->
 					container
 						.find('[name=date]')
 						.val(formated.join(' - '));
 			)
 	container
 		.find('[name=time]')
-			.next()
 			.next()
 				.find('a')
 					.click ->
@@ -137,3 +136,4 @@ $ ->
 								)
 							), 300
 					)
+					.keyup()

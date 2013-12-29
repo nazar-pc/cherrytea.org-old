@@ -130,6 +130,10 @@
   position: absolute;
   top: -104px;
   width: 4000px; }
+.home-page article #guest-map {
+  height: 700px;
+  margin: 20px auto 0 auto;
+  width: 1000px; }
 
 /**
  * @package		Home

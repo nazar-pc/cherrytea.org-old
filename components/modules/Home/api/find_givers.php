@@ -11,12 +11,6 @@ use			cs\Page,
 			cs\User;
 $User		= User::instance();
 $Drivers	= Drivers::instance();
-if (
-	!$User->admin() && !$Drivers->active($User->id)
-) {
-	error_code(403);
-	return;
-}
 $Page		= Page::instance();
 $params		= [];
 if (isset($_GET['date']) && $_GET['date']) {
@@ -30,6 +24,15 @@ if (isset($_GET['time']) && $_GET['time']) {
 if (isset($_GET['reserved']) && $_GET['reserved']) {
 	$params['reserved']	= 1;
 }
-$Page->json(
-	Goods::instance()->search($params, $User->id)
-);
+$goods		= Goods::instance()->search($params, $User->id);
+if (
+	!$User->admin() && !$Drivers->active($User->id)
+) {
+	foreach ($goods as &$good) {
+		$good	= [
+			'lat'	=> $good['lat'],
+			'lng'	=> $good['lng']
+		];
+	}
+}
+$Page->json($goods);
