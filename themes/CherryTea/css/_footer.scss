@@ -11,7 +11,6 @@ body > footer {
 	color      : #ffffff;
 	margin     : 20px auto 0 auto;
 	padding    : 15px 75px;
-	overflow-x  : hidden;
 	position   : relative;
 	width      : 1100px;
 
@@ -36,10 +35,11 @@ body > footer {
 	}
 
 	nav {
-		display  : inline-block;
-		position : absolute;
-		right    : 75px;
-		top      : 55px;
+		display      : inline-block;
+		margin-right : -442px;
+		position     : absolute;
+		right        : 50%;
+		top          : 55px;
 
 		a {
 			padding : 0 20px;
