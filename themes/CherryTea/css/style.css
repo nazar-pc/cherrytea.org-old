@@ -523,14 +523,6 @@ body > footer {
     top: 55px; }
     body > footer nav a {
       padding: 0 20px; }
-  body > footer iframe {
-    border: none;
-    bottom: 0;
-    height: 28px;
-    overflow: hidden;
-    position: absolute;
-    right: 75px;
-    width: 450px; }
 
 /**
  * @package		CherryTea
