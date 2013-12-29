@@ -77,6 +77,7 @@
 .home-page article .home-page-sign-in {
   height: 145px;
   margin: 50px auto 0 auto;
+  overflow-x: hidden;
   position: relative;
   width: 800px; }
   .home-page article .home-page-sign-in > div {
