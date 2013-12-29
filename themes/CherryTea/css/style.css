@@ -539,6 +539,29 @@ body > footer {
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
+.social-block {
+  background: url(../img/social-share-temp.png) no-repeat;
+  color: #fff;
+  height: 297px;
+  left: 50%;
+  margin-left: 400px;
+  position: fixed;
+  top: 350px;
+  width: 85px; }
+  .social-block .fb {
+    cursor: pointer; }
+  .social-block > * {
+    height: 99px;
+    padding: 7px 5px;
+    text-align: center; }
+
+/**
+ * @package		CherryTea
+ * @category	themes
+ * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @license		MIT License, see license.txt
+ */
 .cs-blogs-post-latest,
 .cs-blogs-post {
   padding: 20px 0; }
