@@ -65,7 +65,7 @@ $ ->
 				new ymaps.Placemark(
 					[50.461404, 30.519216]
 					{
-						hintContent	: 'Благодійний фонд Карітас-Київ'
+						hintContent	: 'Книжковий магазин Свічадо'
 					}
 					{
 						iconLayout			: 'default#image'

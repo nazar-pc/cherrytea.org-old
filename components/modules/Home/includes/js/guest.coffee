@@ -62,7 +62,7 @@ $ ->
 						iconImageOffset		: [-24, -58]
 						balloonLayout		: ymaps.templateLayoutFactory.createClass(
 							"""<section class="home-page-map-balloon-container centers">
-								<header><h1>Благодійний фонд Карітас-Київ</h1> <a class="uk-close" onclick="$('#driver-map').get(0).close_balloon()"></a></header>
+								<header><h1>Благодійний фонд Карітас-Київ</h1> <a class="uk-close" onclick="$('#guest-map').get(0).close_balloon()"></a></header>
 								<article>
 									<address>вулиця Івана Микитенка, 7б</address>
 									<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>
@@ -76,7 +76,7 @@ $ ->
 				new ymaps.Placemark(
 					[50.461404, 30.519216]
 					{
-						hintContent	: 'Благодійний фонд Карітас-Київ'
+						hintContent	: 'Книжковий магазин Свічадо'
 					}
 					{
 						iconLayout			: 'default#image'
@@ -85,7 +85,7 @@ $ ->
 						iconImageOffset		: [-24, -58]
 						balloonLayout		: ymaps.templateLayoutFactory.createClass(
 							"""<section class="home-page-map-balloon-container centers">
-								<header><h1>Книжковий магазин Свічадо</h1> <a class="uk-close" onclick="$('#driver-map').get(0).close_balloon()"></a></header>
+								<header><h1>Книжковий магазин Свічадо</h1> <a class="uk-close" onclick="$('#guest-map').get(0).close_balloon()"></a></header>
 								<article>
 									<address>вулиця Покровська, 6</address>
 									<time>Будні: з 10:00 до 17:00</time>

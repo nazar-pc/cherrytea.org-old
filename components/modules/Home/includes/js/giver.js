@@ -50,7 +50,7 @@
           balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>Благодійний фонд Карітас-Київ</h1> <a class=\"uk-close\" onclick=\"$('#giver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>вулиця Івана Микитенка, 7б</address>\n		<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>\n	</article>\n</section>")
         }));
         return map.geoObjects.add(new ymaps.Placemark([50.461404, 30.519216], {
-          hintContent: 'Благодійний фонд Карітас-Київ'
+          hintContent: 'Книжковий магазин Свічадо'
         }, {
           iconLayout: 'default#image',
           iconImageHref: '/components/modules/Home/includes/img/destination.png',
