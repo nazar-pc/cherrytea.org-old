@@ -498,6 +498,7 @@ body > footer {
   color: #ffffff;
   margin: 20px auto 0 auto;
   padding: 15px 75px;
+  overflow-x: hidden;
   position: relative;
   width: 1100px; }
   body > footer:before {
