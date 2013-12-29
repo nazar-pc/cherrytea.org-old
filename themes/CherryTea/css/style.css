@@ -497,6 +497,7 @@ body > footer {
   background: #3c3c3c;
   color: #ffffff;
   margin: 20px auto 0 auto;
+  overflow-x: hidden;
   padding: 15px 75px;
   position: relative;
   width: 1100px; }
