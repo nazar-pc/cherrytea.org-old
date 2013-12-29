@@ -532,7 +532,7 @@ body > footer {
  * @license		MIT License, see license.txt
  */
 .social-block {
-  background: url(../img/social-share-temp.png) no-repeat;
+  background: rgba(255, 255, 255, 0.4) url(../img/social-share-temp.png) no-repeat;
   color: #fff;
   height: 297px;
   left: 50%;
