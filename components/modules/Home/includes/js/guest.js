@@ -44,7 +44,7 @@
       });
     })($(window).width());
     return ymaps.ready(function() {
-      var add_destination, find_givers, map;
+      var add_destination, find_goods, map;
       map = new ymaps.Map('guest-map', {
         center: [50.4505, 30.523],
         zoom: 13,
@@ -82,9 +82,9 @@
         }));
       };
       add_destination();
-      find_givers = function() {
+      find_goods = function() {
         return $.ajax({
-          url: 'api/Home/find_givers',
+          url: 'api/Home/find_goods',
           type: 'get',
           success: function(result) {
             var good, icon_number, lat, lng, _i, _len, _results;
@@ -112,7 +112,7 @@
           }
         });
       };
-      return find_givers();
+      return find_goods();
     });
   });
 

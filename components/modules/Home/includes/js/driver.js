@@ -33,7 +33,7 @@
       return container.find('[name=time]').val($(this).text()).change();
     });
     return ymaps.ready(function() {
-      var add_destination, find_givers, map, search_timeout;
+      var add_destination, find_goods, map, search_timeout;
       map = new ymaps.Map('driver-map', {
         center: [50.4505, 30.523],
         zoom: 13,
@@ -71,9 +71,9 @@
         }));
       };
       add_destination();
-      find_givers = function() {
+      find_goods = function() {
         $.ajax({
-          url: 'api/Home/find_givers',
+          url: 'api/Home/find_goods',
           data: {
             date: container.find('input[name=date]').val(),
             time: container.find('[name=time]').val(),
@@ -121,7 +121,7 @@
             success: function() {
               reservation.html('Зарезервовано').prop('disabled', true);
               alert('Прийнято! Дякуємо та чекаємо вашого приїзду!');
-              return find_givers();
+              return find_goods();
             },
             error: function(xhr) {
               if (xhr.responseText) {
@@ -133,11 +133,11 @@
           });
         });
       };
-      find_givers();
+      find_goods();
       search_timeout = 0;
       container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher', function() {
         clearTimeout(search_timeout);
-        return search_timeout = setTimeout(find_givers, 300);
+        return search_timeout = setTimeout(find_goods, 300);
       });
       return driver_map.on('click', '.delete-good', function() {
         if (!window.cs.is_admin) {
@@ -152,7 +152,7 @@
             id: $(this).data('id')
           },
           success: function() {
-            return find_givers();
+            return find_goods();
           }
         });
       });

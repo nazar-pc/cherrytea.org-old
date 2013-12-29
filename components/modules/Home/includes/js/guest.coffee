@@ -96,9 +96,9 @@ $ ->
 				)
 			)
 		add_destination()
-		find_givers	= ->
+		find_goods	= ->
 			$.ajax(
-				url		: 'api/Home/find_givers'
+				url		: 'api/Home/find_goods'
 				type	: 'get'
 				success	: (result) ->
 					map.geoObjects.removeAll()
@@ -133,4 +133,4 @@ $ ->
 								)
 							)
 			)
-		find_givers()
+		find_goods()

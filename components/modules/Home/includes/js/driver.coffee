@@ -100,9 +100,9 @@ $ ->
 				)
 			)
 		add_destination()
-		find_givers	= ->
+		find_goods	= ->
 			$.ajax(
-				url		: 'api/Home/find_givers'
+				url		: 'api/Home/find_goods'
 				data	:
 					date		: container.find('input[name=date]').val()
 					time		: container.find('[name=time]').val()
@@ -179,7 +179,7 @@ $ ->
 									.html('Зарезервовано')
 									.prop('disabled', true)
 								alert 'Прийнято! Дякуємо та чекаємо вашого приїзду!'
-								find_givers()
+								find_goods()
 							error	: (xhr) ->
 								if xhr.responseText
 									alert(cs.json_decode(xhr.responseText).error_description)
@@ -187,14 +187,14 @@ $ ->
 									alert(L.auth_connection_error)
 						)
 				)
-		find_givers()
+		find_goods()
 		search_timeout	= 0
 		container.on(
 			'keyup change'
 			'[name=date], [name=time], .home-page-map-switcher'
 			->
 				clearTimeout(search_timeout)
-				search_timeout = setTimeout(find_givers, 300)
+				search_timeout = setTimeout(find_goods, 300)
 		)
 		driver_map.on(
 			'click',
@@ -209,6 +209,6 @@ $ ->
 					data	:
 						id	: $(this).data('id')
 					success	: ->
-						find_givers()
+						find_goods()
 				)
 		)
