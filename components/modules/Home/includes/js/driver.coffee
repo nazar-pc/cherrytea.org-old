@@ -18,8 +18,8 @@ $ ->
 	container	= $('.home-page-filter')
 	container.find('input[name=date]')
 		.pickmeup(
-			format		: 'd.m.Y'
-			onChange	: (formated) ->
+			format	: 'd.m.Y'
+			change	: (formated) ->
 				container
 					.find('[name=date]')
 					.val(formated)

@@ -25,7 +25,7 @@
     container = $('.home-page-filter');
     container.find('input[name=date]').pickmeup({
       format: 'd.m.Y',
-      onChange: function(formated) {
+      change: function(formated) {
         return container.find('[name=date]').val(formated).pickmeup('hide').change();
       }
     });
