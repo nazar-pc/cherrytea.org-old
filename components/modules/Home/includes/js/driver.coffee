@@ -107,7 +107,7 @@ $ ->
 				data	:
 					date		: container.find('input[name=date]').val()
 					time		: container.find('[name=time]').val()
-					reserved	: if $('.home-page-map-switcher .uk-active input').val() == 'reserved_goods' then 1 else 0
+					reserved	: if $('.home-page-map-switcher.driver .uk-active input').val() == 'reserved_goods' then 1 else 0
 				type	: 'get'
 				success	: (result) ->
 					map.geoObjects.removeAll()
@@ -192,7 +192,7 @@ $ ->
 		search_timeout	= 0
 		container.on(
 			'keyup change'
-			'[name=date], [name=time], .home-page-map-switcher'
+			'[name=date], [name=time], .home-page-map-switcher.driver'
 			->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_goods, 300)

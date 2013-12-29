@@ -55,6 +55,18 @@
   content: '';
   display: block; }
 
+.home-page-map-switcher {
+  display: block;
+  text-align: center; }
+  .home-page-map-switcher > span {
+    background: #FF7F7F;
+    border: 1px solid #ff7f7f;
+    border-radius: 4px; }
+  .home-page-map-switcher label {
+    cursor: pointer;
+    height: 44px;
+    line-height: 41px; }
+
 /**
  * @package		Home
  * @category	modules
@@ -189,7 +201,7 @@
     width: 500px; }
 .home-page .home-page-added-goods {
   margin: 0 auto;
-  width: 900px; }
+  width: 1000px; }
   .home-page .home-page-added-goods input {
     width: 200px !important; }
 
@@ -200,17 +212,6 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page article .home-page-map-switcher {
-  display: block;
-  text-align: center; }
-  .home-page article .home-page-map-switcher > span {
-    background: #FF7F7F;
-    border: 1px solid #ff7f7f;
-    border-radius: 4px; }
-  .home-page article .home-page-map-switcher label {
-    cursor: pointer;
-    height: 44px;
-    line-height: 41px; }
 .home-page article .home-page-filter {
   margin: 15px auto 0;
   width: 1000px; }

@@ -6,23 +6,6 @@
  * @license		MIT License, see license.txt
  */
 .home-page article {
-	.home-page-map-switcher {
-		display    : block;
-		text-align : center;
-
-		> span {
-			background    : #FF7F7F;
-			border        : 1px solid #FF7F7F;
-			border-radius : 4px;
-		}
-
-		label {
-			cursor      : pointer;
-			height      : 44px;
-			line-height : 41px;
-		}
-	}
-
 	.home-page-filter {
 		margin : 15px auto 0;
 		width  : 1000px;

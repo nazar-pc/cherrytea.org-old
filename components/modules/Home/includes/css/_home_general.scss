@@ -66,3 +66,19 @@
 		display : block;
 	}
 }
+.home-page-map-switcher {
+	display    : block;
+	text-align : center;
+
+	> span {
+		background    : #FF7F7F;
+		border        : 1px solid #FF7F7F;
+		border-radius : 4px;
+	}
+
+	label {
+		cursor      : pointer;
+		height      : 44px;
+		line-height : 41px;
+	}
+}

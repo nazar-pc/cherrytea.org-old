@@ -66,7 +66,7 @@ if ($User->guest()) {
 					h::b($driver['reputation'] ?: 0)
 				)
 			).
-			h::{'div.home-page-map-switcher input[type=radio]'}([
+			h::{'div.home-page-map-switcher.driver input[type=radio]'}([
 				'value'		=> ['available_goods', 'reserved_goods'],
 				'in'		=> ['Доступні речі', 'Зарезервовані'],
 				'checked'	=> 'available_goods'
@@ -156,6 +156,11 @@ if ($User->guest()) {
 					]).
 					h::{'button[type=submit]'}('Надіслати')
 				).
+				h::{'div.home-page-map-switcher.giver input[type=radio]'}([
+					'value'		=> ['map', 'my_goods'],
+					'in'		=> ['Карта', 'Мої речі'],
+					'checked'	=> 'map'
+				]).
 				h::{'div#guest-map'}()
 			)
 		);

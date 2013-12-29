@@ -78,7 +78,7 @@
           data: {
             date: container.find('input[name=date]').val(),
             time: container.find('[name=time]').val(),
-            reserved: $('.home-page-map-switcher .uk-active input').val() === 'reserved_goods' ? 1 : 0
+            reserved: $('.home-page-map-switcher.driver .uk-active input').val() === 'reserved_goods' ? 1 : 0
           },
           type: 'get',
           success: function(result) {
@@ -136,7 +136,7 @@
       };
       find_goods();
       search_timeout = 0;
-      container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher', function() {
+      container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher.driver', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
