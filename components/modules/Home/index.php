@@ -213,8 +213,7 @@ if ($User->guest()) {
 					'placeholder'	=> 'Ваш коментар'
 				]
 			).
-			h::{'p.cs-right button[type=submit]'}('Надіслати').
-			h::{'div#guest-map'}()
+			h::{'p.cs-right button[type=submit]'}('Надіслати')
 		)
 	);
 }
