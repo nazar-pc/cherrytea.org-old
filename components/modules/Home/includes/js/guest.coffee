@@ -28,7 +28,7 @@ $ ->
 		guest_map
 			.width(w)
 			.css(
-				marginLeft	: 500 - w / 2
+				marginLeft	: guest_map.parent().outerWidth() / 2 - w / 2
 			)
 	ymaps.ready ->
 		map			= new ymaps.Map 'guest-map', {
