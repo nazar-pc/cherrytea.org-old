@@ -131,7 +131,7 @@
   top: -104px;
   width: 4000px; }
 .home-page article #guest-map {
-  height: 700px;
+  height: 500px;
   margin: 20px auto 0 auto;
   width: 1000px; }
 
@@ -237,7 +237,7 @@
     position: relative;
     z-index: 100; }
   .home-page article .home-page-filter #driver-map {
-    height: 700px;
+    height: 500px;
     margin: 20px auto 0 auto;
     width: 1000px; }
 

@@ -36,6 +36,7 @@ $ ->
 			zoom		: 13
 			controls	: ['geolocationControl', 'fullscreenControl', 'typeSelector', 'zoomControl']
 		}
+		map.behaviors.disable('scrollZoom');
 		guest_map.get(0).close_balloon	= ->
 			map.balloon.close()
 		if navigator.geolocation

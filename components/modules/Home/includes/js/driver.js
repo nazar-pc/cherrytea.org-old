@@ -39,6 +39,7 @@
         zoom: 13,
         controls: ['geolocationControl', 'fullscreenControl', 'typeSelector', 'zoomControl']
       });
+      map.behaviors.disable('scrollZoom');
       driver_map.get(0).close_balloon = function() {
         return map.balloon.close();
       };
