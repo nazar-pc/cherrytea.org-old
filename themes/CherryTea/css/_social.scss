@@ -7,14 +7,14 @@
  */
 
 .social-block {
-	background  : rgba(255, 255, 255, .4) url(../img/social-share-temp.png) no-repeat;
-	color       : #fff;
-	height      : 297px;
-	left        : 50%;
-	margin-left : 400px;
-	position    : fixed;
-	top         : 350px;
-	width       : 85px;
+	background   : rgba(255, 255, 255, .4) url(../img/social-share-temp.png) no-repeat;
+	color        : #fff;
+	height       : 297px;
+	right        : 0;
+	margin-right : 20px;
+	position     : fixed;
+	top          : 350px;
+	width        : 85px;
 
 	.fb {
 		cursor : pointer;

@@ -535,8 +535,8 @@ body > footer {
   background: rgba(255, 255, 255, 0.4) url(../img/social-share-temp.png) no-repeat;
   color: #fff;
   height: 297px;
-  left: 50%;
-  margin-left: 400px;
+  right: 0;
+  margin-right: 20px;
   position: fixed;
   top: 350px;
   width: 85px; }
