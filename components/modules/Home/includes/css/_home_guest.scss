@@ -7,11 +7,10 @@
  */
 .home-page article {
 	.home-page-sign-in {
-		height     : 145px;
-		margin     : 50px auto 0 auto;
-		overflow-x : hidden;
-		position   : relative;
-		width      : 800px;
+		height   : 145px;
+		margin   : 50px auto 0 auto;
+		position : relative;
+		width    : 800px;
 
 		> div {
 			display  : inline-block;
@@ -92,11 +91,12 @@
 		background : #fcfcfc;
 		content    : '';
 		display    : block;
-		height     : 249px;
+		height     : 289px;
 		left       : -2000px;
 		position   : absolute;
 		top        : -104px;
 		width      : 4000px;
+		z-index    : -1;
 	}
 
 	#guest-map {

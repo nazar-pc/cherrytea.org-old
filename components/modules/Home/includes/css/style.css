@@ -77,7 +77,6 @@
 .home-page article .home-page-sign-in {
   height: 145px;
   margin: 50px auto 0 auto;
-  overflow-x: hidden;
   position: relative;
   width: 800px; }
   .home-page article .home-page-sign-in > div {
@@ -138,11 +137,12 @@
   background: #fcfcfc;
   content: '';
   display: block;
-  height: 249px;
+  height: 289px;
   left: -2000px;
   position: absolute;
   top: -104px;
-  width: 4000px; }
+  width: 4000px;
+  z-index: -1; }
 .home-page article #guest-map {
   height: 500px;
   margin: 20px auto 0 auto;
