@@ -42,7 +42,7 @@ body {
 }
 /* mobile devices fix */
 @media (width : 1100px) {
-	body > .home-page-sign-in:before {
+	.home-page-sign-in:before {
 		left  : -550px;
 		width : 1100px;
 	}
