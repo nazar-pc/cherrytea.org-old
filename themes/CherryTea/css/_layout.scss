@@ -40,3 +40,9 @@ body {
 .uk-button {
 	padding: 0 20px;
 }
+/* mobile devices fix */
+@media (width : 1100px) {
+	body > * {
+		overflow-x : hidden;
+	}
+}
