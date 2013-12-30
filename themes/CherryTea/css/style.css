@@ -440,7 +440,7 @@ body > header {
   body > header ul {
     display: block;
     list-style: none;
-    margin: 70px auto 0 auto;
+    margin: 70px auto 35px;
     text-align: center; }
     body > header ul li {
       color: #ff7f7f;
