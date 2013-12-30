@@ -395,7 +395,11 @@ body {
 
 /* mobile devices fix */
 @media (width: 1100px) {
-  body > * {
+  body > .home-page-sign-in:before {
+    left: -550px;
+    width: 1100px; }
+
+  body > footer {
     overflow-x: hidden; } }
 /**
  * @package		CherryTea
