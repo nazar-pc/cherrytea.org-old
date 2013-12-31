@@ -271,8 +271,9 @@
       padding-left: 10px; }
     .home-page-map-balloon-container header .delete-good {
       cursor: pointer;
+      margin-right: 0 !important;
       position: absolute !important;
-      right: 15px;
+      right: 30px;
       top: 12px; }
     .home-page-map-balloon-container header .uk-close {
       color: #fff;
