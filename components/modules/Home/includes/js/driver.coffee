@@ -192,7 +192,14 @@ $ ->
 		search_timeout	= 0
 		container.on(
 			'keyup change'
-			'[name=date], [name=time], .home-page-map-switcher.driver'
+			'[name=date], [name=time], .home-page-map-switcher.driver input'
+			->
+				clearTimeout(search_timeout)
+				search_timeout = setTimeout(find_goods, 300)
+		)
+		$('.home-page-map-switcher.driver').on(
+			'keyup change'
+			'input'
 			->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_goods, 300)

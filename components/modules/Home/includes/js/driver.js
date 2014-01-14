@@ -136,7 +136,11 @@
       };
       find_goods();
       search_timeout = 0;
-      container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher.driver', function() {
+      container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher.driver input', function() {
+        clearTimeout(search_timeout);
+        return search_timeout = setTimeout(find_goods, 300);
+      });
+      $('.home-page-map-switcher.driver').on('keyup change', 'input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
