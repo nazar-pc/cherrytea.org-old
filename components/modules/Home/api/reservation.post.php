@@ -16,4 +16,4 @@ if (
 	error_code(403);
 	return;
 }
-Goods::instance()->reservation($_POST['id'], $User->id);
+Goods::instance()->add_reservation($_POST['id'], $User->id);

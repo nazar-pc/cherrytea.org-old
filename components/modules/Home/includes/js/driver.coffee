@@ -126,8 +126,8 @@ $ ->
 							]
 							icon_number	= Math.round(Math.random() * 11)
 							reservation	=
-								if driver_id == parseInt(good.reserved_driver, 10)
-									"""<button class="reservation uk-button" data-id="#{good.id}" disabled>Зарезервовано</button>"""
+								if driver_id == parseInt(good.reserved_driver, 10) && good.reserved > (new Date).getTime() / 1000
+									"""<button class="reserved uk-button" data-id="#{good.id}">Зарезервовано</button>"""
 								else
 									"""<button class="reservation uk-button" data-id="#{good.id}">Заберу за 24 години</button>"""
 							admin		=
@@ -165,29 +165,55 @@ $ ->
 								)
 							)
 			)
-			container
-				.on(
-					'click'
-					'.reservation'
-					->
-						reservation	= $(@)
-						$.ajax(
-							url		: 'api/Home/reservation'
-							data	:
-								id	: reservation.data('id')
-							success	: ->
-								reservation
-									.html('Зарезервовано')
-									.prop('disabled', true)
-								alert 'Прийнято! Дякуємо та чекаємо вашого приїзду!'
-								find_goods()
-							error	: (xhr) ->
-								if xhr.responseText
-									alert(cs.json_decode(xhr.responseText).error_description)
-								else
-									alert(L.auth_connection_error)
-						)
-				)
+		container
+			.on(
+				'click'
+				'.reservation'
+				->
+					reservation	= $(@)
+					$.ajax(
+						url		: 'api/Home/reservation'
+						type	: 'post'
+						data	:
+							id	: reservation.data('id')
+						success	: ->
+							reservation
+								.html('Зарезервовано')
+								.removeClass('reservation')
+								.addClass('reserved')
+							alert 'Зарезервовано! Дякуємо та чекаємо вашого приїзду!'
+							find_goods()
+						error	: (xhr) ->
+							if xhr.responseText
+								alert(cs.json_decode(xhr.responseText).error_description)
+							else
+								alert(L.auth_connection_error)
+					)
+			)
+			.on(
+				'click'
+				'.reserved'
+				->
+					reserved	= $(@)
+					$.ajax(
+						url		: 'api/Home/reservation'
+						type	: 'delete'
+						data	:
+							id	: reserved.data('id')
+						success	: ->
+							reserved
+								.html('Заберу за 24 години')
+								.removeClass('reserved')
+								.addClass('reservation')
+							alert 'Резерв скасовано! Дякуємо що попередили!'
+							find_goods()
+						error	: (xhr) ->
+							if xhr.responseText
+								alert(cs.json_decode(xhr.responseText).error_description)
+							else
+								alert(L.auth_connection_error)
+					)
+			)
 		find_goods()
 		search_timeout	= 0
 		container.on(

@@ -183,7 +183,7 @@ class Goods {
 	 *
 	 * @return bool
 	 */
-	function reservation ($id, $driver) {
+	function add_reservation ($id, $driver) {
 		$this->db_prime()->q(
 			"UPDATE `$this->table`
 			SET
@@ -197,6 +197,31 @@ class Goods {
 			$driver,
 			(int)$id,
 			TIME
+		);
+		return $this->db_prime()->affected() == 1;
+	}
+	/**
+	 * Cancel reservation
+	 *
+	 * @param int	$id
+	 * @param int	$driver
+	 *
+	 * @return bool
+	 */
+	function del_reservation ($id, $driver) {
+		$this->db_prime()->q(
+			"UPDATE `$this->table`
+			SET
+				`reserved`			= 0,
+				`reserved_driver`	= 0
+			WHERE
+				`id`				= '%s' AND
+				`reserved`			>= '%s' AND
+				`reserved_driver`	= '%s'
+			LIMIT 1",
+			(int)$id,
+			TIME,
+			$driver
 		);
 		return $this->db_prime()->affected() == 1;
 	}
