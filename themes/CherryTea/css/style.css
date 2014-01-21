@@ -444,7 +444,7 @@ body > header {
   body > header ul {
     display: block;
     list-style: none;
-    margin: 70px auto 35px;
+    margin: 70px auto 0;
     text-align: center; }
     body > header ul li {
       color: #ff7f7f;

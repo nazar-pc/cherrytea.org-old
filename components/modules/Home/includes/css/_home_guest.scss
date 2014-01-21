@@ -6,99 +6,78 @@
  * @license		MIT License, see license.txt
  */
 .home-page > article {
-	> h2 {
-		margin : -45px 0 40px;
-	}
-
 	.home-page-sign-in {
+		display  : inline-block;
 		height   : 145px;
-		margin   : 0 auto;
+		left     : 0;
+		margin   : 0 318px;
 		position : relative;
-		width    : 800px;
+		top      : 0;
+		width    : 364px;
 
-		> div {
-			display  : inline-block;
-			height   : 145px;
-			left     : 0;
-			position : absolute;
-			top      : 0;
-			width    : 364px;
-
-			h2 {
-				font-size  : 24px;
-				text-align : center;
-			}
-
-			a {
-				background    : #4C7EBA;
-				border-radius : 5px;
-				color         : #FFFFFF;
-				display       : block;
-				margin        : 10px 0px 10px 25px;
-				padding       : 10px 20px 10px 65px;
-				position      : relative;
-				width         : 310px;
-
-				span {
-					color          : rgba(255, 255, 255, 0.506);
-					float          : left;
-					font-size      : 30px;
-					left           : 20px;
-					position       : absolute;
-					top            : 0px;
-					vertical-align : middle;
-				}
-			}
-
-			a:last-child {
-				background : #4d8eb2;
-				display    : block;
-
-				span {
-					left : 10px;
-				}
-			}
-
-			a:before {
-				border-left  : 1px solid rgba(0, 0, 0, .2);
-				border-right : 1px solid rgba(255, 255, 255, .2);
-				content      : '';
-				display      : block;
-				height       : 30px;
-				left         : 50px;
-				position     : absolute;
-				top          : 8px;
-				width        : 0px;
-			}
-		}
-
-		> div:before {
-			background    : url(../img/have-goods.png);
-			content       : '';
+		a {
+			background    : #4C7EBA;
+			border-radius : 5px;
+			color         : #FFFFFF;
 			display       : block;
-			height        : inherit;
-			margin-bottom : -180px;
-			width         : inherit;
+			margin        : 10px 0px 10px 25px;
+			padding       : 10px 20px 10px 65px;
+			width         : 310px;
+
+			span {
+				color          : rgba(255, 255, 255, 0.506);
+				float          : left;
+				font-size      : 30px;
+				left           : 45px;
+				position       : absolute;
+				top            : 11px;
+				vertical-align : middle;
+			}
 		}
 
-		> div:last-child {
-			left  : auto;
-			right : 0;
+		a:before {
+			border-left  : 1px solid rgba(0, 0, 0, .2);
+			border-right : 1px solid rgba(255, 255, 255, .2);
+			content      : '';
+			display      : block;
+			height       : 30px;
+			left         : 75px;
+			position     : absolute;
+			top          : 17px;
+			width        : 0px;
 		}
 
-		> div:last-child:before {
-			background : url(../img/have-car.png);
+		.vk {
+			background : #4d8eb2;
+
+			span {
+				left : 35px;
+				top  : 63px;
+			}
+		}
+
+		.vk:before {
+			top : 78px;
 		}
 	}
 
 	.home-page-sign-in:before {
+		background    : url(../img/have-goods.png);
+		content       : '';
+		display       : block;
+		height        : inherit;
+		margin-bottom : -145px;
+		width         : inherit;
+	}
+
+	.home-page-sign-in:after {
 		background : #fcfcfc;
 		content    : '';
 		display    : block;
 		height     : 289px;
 		left       : -2000px;
 		position   : absolute;
-		top        : -84px;
+		top        : -69px;
 		width      : 4000px;
 		z-index    : -1;
 	}
