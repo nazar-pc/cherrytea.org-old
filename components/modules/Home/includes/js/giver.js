@@ -70,7 +70,7 @@
         map.geoObjects.add(me);
         me.events.add('geometrychange', function(e) {
           var coords;
-          coords = cs.json_encode(e.get('originalEvent').originalEvent.newPosition);
+          coords = cs.json_encode(e.get('originalEvent').originalEvent.newCoordinates);
           return coordinates.val(coords);
         });
         if (navigator.geolocation) {

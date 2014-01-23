@@ -97,7 +97,7 @@ $ ->
 			me.events.add(
 				'geometrychange',
 				(e) ->
-					coords	= cs.json_encode(e.get('originalEvent').originalEvent.newPosition)
+					coords	= cs.json_encode(e.get('originalEvent').originalEvent.newCoordinates)
 					coordinates.val(coords)
 			)
 			if navigator.geolocation
