@@ -6,101 +6,65 @@
  * @license		MIT License, see license.txt
  */
 .home-page > article {
-	> h2 {
-		margin : -45px 0 40px;
-	}
-
 	.home-page-sign-in {
-		height   : 145px;
+		display  : block;
+		height   : 70px;
+		left     : 0;
 		margin   : 0 auto;
 		position : relative;
-		width    : 800px;
+		top      : 0;
+		width    : 690px;
 
-		> div {
-			display  : inline-block;
-			height   : 145px;
-			left     : 0;
-			position : absolute;
-			top      : 0;
-			width    : 364px;
+		&:before {
+			background : #fcfcfc;
+			content    : '';
+			display    : block;
+			height     : 179px;
+			left       : -2000px;
+			position   : absolute;
+			top        : -69px;
+			width      : 4000px;
+			z-index    : -1;
+		}
 
-			h2 {
-				font-size  : 24px;
-				text-align : center;
-			}
+		a {
+			background    : #4C7EBA;
+			border-radius : 5px;
+			color         : #FFFFFF;
+			display       : inline-block;
+			margin        : 10px 0px 10px 25px;
+			padding       : 10px 20px 10px 65px;
+			position      : relative;
+			width         : 310px;
 
-			a {
-				background    : #4C7EBA;
-				border-radius : 5px;
-				color         : #FFFFFF;
-				display       : block;
-				margin        : 10px 0px 10px 25px;
-				padding       : 10px 20px 10px 65px;
-				position      : relative;
-				width         : 310px;
-
-				span {
-					color          : rgba(255, 255, 255, 0.506);
-					float          : left;
-					font-size      : 30px;
-					left           : 20px;
-					position       : absolute;
-					top            : 0px;
-					vertical-align : middle;
-				}
-			}
-
-			a:last-child {
-				background : #4d8eb2;
-				display    : block;
-
-				span {
-					left : 10px;
-				}
-			}
-
-			a:before {
+			&:before {
 				border-left  : 1px solid rgba(0, 0, 0, .2);
 				border-right : 1px solid rgba(255, 255, 255, .2);
 				content      : '';
 				display      : block;
 				height       : 30px;
-				left         : 50px;
+				left         : 53px;
 				position     : absolute;
-				top          : 8px;
-				width        : 0px;
+				top          : 9px;
+				width        : 0;
+			}
+
+			span {
+				color          : rgba(255, 255, 255, 0.506);
+				display        : inline-block;
+				font-size      : 30px;
+				left           : 10px;
+				position       : absolute;
+				text-align     : center;
+				top            : 2px;
+				vertical-align : middle;
+				width          : 35px;
 			}
 		}
 
-		> div:before {
-			background    : url(../img/have-goods.png);
-			content       : '';
-			display       : block;
-			height        : inherit;
-			margin-bottom : -180px;
-			width         : inherit;
+		.vk {
+			background : #4d8eb2;
 		}
-
-		> div:last-child {
-			left  : auto;
-			right : 0;
-		}
-
-		> div:last-child:before {
-			background : url(../img/have-car.png);
-		}
-	}
-
-	.home-page-sign-in:before {
-		background : #fcfcfc;
-		content    : '';
-		display    : block;
-		height     : 289px;
-		left       : -2000px;
-		position   : absolute;
-		top        : -84px;
-		width      : 4000px;
-		z-index    : -1;
 	}
 
 	#guest-map {

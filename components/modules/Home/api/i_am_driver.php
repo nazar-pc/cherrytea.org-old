@@ -7,7 +7,7 @@
  * @license		MIT License, see license.txt
  */
 use	cs\User;
-$User	= User::instance();
+$User	= User::instance();//TODO needs change of modifying for united interface
 if ($User->user()) {
 	error_code(403);
 	return;

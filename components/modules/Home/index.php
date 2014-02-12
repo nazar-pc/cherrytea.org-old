@@ -20,27 +20,13 @@ if ($User->guest()) {
 		h::{'section.home-page article'}(
 			h::{'h2.cs-center'}('Вхід на сайт').
 			h::{'div.home-page-sign-in'}(
-				h::div(
-					h::h2('У мене є речі').
-					h::{'a.fb'}(
-						h::icon('facebook').
-						'Увійти через Facebook'
-					).
-					h::{'a.vk'}(
-						h::icon('vk').
-						'Увійти через VK'
-					)
+				h::{'a.fb'}(
+					h::icon('facebook').
+					'Увійти через Facebook'
 				).
-				h::div(
-					h::h2('У мене є авто').
-					h::{'a.fb.driver'}(
-						h::icon('facebook').
-						'Увійти через Facebook'
-					).
-					h::{'a.vk.driver'}(
-						h::icon('vk').
-						'Увійти через VK'
-					)
+				h::{'a.vk'}(
+					h::icon('vk').
+					'Увійти через VK'
 				)
 			).
 			/*'<p>В кінці жовтня ми вирішили що можемо допомогти <a style="text-decoration: underline;" href="http://caritas-ua.org" target="_blank">Caritas Ukraine</a> у Києві і зібрати для їх підопічних теплі речі, чай в пакетиках та печиво.</p>
