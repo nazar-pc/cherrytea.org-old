@@ -75,63 +75,54 @@
  * @license		MIT License, see license.txt
  */
 .home-page > article .home-page-sign-in {
-  display: inline-block;
-  height: 145px;
+  display: block;
+  height: 70px;
   left: 0;
-  margin: 0 318px;
+  margin: 0 auto;
   position: relative;
   top: 0;
-  width: 364px; }
+  width: 690px; }
+  .home-page > article .home-page-sign-in:before {
+    background: #fcfcfc;
+    content: '';
+    display: block;
+    height: 179px;
+    left: -2000px;
+    position: absolute;
+    top: -69px;
+    width: 4000px;
+    z-index: -1; }
   .home-page > article .home-page-sign-in a {
     background: #4C7EBA;
     border-radius: 5px;
     color: #FFFFFF;
-    display: block;
+    display: inline-block;
     margin: 10px 0px 10px 25px;
     padding: 10px 20px 10px 65px;
+    position: relative;
     width: 310px; }
+    .home-page > article .home-page-sign-in a:before {
+      border-left: 1px solid rgba(0, 0, 0, 0.2);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      content: '';
+      display: block;
+      height: 30px;
+      left: 53px;
+      position: absolute;
+      top: 9px;
+      width: 0; }
     .home-page > article .home-page-sign-in a span {
       color: rgba(255, 255, 255, 0.506);
-      float: left;
+      display: inline-block;
       font-size: 30px;
-      left: 45px;
+      left: 10px;
       position: absolute;
-      top: 11px;
-      vertical-align: middle; }
-  .home-page > article .home-page-sign-in a:before {
-    border-left: 1px solid rgba(0, 0, 0, 0.2);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    content: '';
-    display: block;
-    height: 30px;
-    left: 75px;
-    position: absolute;
-    top: 17px;
-    width: 0px; }
+      text-align: center;
+      top: 2px;
+      vertical-align: middle;
+      width: 35px; }
   .home-page > article .home-page-sign-in .vk {
     background: #4d8eb2; }
-    .home-page > article .home-page-sign-in .vk span {
-      left: 35px;
-      top: 63px; }
-  .home-page > article .home-page-sign-in .vk:before {
-    top: 78px; }
-.home-page > article .home-page-sign-in:before {
-  background: url(../img/have-goods.png);
-  content: '';
-  display: block;
-  height: inherit;
-  margin-bottom: -145px;
-  width: inherit; }
-.home-page > article .home-page-sign-in:after {
-  background: #fcfcfc;
-  content: '';
-  display: block;
-  height: 289px;
-  left: -2000px;
-  position: absolute;
-  top: -69px;
-  width: 4000px;
-  z-index: -1; }
 .home-page > article #guest-map {
   height: 500px;
   margin: 20px auto 0 auto;

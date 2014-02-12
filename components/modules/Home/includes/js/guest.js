@@ -14,25 +14,7 @@
   $(function() {
     var guest_map;
     $('.home-page-sign-in a').click(function() {
-      var $this, provider;
-      $this = $(this);
-      provider = $this.hasClass('fb') ? 'Facebook' : 'Vkontakte';
-      return $.ajax({
-        url: 'api/Home/i_am_driver',
-        data: {
-          driver: $this.hasClass('driver') ? 1 : 0
-        },
-        success: function() {
-          return location.href = 'HybridAuth/' + provider;
-        },
-        error: function(xhr) {
-          if (xhr.responseText) {
-            return alert(cs.json_decode(xhr.responseText).error_description);
-          } else {
-            return alert(L.auth_connection_error);
-          }
-        }
-      });
+      return location.href = 'HybridAuth/' + ($(this).hasClass('fb') ? 'Facebook' : 'Vkontakte');
     });
     guest_map = $('#guest-map');
     if (!guest_map.length) {
