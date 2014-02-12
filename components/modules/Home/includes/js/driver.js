@@ -73,7 +73,7 @@
       };
       add_destination();
       find_goods = function() {
-        $.ajax({
+        return $.ajax({
           url: 'api/Home/find_goods',
           data: {
             date: container.find('input[name=date]').val(),
@@ -94,7 +94,7 @@
                 lat = [Math.min(lat[0], good.lat), Math.max(lat[0], good.lat)];
                 lng = [Math.min(lng[0], good.lng), Math.max(lng[0], good.lng)];
                 icon_number = Math.round(Math.random() * 11);
-                reservation = driver_id === parseInt(good.reserved_driver, 10) ? "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\" disabled>Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
+                reservation = driver_id === parseInt(good.reserved_driver, 10) && good.reserved > (new Date).getTime() / 1000 ? "<button class=\"reserved uk-button\" data-id=\"" + good.id + "\">Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
                 admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
                 _results.push(map.geoObjects.add(new ymaps.Placemark([good.lat, good.lng], {
                   hintContent: good.username + ' ' + good.phone
@@ -111,29 +111,52 @@
             }
           }
         });
-        return container.on('click', '.reservation', function() {
-          var reservation;
-          reservation = $(this);
-          return $.ajax({
-            url: 'api/Home/reservation',
-            data: {
-              id: reservation.data('id')
-            },
-            success: function() {
-              reservation.html('Зарезервовано').prop('disabled', true);
-              alert('Прийнято! Дякуємо та чекаємо вашого приїзду!');
-              return find_goods();
-            },
-            error: function(xhr) {
-              if (xhr.responseText) {
-                return alert(cs.json_decode(xhr.responseText).error_description);
-              } else {
-                return alert(L.auth_connection_error);
-              }
-            }
-          });
-        });
       };
+      container.on('click', '.reservation', function() {
+        var reservation;
+        reservation = $(this);
+        return $.ajax({
+          url: 'api/Home/reservation',
+          type: 'post',
+          data: {
+            id: reservation.data('id')
+          },
+          success: function() {
+            reservation.html('Зарезервовано').removeClass('reservation').addClass('reserved');
+            alert('Зарезервовано! Дякуємо та чекаємо вашого приїзду!');
+            return find_goods();
+          },
+          error: function(xhr) {
+            if (xhr.responseText) {
+              return alert(cs.json_decode(xhr.responseText).error_description);
+            } else {
+              return alert(L.auth_connection_error);
+            }
+          }
+        });
+      }).on('click', '.reserved', function() {
+        var reserved;
+        reserved = $(this);
+        return $.ajax({
+          url: 'api/Home/reservation',
+          type: 'delete',
+          data: {
+            id: reserved.data('id')
+          },
+          success: function() {
+            reserved.html('Заберу за 24 години').removeClass('reserved').addClass('reservation');
+            alert('Резерв скасовано! Дякуємо що попередили!');
+            return find_goods();
+          },
+          error: function(xhr) {
+            if (xhr.responseText) {
+              return alert(cs.json_decode(xhr.responseText).error_description);
+            } else {
+              return alert(L.auth_connection_error);
+            }
+          }
+        });
+      });
       find_goods();
       search_timeout = 0;
       container.on('keyup change', '[name=date], [name=time], .home-page-map-switcher.driver input', function() {
