@@ -75,7 +75,7 @@ if ($User->guest()) {
 						'17:00 - 22:00'
 					)
 				).
-				h::{'div#driver-map[level=0]'}()
+				h::{'div#map[level=0]'}()
 			]).
 			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
 		)
@@ -147,7 +147,7 @@ if ($User->guest()) {
 					'in'		=> ['Карта', 'Мої речі'],
 					'checked'	=> 'map'
 				]).
-				h::{'div#guest-map'}()
+				h::{'div#map'}()
 			)
 		);
 		return;
@@ -171,7 +171,7 @@ if ($User->guest()) {
 			h::{'input[type=hidden][name=coordinates][required]'}([
 				'value'			=> isset($_POST['coordinates']) ? $_POST['coordinates'] : (is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]')
 			]).
-			h::{'div#giver-map[level=0]'}().
+			h::{'div#map[level=0]'}().
 			h::label(
 				h::icon('calendar').
 				h::{'input[name=date][required]'}([

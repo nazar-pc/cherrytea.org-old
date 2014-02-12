@@ -28,36 +28,12 @@
       });
       coordinates = container.find('[name=coordinates]');
       ymaps.ready(function() {
-        var add_destination, address_timeout, icon_number, map, me;
+        var address_timeout, icon_number, map, me;
         map = new ymaps.Map('giver-map', {
           center: cs.json_decode(coordinates.val()),
           zoom: 13,
           controls: ['zoomControl']
         });
-        document.querySelector('#giver-map').close_balloon = function() {
-          return map.balloon.close();
-        };
-        add_destination = function() {
-          map.geoObjects.add(new ymaps.Placemark([50.487124, 30.596273], {
-            hintContent: 'Благодійний фонд Карітас-Київ'
-          }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/components/modules/Home/includes/img/destination.png',
-            iconImageSize: [60, 58],
-            iconImageOffset: [-24, -58],
-            balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>Благодійний фонд Карітас-Київ</h1> <a class=\"uk-close\" onclick=\"$('#giver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>вулиця Івана Микитенка, 7б</address>\n		<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>\n	</article>\n</section>")
-          }));
-          return map.geoObjects.add(new ymaps.Placemark([50.461404, 30.519216], {
-            hintContent: 'Книжковий магазин Свічадо'
-          }, {
-            iconLayout: 'default#image',
-            iconImageHref: '/components/modules/Home/includes/img/destination.png',
-            iconImageSize: [60, 58],
-            iconImageOffset: [-24, -58],
-            balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>Книжковий магазин Свічадо</h1> <a class=\"uk-close\" onclick=\"$('#giver-map').get(0).close_balloon()\"></a></header>\n	<article>\n		<address>вулиця Покровська, 6</address>\n		<time>Будні: з 10:00 до 17:00</time>\n	</article>\n</section>")
-          }));
-        };
-        add_destination();
         icon_number = Math.round(Math.random() * 11);
         me = new ymaps.Placemark(cs.json_decode(coordinates.val()), {}, {
           draggable: true,

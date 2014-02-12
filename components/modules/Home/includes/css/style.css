@@ -123,10 +123,6 @@
       width: 35px; }
   .home-page > article .home-page-sign-in .vk {
     background: #4d8eb2; }
-.home-page > article #guest-map {
-  height: 500px;
-  margin: 20px auto 0 auto;
-  width: 1100px; }
 
 /**
  * @package		Home
@@ -218,10 +214,6 @@
     margin: 0 -30px 0 12px;
     position: relative;
     z-index: 100; }
-  .home-page article .home-page-filter #driver-map {
-    height: 500px;
-    margin: 20px auto 0 auto;
-    width: 1000px; }
 
 /**
  * @package		Home
@@ -230,6 +222,11 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
+#map {
+  height: 500px;
+  margin: 20px auto 0 auto;
+  width: 1000px; }
+
 .home-page-map-balloon-container {
   background: #fff;
   border-radius: 5px;
