@@ -369,12 +369,14 @@ a {
  * @license		MIT License, see license.txt
  */
 html {
-  font-size: 18px; }
+  font-size: 18px;
+  height: 100%; }
 
 body {
   color: #5e5e5e;
   font-family: "Open Sans", "Open Sans Embedded", Tahoma, Verdana, sans-serif;
   font-size: 18px;
+  height: 100%;
   margin: 0;
   overflow-x: hidden;
   padding: 0;
@@ -382,8 +384,10 @@ body {
   body > section,
   body > form,
   body > p {
+    margin: 0 auto;
     width: 1000px;
-    margin: 20px auto; }
+    padding: 138px 0 128px;
+    min-height: 100%; }
   body.HybridAuth form {
     padding: 0;
     width: 500px; }
@@ -410,7 +414,7 @@ body {
  */
 body > header {
   color: #ffffff;
-  margin: 0 auto;
+  margin: 0 auto -138px;
   padding: 10px 75px 30px;
   width: 1100px; }
   body > header:before {
@@ -504,9 +508,8 @@ body.guest > header:before {
 body > footer {
   background: #3c3c3c;
   color: #ffffff;
-  margin: 20px auto 0 auto;
+  margin: -128px auto 0;
   padding: 15px 75px;
-  position: relative;
   width: 1100px; }
   body > footer:before {
     background: #3c3c3c;
@@ -515,9 +518,10 @@ body > footer {
     display: block;
     height: 128px;
     left: -2500px;
-    position: absolute;
+    position: relative;
     width: 5000px;
-    z-index: -2; }
+    z-index: -2;
+    margin: -15px 0 -113px; }
   body > footer > a {
     background: url(../img/logo-footer.png) no-repeat;
     display: inline-block;
@@ -527,7 +531,6 @@ body > footer {
   body > footer nav {
     display: inline-block;
     margin-right: -442px;
-    position: absolute;
     right: 50%;
     top: 55px; }
     body > footer nav a {

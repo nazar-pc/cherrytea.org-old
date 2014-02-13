@@ -7,7 +7,7 @@
  */
 .home-page article > {
 	header {
-		margin-bottom : 40px;
+		padding : 20px 0;
 
 		.avatar {
 			background-size : cover !important;
@@ -69,6 +69,7 @@
 .home-page-map-switcher {
 	display    : block;
 	text-align : center;
+	padding : 20px 0;
 
 	> span {
 		background    : #FF7F7F;

@@ -8,6 +8,7 @@
 @import "common_config";
 html {
 	font-size : $base-font-size;
+	height    : 100%;
 }
 //Whole body
 body {
@@ -16,6 +17,7 @@ body {
 		family : $base-font-family;
 		size   : $base-font-size;
 	}
+	height     : 100%;
 	margin     : 0;
 	overflow-x : hidden;
 	padding    : 0;
@@ -24,8 +26,10 @@ body {
 	> section,
 	> form,
 	> p {
-		width  : 1000px;
-		margin : 20px auto;
+		margin  : -0 auto;
+		width   : 1000px;
+		padding : 138px 0 128px;
+		min-height : 100%;
 	}
 
 	&.HybridAuth form {

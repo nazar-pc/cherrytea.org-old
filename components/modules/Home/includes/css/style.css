@@ -13,7 +13,7 @@
  * @license		MIT License, see license.txt
  */
 .home-page article > header {
-  margin-bottom: 40px; }
+  padding: 20px 0; }
   .home-page article > header .avatar {
     background-size: cover !important;
     border-radius: 140px;
@@ -57,7 +57,8 @@
 
 .home-page-map-switcher {
   display: block;
-  text-align: center; }
+  text-align: center;
+  padding: 20px 0; }
   .home-page-map-switcher > span {
     background: #FF7F7F;
     border: 1px solid #ff7f7f;
@@ -190,7 +191,7 @@
  * @license		MIT License, see license.txt
  */
 .home-page article .home-page-filter {
-  margin: 15px auto 0;
+  margin: auto 0;
   width: 1000px; }
   .home-page article .home-page-filter .uk-button-dropdown > button {
     background: #fff;
