@@ -12,16 +12,10 @@
 (function() {
 
   $(function() {
-    var container, driver_map;
-    driver_map = $('#driver-map');
-    if (!driver_map.length) {
+    var container;
+    if (!$('#map').length) {
       return;
     }
-    (function(w) {
-      return driver_map.width(w).css({
-        marginLeft: 500 - w / 2
-      });
-    })($(window).width());
     container = $('.home-page-filter');
     container.find('input[name=date]').pickmeup({
       format: 'd.m.Y',
@@ -33,7 +27,7 @@
       return container.find('[name=time]').val($(this).text()).change();
     });
     return ymaps.ready(function() {
-      var find_goods, search_timeout;
+      var clusterer, find_goods, search_timeout;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           return map.panTo([position.coords.latitude, position.coords.longitude]);
@@ -42,6 +36,8 @@
           timeout: 30 * 60 * 1000
         });
       }
+      clusterer = new ymaps.Clusterer();
+      map.geoObjects.add(clusterer);
       find_goods = function() {
         return $.ajax({
           url: 'api/Home/find_goods',
@@ -52,12 +48,11 @@
           },
           type: 'get',
           success: function(result) {
-            var admin, good, icon_number, lat, lng, reservation, _i, _len, _results;
-            map.geoObjects.removeAll();
+            var admin, good, icon_number, lat, lng, placemarks, reservation, _i, _len;
             if (result && result.length) {
               lat = [0, 0];
               lng = [0, 0];
-              _results = [];
+              placemarks = [];
               for (_i = 0, _len = result.length; _i < _len; _i++) {
                 good = result[_i];
                 lat = [Math.min(lat[0], good.lat), Math.max(lat[0], good.lat)];
@@ -65,7 +60,7 @@
                 icon_number = Math.round(Math.random() * 11);
                 reservation = driver_id === parseInt(good.reserved_driver, 10) && good.reserved > (new Date).getTime() / 1000 ? "<button class=\"reserved uk-button\" data-id=\"" + good.id + "\">Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
                 admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
-                _results.push(map.geoObjects.add(new ymaps.Placemark([good.lat, good.lng], {
+                placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
                   hintContent: good.username + ' ' + good.phone
                 }, {
                   iconLayout: 'default#image',
@@ -74,9 +69,10 @@
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
                   balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>")
-                })));
+                }));
               }
-              return _results;
+              clusterer.removeAll();
+              return clusterer.add(placemarks);
             }
           }
         });

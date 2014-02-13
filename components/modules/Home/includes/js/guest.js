@@ -12,21 +12,14 @@
 (function() {
 
   $(function() {
-    var guest_map;
+    if (!$('#map').length) {
+      return;
+    }
     $('.home-page-sign-in a').click(function() {
       return location.href = 'HybridAuth/' + ($(this).hasClass('fb') ? 'Facebook' : 'Vkontakte');
     });
-    guest_map = $('#guest-map');
-    if (!guest_map.length) {
-      return;
-    }
-    (function(w) {
-      return guest_map.width(w).css({
-        marginLeft: guest_map.parent().outerWidth() / 2 - w / 2
-      });
-    })($(window).width());
     return ymaps.ready(function() {
-      var find_goods;
+      var clusterer, find_goods;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           return map.panTo([position.coords.latitude, position.coords.longitude]);
@@ -35,32 +28,33 @@
           timeout: 30 * 60 * 1000
         });
       }
+      clusterer = new ymaps.Clusterer();
+      map.geoObjects.add(clusterer);
       find_goods = function() {
         return $.ajax({
           url: 'api/Home/find_goods',
           type: 'get',
           success: function(result) {
-            var good, icon_number, lat, lng, _i, _len, _results;
-            map.geoObjects.removeAll();
-            add_destination();
+            var good, icon_number, lat, lng, placemarks, _i, _len;
             if (result && result.length) {
               lat = [0, 0];
               lng = [0, 0];
-              _results = [];
+              placemarks = [];
               for (_i = 0, _len = result.length; _i < _len; _i++) {
                 good = result[_i];
                 lat = [Math.min(lat[0], good.lat), Math.max(lat[0], good.lat)];
                 lng = [Math.min(lng[0], good.lng), Math.max(lng[0], good.lng)];
                 icon_number = Math.round(Math.random() * 11);
-                _results.push(map.geoObjects.add(new ymaps.Placemark([good.lat, good.lng], {}, {
+                placemarks.push(new ymaps.Placemark([good.lat, good.lng], {}, {
                   iconLayout: 'default#image',
                   iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
                   iconImageSize: [60, 58],
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
-                })));
+                }));
               }
-              return _results;
+              clusterer.removeAll();
+              return clusterer.add(placemarks);
             }
           }
         });

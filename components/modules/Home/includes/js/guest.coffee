@@ -6,17 +6,10 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
+	if !$('#map').length
+		return
 	$('.home-page-sign-in a').click ->
 		location.href	= 'HybridAuth/' + (if $(@).hasClass('fb') then 'Facebook' else 'Vkontakte')
-	guest_map	= $('#guest-map')
-	if !guest_map.length
-		return
-	do (w = $(window).width()) ->
-		guest_map
-			.width(w)
-			.css(
-				marginLeft	: guest_map.parent().outerWidth() / 2 - w / 2
-			)
 	ymaps.ready ->
 		if navigator.geolocation
 			navigator.geolocation.getCurrentPosition(
@@ -28,16 +21,17 @@ $ ->
 					timeout				: 30 * 60 * 1000	#Wait for 30 minutes max
 				}
 			)
+		clusterer	= new ymaps.Clusterer()
+		map.geoObjects.add(clusterer)
 		find_goods	= ->
 			$.ajax(
 				url		: 'api/Home/find_goods'
 				type	: 'get'
 				success	: (result) ->
-					map.geoObjects.removeAll()
-					add_destination()
 					if result && result.length
-						lat	= [0, 0]
-						lng	= [0, 0]
+						lat			= [0, 0]
+						lng			= [0, 0]
+						placemarks	= []
 						for good in result
 							lat	= [
 								Math.min(lat[0], good.lat),
@@ -48,7 +42,7 @@ $ ->
 								Math.max(lng[0], good.lng)
 							]
 							icon_number	= Math.round(Math.random() * 11)
-							map.geoObjects.add(
+							placemarks.push(
 								new ymaps.Placemark(
 									[
 										good.lat
@@ -64,5 +58,7 @@ $ ->
 									}
 								)
 							)
+						clusterer.removeAll()
+						clusterer.add(placemarks)
 			)
 		find_goods()

@@ -6,15 +6,8 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
-	driver_map	= $('#driver-map')
-	if !driver_map.length
+	if !$('#map').length
 		return
-	do (w = $(window).width()) ->
-		driver_map
-			.width(w)
-			.css(
-				marginLeft	: 500 - w / 2
-			)
 	container	= $('.home-page-filter')
 	container.find('input[name=date]')
 		.pickmeup(
@@ -45,6 +38,8 @@ $ ->
 					timeout				: 30 * 60 * 1000	#Wait for 30 minutes max
 				}
 			)
+		clusterer	= new ymaps.Clusterer()
+		map.geoObjects.add(clusterer)
 		find_goods	= ->
 			$.ajax(
 				url		: 'api/Home/find_goods'
@@ -54,10 +49,10 @@ $ ->
 					reserved	: if $('.home-page-map-switcher.driver .uk-active input').val() == 'reserved_goods' then 1 else 0
 				type	: 'get'
 				success	: (result) ->
-					map.geoObjects.removeAll()
 					if result && result.length
-						lat	= [0, 0]
-						lng	= [0, 0]
+						lat			= [0, 0]
+						lng			= [0, 0]
+						placemarks	= []
 						for good in result
 							lat	= [
 								Math.min(lat[0], good.lat),
@@ -78,7 +73,7 @@ $ ->
 									"""<span class="uk-icon-trash delete-good" data-id="#{good.id}"></span>"""
 								else
 									''
-							map.geoObjects.add(
+							placemarks.push(
 								new ymaps.Placemark(
 									[
 										good.lat
@@ -107,6 +102,8 @@ $ ->
 									}
 								)
 							)
+						clusterer.removeAll()
+						clusterer.add(placemarks)
 			)
 		container
 			.on(
