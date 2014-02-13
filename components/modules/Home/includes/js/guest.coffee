@@ -55,6 +55,7 @@ $ ->
 										iconImageSize		: [60, 58]
 										iconImageOffset		: [-24, -58]
 										iconImageClipRect	: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
+										iconImageShape		: map.icons_shape
 									}
 								)
 							)

@@ -32,6 +32,7 @@
         controls: ['geolocationControl', 'fullscreenControl', 'typeSelector', 'zoomControl']
       });
       map.behaviors.disable('scrollZoom');
+      map.icons_shape = new ymaps.shape.Polygon(new ymaps.geometry.pixel.Polygon([[[17 - 24, 0 - 58], [30 - 24, 0 - 58], [41 - 24, 7 - 58], [47 - 24, 18 - 58], [47 - 24, 29 - 58], [42 - 24, 38 - 58], [24 - 24, 57 - 58], [8 - 24, 42 - 58], [0 - 24, 30 - 58], [0 - 24, 18 - 58], [6 - 24, 7 - 58], [17 - 24, 0 - 58]]]));
       map.geoObjects.add(new ymaps.Placemark([50.487124, 30.596273], {
         hintContent: 'Благодійний фонд Карітас-Київ'
       }, {
@@ -39,6 +40,7 @@
         iconImageHref: '/components/modules/Home/includes/img/destination.png',
         iconImageSize: [60, 58],
         iconImageOffset: [-24, -58],
+        iconImageShape: map.icons_shape,
         balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Благодійний фонд Карітас-Київ</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вулиця Івана Микитенка, 7б</address>\n		<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>\n	</article>\n</section>")
       }));
       return map.geoObjects.add(new ymaps.Placemark([50.461404, 30.519216], {
@@ -48,6 +50,7 @@
         iconImageHref: '/components/modules/Home/includes/img/destination.png',
         iconImageSize: [60, 58],
         iconImageOffset: [-24, -58],
+        iconImageShape: map.icons_shape,
         balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Книжковий магазин Свічадо</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вулиця Покровська, 6</address>\n		<time>Будні: з 10:00 до 17:00</time>\n	</article>\n</section>")
       }));
     });

@@ -68,6 +68,7 @@
                   iconImageSize: [60, 58],
                   iconImageOffset: [-24, -58],
                   iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
+                  iconImageShape: map.icons_shape,
                   balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>")
                 }));
               }
