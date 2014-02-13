@@ -13,7 +13,7 @@ use			h,
 $Index			= Index::instance();
 $Index->buttons	= false;
 $User			= User::instance();
-$drivers		= Drivers::instance()->get_list();
+$drivers		= Volunteers::instance()->get_drivers();
 $Index->content(
 	h::{'table.admin-home-page.cs-table.cs-center-all'}(
 		h::{'thead tr th'}(

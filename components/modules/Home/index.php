@@ -13,8 +13,6 @@ use			h,
 			cs\User;
 $Page		= Page::instance();
 $User		= User::instance();
-$Drivers	= Drivers::instance();
-$driver		= $Drivers->get($User->id);
 if ($User->guest()) {
 	$Page->content(
 		h::{'section.home-page article'}(
@@ -32,8 +30,10 @@ if ($User->guest()) {
 			h::{'div#map'}()
 		)
 	);
-} elseif ($Drivers->active($User->id) || $User->admin()) {
-	$Page->js("var driver = ".$User->id, 'code');
+} else {
+	$Volunteers	= Volunteers::instance();
+	$driver		= $Volunteers->get($User->id);
+	$Page->js("var driver = $driver[id]", 'code');
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(
@@ -76,7 +76,7 @@ if ($User->guest()) {
 			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
 		)
 	);
-} elseif ($driver && $driver['active'] == '0') {
+} /*elseif ($driver && $driver['active'] == '0') {
 	$Page->warning('Ваш аккаунт водія заблоковано адміністратором');
 } elseif ($driver && $driver['active'] == '-1') {
 	$Page->success('Ваш аккаунт водія потребує активації адміністратором. Найближчим часом з вами зв’яжуться в соціальній мережі');
@@ -86,7 +86,7 @@ if ($User->guest()) {
 	$Index->form	= true;
 	$Index->buttons	= false;
 	$Goods			= Goods::instance();
-	$good			= $Goods->added_by_giver($User->id);
+	$good			= $Goods->added_by($User->id);
 	if (!$good && isset($_POST['name'])) {
 		if ($_POST['comment'] && $_POST['name'] && $_POST['phone'] && $_POST['address'] && $_POST['coordinates'] && $_POST['date'] && $_POST['time']) {
 			$Goods->add(
@@ -99,13 +99,13 @@ if ($User->guest()) {
 				$_POST['date'],
 				$_POST['time']
 			);
-			$good	= $Goods->added_by_giver($User->id);
+			$good	= $Goods->added_by($User->id);
 		} else {
 			$Page->warning('Всі поля обов’язкові для заповнення');
 		}
 	}
 	if ($good && isset($_POST['confirmation_code'])) {
-		if ($driver = Drivers::instance()->get_by_code($_POST['confirmation_code'])) {
+		if ($driver = Volunteers::instance()->get_driver_by_code($_POST['confirmation_code'])) {
 			$Goods->set_driver($good['id'], $driver['id']);
 			$good	= false;
 		} else {
@@ -120,7 +120,7 @@ if ($User->guest()) {
 		h::h2($User->username()).
 		h::p(
 			h::icon('heart').
-			h::b(Givers::instance()->get($User->id)['reputation'] ?: 0)
+			h::b(Volunteers::instance()->get($User->id)['reputation'] ?: 0)
 		)
 	);
 	if ($good) {
@@ -198,4 +198,4 @@ if ($User->guest()) {
 			h::{'p.cs-right button[type=submit]'}('Надіслати')
 		)
 	);
-}
+}*/

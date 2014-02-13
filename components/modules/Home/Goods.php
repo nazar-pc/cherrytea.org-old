@@ -149,8 +149,11 @@ class Goods {
 		}
 		$data['success']	= $success;
 		if ($this->update_simple($data)) {
-			Drivers::instance()->change_reputation($data['driver'], $success);
-			Givers::instance()->change_reputation($data['giver'], $success ?: .5);
+			$Volunteers	= Volunteers::instance();
+			$Volunteers->change_reputation($data['driver'], $success);
+			if ($data['driver'] != $data['giver']) {
+				$Volunteers->change_reputation($data['giver'], $success ?: .5);
+			}
 		}
 		return true;
 	}
@@ -161,7 +164,7 @@ class Goods {
 	 *
 	 * @return array|bool
 	 */
-	function added_by_giver ($giver) {
+	function added_by ($giver) {
 		return $this->get(
 			$this->db()->qfs([
 				"SELECT `id`

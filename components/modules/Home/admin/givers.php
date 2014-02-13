@@ -13,7 +13,7 @@ use			h,
 $Index			= Index::instance();
 $Index->buttons	= false;
 $User			= User::instance();
-$givers			= Givers::instance()->get_list();
+$givers			= Volunteers::instance()->get_givers();
 $Index->content(
 	h::{'table.admin-home-page.cs-table.cs-center-all'}(
 		h::{'thead tr th'}(

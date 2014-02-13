@@ -25,7 +25,7 @@ Trigger::instance()->register(
 		if ($User->get_data('driver') === false) {
 			$User->set_data('driver', $driver);
 			if ($driver) {
-				Drivers::instance()->add($User->id);
+				Volunteers::instance()->add($User->id);
 				Mail::instance()->send_to(
 					Config::instance()->core['admin_email'],
 					'На CherryTea.org новий водій!)',

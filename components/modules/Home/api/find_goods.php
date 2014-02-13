@@ -10,7 +10,7 @@ namespace	cs\modules\Home;
 use			cs\Page,
 			cs\User;
 $User		= User::instance();
-$Drivers	= Drivers::instance();
+$Volunteers	= Volunteers::instance();
 $Page		= Page::instance();
 $params		= [];
 if (isset($_GET['date']) && $_GET['date']) {
@@ -26,7 +26,7 @@ if (isset($_GET['reserved']) && $_GET['reserved']) {
 }
 $goods		= Goods::instance()->search($params, $User->id);
 if (
-	!$User->admin() && !$Drivers->active($User->id)
+	!$User->admin() && !$Volunteers->is_driver($User->id)
 ) {
 	foreach ($goods as &$good) {
 		$good	= [

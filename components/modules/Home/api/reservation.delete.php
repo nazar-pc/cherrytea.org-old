@@ -9,9 +9,9 @@
 namespace	cs\modules\Home;
 use			cs\User;
 $User		= User::instance();
-$Drivers	= Drivers::instance();
+$Volunteers	= Volunteers::instance();
 if (
-	!$User->admin() && !$Drivers->active($User->id)
+	!$User->admin() && !$Volunteers->is_driver($User->id)
 ) {
 	error_code(403);
 	return;

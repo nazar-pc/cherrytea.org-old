@@ -12,18 +12,18 @@ use			cs\User,
 			cs\Singleton;
 
 /**
- * @method static \cs\modules\Home\Drivers instance($check = false)
+ * @method static \cs\modules\Home\Volunteers instance($check = false)
  */
-class Drivers {
+class Volunteers {
 	use	CRUD,
 		Singleton;
 
-	protected $table		= '[prefix]drivers';
+	protected $table		= '[prefix]volunteers';
 	protected $data_model	= [
 		'id'			=> 'int',
 		'code'			=> 'text:6:',
 		'password'		=> 'text',
-		'active'		=> 'int:-1..1',
+		'driver'		=> 'text',
 		'reputation'	=> 'int'
 	];
 
@@ -47,7 +47,7 @@ class Drivers {
 	 *
 	 * @return array|bool
 	 */
-	function get_by_code ($code) {
+	function get_driver_by_code ($code) {
 		return $this->get(
 			$this->db()->qfs([
 				"SELECT `id`
@@ -90,40 +90,34 @@ class Drivers {
 	 *
 	 * @return bool
 	 */
-	function active ($user) {
-		$driver	= User::instance()->get_data('driver', $user) ? $this->get($user) : false;
-		return (bool)($driver && $driver['active'] === '1');
+	function is_driver ($user) {
+		$driver	= $this->get($user);
+		return (bool)($driver && $driver['active'] === 'yes');
 	}
 	/**
-	 * Activate driver
+	 * Set driver, allows to activate or deactivate driver, or send request for driver access
 	 *
-	 * @param int	$user
+	 * @param int		$user
+	 * @param string	$is_driver	unknown|requested|no|yes
 	 *
 	 * @return bool
 	 */
-	function activate ($user) {
+	function set_driver ($user, $is_driver) {
+		$user	= (int)$user;
+		switch ($is_driver) {
+			default:
+				$is_driver	= 'no';
+			break;
+			case 'unknown':
+			case 'requested':
+			case 'no':
+			case 'yes':
+		}
 		return $this->db_prime()->q(
 			"UPDATE `$this->table`
-			SET `active` = '1'
-			WHERE `id` = '%s'
-			LIMIT 1",
-			$user
-		);
-	}
-	/**
-	 * Deactivate driver
-	 *
-	 * @param int	$user
-	 *
-	 * @return bool
-	 */
-	function deactivate ($user) {
-		return $this->db_prime()->q(
-			"UPDATE `$this->table`
-			SET `active` = '0'
-			WHERE `id` = '%s'
-			LIMIT 1",
-			$user
+			SET `driver` = '$is_driver'
+			WHERE `id` = '$user'
+			LIMIT 1"
 		);
 	}
 	/**
@@ -152,7 +146,7 @@ class Drivers {
 	 *
 	 * @return bool
 	 */
-	function set_password ($user, $password) {
+	function set_driver_password ($user, $password) {
 		$password	= (int)$password;
 		return $this->db_prime()->q(
 			"UPDATE `$this->table`
@@ -168,7 +162,7 @@ class Drivers {
 	 *
 	 * @return array|bool|string
 	 */
-	function get_list () {
+	function get_drivers () {
 		return $this->db()->qfa(
 			"SELECT
 				`d`.*,
@@ -176,6 +170,7 @@ class Drivers {
 			FROM `$this->table` AS `d`
 			LEFT JOIN `[prefix]users_social_integration` AS `s`
 			ON `d`.`id` = `s`.`id`
+			WHERE `d`.`active_driver` = '1'
 			GROUP BY `d`.`id`
 			ORDER BY
 			 	(CASE WHEN (`d`.`active` = -1) THEN 2 ELSE `d`.`active` END) DESC,
