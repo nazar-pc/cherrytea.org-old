@@ -12,8 +12,8 @@
 (function() {
 
   $(function() {
-    var container, coordinates, giver_map, guest_map, my_goods;
-    giver_map = $('#giver-map');
+    var container, coordinates, giver_map;
+    giver_map = $('#add-good-map');
     if (giver_map.length) {
       container = $('.home-page-add-goods');
       container.find('[name=date]').pickmeup({
@@ -27,9 +27,9 @@
         return container.find('[name=time]').val($(this).text());
       });
       coordinates = container.find('[name=coordinates]');
-      ymaps.ready(function() {
+      return ymaps.ready(function() {
         var address_timeout, icon_number, map, me;
-        map = new ymaps.Map('giver-map', {
+        map = new ymaps.Map('add-good-map', {
           center: cs.json_decode(coordinates.val()),
           zoom: 13,
           controls: ['zoomControl']
@@ -81,17 +81,6 @@
         }
       });
     }
-    my_goods = $('.my-goods');
-    guest_map = $('#guest-map');
-    return $('.home-page-map-switcher.giver').click(function() {
-      if ($(this).find('.uk-active input').val() === 'map') {
-        my_goods.hide();
-        return guest_map.show();
-      } else {
-        guest_map.hide();
-        return my_goods.show();
-      }
-    });
   });
 
 }).call(this);

@@ -5,9 +5,9 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page {
+.home-page article {
 	.home-page-add-goods {
-		margin : 0 auto;
+		margin : 10px auto;
 		width  : 500px;
 
 		> header {
@@ -44,7 +44,7 @@
 
 		[name=date],
 		.uk-button-dropdown input {
-			padding-left : 27px !important;
+			padding-left : 30px !important;
 		}
 
 		[name=time] + * + * {
@@ -54,10 +54,14 @@
 		.uk-icon-calendar,
 		.uk-icon-time {
 			color    : #d7d7d7;
-			left     : 6px;
+			left     : 10px;
 			position : absolute;
 			top      : 15px;
 			z-index  : 100;
+		}
+
+		textarea {
+			width : 100%;
 		}
 
 		> button {
@@ -69,18 +73,48 @@
 			width : 400px;
 		}
 
-		#giver-map {
+		#add-good-map {
 			height : 500px;
 			width  : 500px;
 		}
 	}
 
-	.home-page-added-goods {
-		margin : 0 auto;
+	.home-page-filter {
+		margin : auto 0;
 		width  : 1000px;
 
+		.uk-button-dropdown > button {
+			background   : #fff;
+			border-color : #A4B4BB;
+			color        : inherit;
+		}
+
+		button,
 		input {
-			width : 200px !important;
+			height     : 41px;
+			min-width  : 200px;
+			padding    : 5px 16px 5px 28px !important;
+			text-align : left;
+		}
+
+		> button {
+			text-align : center;
+			width      : auto;
+		}
+
+		input {
+			width : auto !important;
+		}
+
+		.uk-dropdown-width-4 {
+			width : 400px;
+		}
+
+		[class*='uk-icon-'] {
+			color    : #d7d7d7;
+			margin   : 0 -30px 0 12px;
+			position : relative;
+			z-index  : 100;
 		}
 	}
 }

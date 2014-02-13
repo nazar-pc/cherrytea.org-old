@@ -385,9 +385,9 @@ body {
   body > form,
   body > p {
     margin: 0 auto;
-    width: 1000px;
+    min-height: 100%;
     padding: 138px 0 128px;
-    min-height: 100%; }
+    width: 1000px; }
   body.HybridAuth form {
     padding: 0;
     width: 500px; }
@@ -415,8 +415,8 @@ body {
 body > header {
   color: #ffffff;
   margin: 0 auto -138px;
-  padding: 10px 75px 30px;
-  width: 1100px; }
+  padding: 10px 0 30px;
+  width: 1000px; }
   body > header:before {
     background: #ff7f7f url(../img/header-bg.png);
     content: '';
@@ -435,7 +435,7 @@ body > header {
     padding: 33px 0 0 116px; }
   body > header nav {
     display: inline-block;
-    margin-right: -474px;
+    margin-right: -520px;
     position: absolute;
     right: 50%;
     top: 50px; }

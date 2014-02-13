@@ -6,7 +6,7 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
-	giver_map	= $('#giver-map')
+	giver_map	= $('#add-good-map')
 	if giver_map.length
 		container	= $('.home-page-add-goods')
 		container
@@ -29,7 +29,7 @@ $ ->
 									.val($(@).text())
 		coordinates	= container.find('[name=coordinates]')
 		ymaps.ready ->
-			map			= new ymaps.Map 'giver-map', {
+			map			= new ymaps.Map 'add-good-map', {
 				center		: cs.json_decode(coordinates.val())
 				zoom		: 13
 				controls	: ['zoomControl']
@@ -86,12 +86,3 @@ $ ->
 								), 300
 						)
 						.keyup()
-	my_goods	= $('.my-goods')
-	guest_map	= $('#guest-map')
-	$('.home-page-map-switcher.giver').click ->
-		if $(@).find('.uk-active input').val() == 'map'
-			my_goods.hide()
-			guest_map.show()
-		else
-			guest_map.hide()
-			my_goods.show()

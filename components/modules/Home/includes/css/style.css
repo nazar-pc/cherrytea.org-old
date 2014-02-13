@@ -132,64 +132,53 @@
  * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.home-page .home-page-add-goods {
-  margin: 0 auto;
+.home-page article .home-page-add-goods {
+  margin: 10px auto;
   width: 500px; }
-  .home-page .home-page-add-goods > header {
+  .home-page article .home-page-add-goods > header {
     margin-left: -250px;
     width: 1000px; }
-  .home-page .home-page-add-goods .uk-button-dropdown > button {
+  .home-page article .home-page-add-goods .uk-button-dropdown > button {
     background: #fff;
     border-color: #A4B4BB;
     color: inherit; }
-  .home-page .home-page-add-goods button,
-  .home-page .home-page-add-goods input {
+  .home-page article .home-page-add-goods button,
+  .home-page article .home-page-add-goods input {
     height: 41px;
     padding: 5px 16px !important;
     margin: 5px 0;
     text-align: left;
     width: inherit; }
-  .home-page .home-page-add-goods label,
-  .home-page .home-page-add-goods [name=date],
-  .home-page .home-page-add-goods .uk-button-dropdown input {
+  .home-page article .home-page-add-goods label,
+  .home-page article .home-page-add-goods [name=date],
+  .home-page article .home-page-add-goods .uk-button-dropdown input {
     display: inline-block;
     width: 247.5px; }
-  .home-page .home-page-add-goods label,
-  .home-page .home-page-add-goods .uk-button-dropdown {
+  .home-page article .home-page-add-goods label,
+  .home-page article .home-page-add-goods .uk-button-dropdown {
     position: relative; }
-  .home-page .home-page-add-goods [name=date],
-  .home-page .home-page-add-goods .uk-button-dropdown input {
-    padding-left: 27px !important; }
-  .home-page .home-page-add-goods [name=time] + * + * {
+  .home-page article .home-page-add-goods [name=date],
+  .home-page article .home-page-add-goods .uk-button-dropdown input {
+    padding-left: 30px !important; }
+  .home-page article .home-page-add-goods [name=time] + * + * {
     width: 242px; }
-  .home-page .home-page-add-goods .uk-icon-calendar,
-  .home-page .home-page-add-goods .uk-icon-time {
+  .home-page article .home-page-add-goods .uk-icon-calendar,
+  .home-page article .home-page-add-goods .uk-icon-time {
     color: #d7d7d7;
-    left: 6px;
+    left: 10px;
     position: absolute;
     top: 15px;
     z-index: 100; }
-  .home-page .home-page-add-goods > button {
+  .home-page article .home-page-add-goods textarea {
+    width: 100%; }
+  .home-page article .home-page-add-goods > button {
     text-align: center;
     width: auto; }
-  .home-page .home-page-add-goods .uk-dropdown-width-4 {
+  .home-page article .home-page-add-goods .uk-dropdown-width-4 {
     width: 400px; }
-  .home-page .home-page-add-goods #giver-map {
+  .home-page article .home-page-add-goods #add-good-map {
     height: 500px;
     width: 500px; }
-.home-page .home-page-added-goods {
-  margin: 0 auto;
-  width: 1000px; }
-  .home-page .home-page-added-goods input {
-    width: 200px !important; }
-
-/**
- * @package		Home
- * @category	modules
- * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
- * @license		MIT License, see license.txt
- */
 .home-page article .home-page-filter {
   margin: auto 0;
   width: 1000px; }

@@ -11,8 +11,8 @@ body {
 	> header {
 		color   : #ffffff;
 		margin  : 0 auto -138px;
-		padding : 10px 75px 30px;
-		width   : 1100px;
+		padding : 10px 0 30px;
+		width   : 1000px;
 
 		&:before {
 			background : #ff7f7f url(../img/header-bg.png);
@@ -36,7 +36,7 @@ body {
 
 		nav {
 			display      : inline-block;
-			margin-right : -474px;
+			margin-right : -520px;
 			position     : absolute;
 			right        : 50%;
 			top          : 50px;

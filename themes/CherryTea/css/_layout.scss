@@ -26,10 +26,10 @@ body {
 	> section,
 	> form,
 	> p {
-		margin  : -0 auto;
-		width   : 1000px;
-		padding : 138px 0 128px;
+		margin     : -0 auto;
 		min-height : 100%;
+		padding    : 138px 0 128px;
+		width      : 1000px;
 	}
 
 	&.HybridAuth form {

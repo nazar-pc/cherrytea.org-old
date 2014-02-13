@@ -32,8 +32,13 @@ if ($User->guest()) {
 	);
 } else {
 	$Volunteers	= Volunteers::instance();
-	$driver		= $Volunteers->get($User->id);
-	$Page->js("var driver = $driver[id]", 'code');
+	$volunteer	= $Volunteers->get($User->id);
+	if (!$volunteer) {
+		$Volunteers->add($User->id);
+		$volunteer	= $Volunteers->get($User->id);
+	}
+	$driver		= $Volunteers->is_driver($volunteer['id']) ? $volunteer['id'] : 0;
+	$Page->js("var driver = $driver", 'code');
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(
@@ -42,11 +47,58 @@ if ($User->guest()) {
 				]).
 				h::{'span.cs-header-sign-out-process'}('Вихід').
 				h::h2($User->username()).
-				h::p('Персональний код водія: '.h::b($driver['code'])).
+				($driver ? h::p('Персональний код водія: '.h::b($volunteer['code'])) : '').
 				h::p(
 					h::icon('heart').
-					h::b($driver['reputation'] ?: 0)
+					h::b($volunteer['reputation'])
 				)
+			).
+			h::{'div.home-page-add-goods'}(
+				h::{'h2.cs-center'}('В мене є речі').
+				h::{'input[name=name][required]'}([
+					'placeholder'	=> 'Ваше ім’я',
+					'value'			=> isset($_POST['name']) ? $_POST['name'] : ($User->username())
+				]).
+				h::{'input[name=phone][required]'}([
+					'placeholder'	=> 'Ваш номер телефону',
+					'value'			=> isset($_POST['phone']) ? $_POST['phone'] : ($User->get_data('phone') ?: '')
+				]).
+				h::{'input[name=address][required]'}([
+					'placeholder'	=> 'Ваша адреса',
+					'value'			=> isset($_POST['address']) ? $_POST['address'] : ($User->get_data('address') ?: '')
+				]).
+				h::{'input[type=hidden][name=coordinates][required]'}([
+					'value'			=> isset($_POST['coordinates']) ? $_POST['coordinates'] : (is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]')
+				]).
+				h::{'div#add-good-map[level=0]'}().
+				h::label(
+					h::icon('calendar').
+					h::{'input[name=date][required]'}([
+						'placeholder'	=> 'Дата (від і до)',
+						'value'			=> isset($_POST['date']) ? $_POST['date'] : ''
+					])
+				).
+				h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
+					h::icon('time').
+					h::{'input[name=time][required]'}([
+						'placeholder'	=> 'Зручний час (від і до)',
+						'value'			=> isset($_POST['time']) ? $_POST['time'] : ''
+					]).
+					h::{'div.uk-dropdown ul.uk-nav.uk-nav-dropdown li| a'}(
+						'08:00 - 10:00',
+						'10:00 - 12:00',
+						'12:00 - 15:00',
+						'15:00 - 17:00',
+						'17:00 - 22:00'
+					)
+				).
+				h::{'textarea[name=comment][rows=4][required]'}(
+					isset($_POST['comment']) ? $_POST['comment'] : '',
+					[
+						'placeholder'	=> 'Ваш коментар'
+					]
+				).
+				h::{'p.cs-right button[type=submit]'}('Надіслати')
 			).
 			h::{'div.home-page-map-switcher.driver input[type=radio]'}([
 				'value'		=> ['available_goods', 'reserved_goods'],
