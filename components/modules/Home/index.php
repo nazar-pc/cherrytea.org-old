@@ -136,6 +136,10 @@ if ($User->guest()) {
 						'15:00 - 17:00',
 						'17:00 - 22:00'
 					)
+				).
+				h::{'div.cs-home-page-legend'}(
+					h::{'span.red'}('Забрати речі').
+					h::{'span.blue'}('Пункти прийому')
 				)
 			]).
 			h::{'div#map[level=0]'}().

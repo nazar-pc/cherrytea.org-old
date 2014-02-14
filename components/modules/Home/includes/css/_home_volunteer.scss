@@ -135,6 +135,35 @@
 			position : relative;
 			z-index  : 100;
 		}
+
+		.cs-home-page-legend {
+			display     : inline-block;
+			margin-left : 45px;
+
+			.red,
+			.blue {
+				display : inline-block;
+
+				&:before {
+					background          : url(../img/legend.png) no-repeat;
+					background-position : 0 0;
+					content             : '';
+					display             : inline-block;
+					height              : 46px;
+					margin-right        : 5px;
+					vertical-align      : middle;
+					width               : 38px;
+				}
+			}
+
+			.blue {
+				margin-left : 20px;
+
+				&:before {
+					background-position : -38px 0;
+				}
+			}
+		}
 	}
 
 	.cs-home-page-my-goods aside {
