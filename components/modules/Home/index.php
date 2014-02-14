@@ -118,7 +118,7 @@ if ($User->guest()) {
 					$driver ? 'Зарезервовані' : false,
 					'Мої речі'
 				],
-				'checked'	=> 'all_goods'
+				'checked'	=> 'all'
 			]).
 			h::{'div.home-page-filter.uk-form'}([
 				h::icon('calendar').
