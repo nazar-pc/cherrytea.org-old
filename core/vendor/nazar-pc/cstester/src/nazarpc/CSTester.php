@@ -2,7 +2,7 @@
 /**
  * @package		CSTester
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	nazarpc;
@@ -324,7 +324,7 @@ class CSTester {
 				$content		.= "</article>\n";
 			}
 			$content	.=	"</section>".
-							"<footer>Powered by CleverStyle Tester<br>Copyright (c) 2013, Nazar Mokrynskyi</footer>";
+							"<footer>Powered by CleverStyle Tester<br>Copyright (c) 2013-2014, Nazar Mokrynskyi</footer>";
 			$content	= json_encode($content, JSON_UNESCAPED_UNICODE);
 			echo "<script>document.documentElement.innerHTML = $content;</script>";
 		/**
@@ -344,7 +344,7 @@ class CSTester {
 					}
 				}
 			}
-			echo	"\nPowered by CleverStyle Tester\nCopyright (c) 2013, Nazar Mokrynskyi\n";
+			echo	"\nPowered by CleverStyle Tester\nCopyright (c) 2013-2014, Nazar Mokrynskyi\n";
 		}
 	}
 	/**

@@ -4,7 +4,7 @@
  * @package		Home
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
 */
 
@@ -27,7 +27,7 @@
         return container.find('[name=time]').val($(this).text());
       });
       coordinates = container.find('[name=coordinates]');
-      return ymaps.ready(function() {
+      ymaps.ready(function() {
         var address_timeout, icon_number, map, me;
         map = new ymaps.Map('add-good-map', {
           center: cs.json_decode(coordinates.val()),
@@ -81,6 +81,15 @@
         }
       });
     }
+    return $('.cs-home-i-have-a-car').click(function() {
+      return $.ajax({
+        url: 'api/Home/i_have_a_car',
+        success: function() {
+          alert('Дякуємо!) Після перевірки вашого облікового запису вам буде надано персональний код водія та доступ до контактів волонтерів з речами');
+          return location.reload();
+        }
+      });
+    });
   });
 
 }).call(this);

@@ -2,7 +2,7 @@
  * @package		Home
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
 ###
 $ ->
@@ -120,6 +120,23 @@ $ ->
 								.val($(@).text())
 								.change()
 		clusterer	= new ymaps.Clusterer()
+		clusterer.createCluster	= (center, geoObjects) ->
+			cluster	= ymaps.Clusterer.prototype.createCluster.call(this, center, geoObjects)
+			cluster.options.set(
+				icons	: [
+					{
+						href	: '/components/modules/Home/includes/img/cluster-46.png'
+						size	: [46, 46]
+						offset	: [-23, -23]
+					}
+					{
+						href	: '/components/modules/Home/includes/img/cluster-58.png'
+						size	: [58, 58]
+						offset	: [-27, -27]
+					}
+				]
+			)
+			cluster
 		map.geoObjects.add(clusterer)
 		find_goods	= ->
 			$.ajax(

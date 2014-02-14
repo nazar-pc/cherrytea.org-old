@@ -2,7 +2,7 @@
  * @package		Home
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
 ###
 $ ->
@@ -86,3 +86,10 @@ $ ->
 								), 300
 						)
 						.keyup()
+	$('.cs-home-i-have-a-car').click ->
+		$.ajax(
+			url		: 'api/Home/i_have_a_car'
+			success	: ->
+				alert 'Дякуємо!) Після перевірки вашого облікового запису вам буде надано персональний код водія та доступ до контактів волонтерів з речами'
+				location.reload()
+		)

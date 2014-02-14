@@ -3,7 +3,7 @@
  * @package		Home
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
@@ -170,11 +170,9 @@ class Volunteers {
 			FROM `$this->table` AS `d`
 			LEFT JOIN `[prefix]users_social_integration` AS `s`
 			ON `d`.`id` = `s`.`id`
-			WHERE `d`.`active_driver` = '1'
+			WHERE `d`.`driver` = '1'
 			GROUP BY `d`.`id`
-			ORDER BY
-			 	(CASE WHEN (`d`.`active` = -1) THEN 2 ELSE `d`.`active` END) DESC,
-				`d`.`id` DESC"
+			ORDER BY `d`.`id` DESC"
 		);
 	}
 }

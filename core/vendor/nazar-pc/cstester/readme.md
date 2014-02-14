@@ -7,7 +7,7 @@ and decided to maintain it as separate autonomous package. Hope, you'll like it)
 
 Author – Nazar Mokrynskyi <nazar@mokrynskyi.com>
 
-Copyright (c) 2013, Nazar Mokrynskyi
+Copyright (c) 2013-2014, Nazar Mokrynskyi
 
 # Features
 

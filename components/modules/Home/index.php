@@ -3,7 +3,7 @@
  * @package		Home
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
@@ -47,7 +47,14 @@ if ($User->guest()) {
 				]).
 				h::{'span.cs-header-sign-out-process'}('Вихід').
 				h::h2($User->username()).
-				($driver ? h::p('Персональний код водія: '.h::b($volunteer['code'])) : '').
+				(
+					$driver ? h::p('Персональний код водія: '.h::b($volunteer['code'])) : (
+						$volunteer['driver'] == 'requested' ? 'Запит на доступ в ролі водія надіслано, очікується підтвердження' : (
+							$volunteer['driver'] != 'no' ? h::{'button.cs-home-i-have-a-car'}('В мене є авто, готовий допомогти') :
+								'Запит на доступ в ролі водія відхилено, але ви все ще можете віддати непотрібні речі'
+						)
+					)
+				).
 				h::p(
 					h::icon('heart').
 					h::b($volunteer['reputation'])
