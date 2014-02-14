@@ -144,7 +144,7 @@ $ ->
 				data	:
 					date		: filter.find('input[name=date]').val()
 					time		: filter.find('[name=time]').val()
-					reserved	: if $('.home-page-map-switcher.driver .uk-active input').val() == 'reserved_goods' then 1 else 0
+					goods		: $('.home-page-map-goods-switcher.driver .uk-active input').val()
 				type	: 'get'
 				success	: (result) ->
 					if result && result.length
@@ -248,12 +248,12 @@ $ ->
 		search_timeout	= 0
 		filter.on(
 			'keyup change'
-			'[name=date], [name=time], .home-page-map-switcher.driver input'
+			'[name=date], [name=time], .home-page-map-goods-switcher.driver input'
 			->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_goods, 300)
 		)
-		$('.home-page-map-switcher.driver').on(
+		$('.home-page-map-goods-switcher.driver').on(
 			'keyup change'
 			'input'
 			->

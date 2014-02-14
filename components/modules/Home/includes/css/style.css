@@ -55,15 +55,15 @@
   content: '';
   display: block; }
 
-.home-page-map-switcher {
+.home-page-map-goods-switcher {
   display: block;
   text-align: center;
   padding: 20px 0; }
-  .home-page-map-switcher > span {
+  .home-page-map-goods-switcher > span {
     background: #FF7F7F;
     border: 1px solid #ff7f7f;
     border-radius: 4px; }
-  .home-page-map-switcher label {
+  .home-page-map-goods-switcher label {
     cursor: pointer;
     height: 44px;
     line-height: 41px; }

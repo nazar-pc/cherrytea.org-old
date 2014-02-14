@@ -101,7 +101,7 @@
           data: {
             date: filter.find('input[name=date]').val(),
             time: filter.find('[name=time]').val(),
-            reserved: $('.home-page-map-switcher.driver .uk-active input').val() === 'reserved_goods' ? 1 : 0
+            goods: $('.home-page-map-goods-switcher.driver .uk-active input').val()
           },
           type: 'get',
           success: function(result) {
@@ -180,11 +180,11 @@
         });
       });
       search_timeout = 0;
-      filter.on('keyup change', '[name=date], [name=time], .home-page-map-switcher.driver input', function() {
+      filter.on('keyup change', '[name=date], [name=time], .home-page-map-goods-switcher.driver input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
-      $('.home-page-map-switcher.driver').on('keyup change', 'input', function() {
+      $('.home-page-map-goods-switcher.driver').on('keyup change', 'input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });

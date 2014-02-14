@@ -107,10 +107,18 @@ if ($User->guest()) {
 				).
 				h::{'p.cs-right button[type=submit]'}('Надіслати')
 			).
-			h::{'div.home-page-map-switcher.driver input[type=radio]'}([
-				'value'		=> ['available_goods', 'reserved_goods'],
-				'in'		=> ['Доступні речі', 'Зарезервовані'],
-				'checked'	=> 'available_goods'
+			h::{'div.home-page-map-goods-switcher.driver input[type=radio]'}([
+				'value'		=> [
+					'all',
+					$driver ? 'reserved' : false,
+					'my'
+				],
+				'in'		=> [
+					'Всі речі',
+					$driver ? 'Зарезервовані' : false,
+					'Мої речі'
+				],
+				'checked'	=> 'all_goods'
 			]).
 			h::{'div.home-page-filter.uk-form'}([
 				h::icon('calendar').
@@ -197,7 +205,7 @@ if ($User->guest()) {
 					]).
 					h::{'button[type=submit]'}('Надіслати')
 				).
-				h::{'div.home-page-map-switcher.giver input[type=radio]'}([
+				h::{'div.home-page-map-goods-switcher.giver input[type=radio]'}([
 					'value'		=> ['map', 'my_goods'],
 					'in'		=> ['Карта', 'Мої речі'],
 					'checked'	=> 'map'

@@ -21,8 +21,14 @@ if (isset($_GET['date']) && $_GET['date']) {
 if (isset($_GET['time']) && $_GET['time']) {
 	$params['time']	= _trim(explode('-', str_replace(':', '.', $_GET['time'])));
 }
-if (isset($_GET['reserved']) && $_GET['reserved']) {
-	$params['reserved']	= 1;
+if (isset($_GET['goods']) && $_GET['goods']) {
+	switch ($_GET['goods']) {
+		case 'reserved':
+			$params['reserved']	= 1;
+		break;
+		case 'my':
+			$params['giver']	= $User->id;
+	}
 }
 $goods		= Goods::instance()->search($params, $User->id);
 if (

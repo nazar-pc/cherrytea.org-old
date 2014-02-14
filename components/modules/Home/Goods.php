@@ -251,6 +251,10 @@ class Goods {
 			$subst[]	= (float)$params['time'][0];
 			$subst[]	= (float)$params['time'][1];
 		}
+		if (isset($params['giver']) && $params['giver']) {
+			$where[]	= "`giver` = '%s'";
+			$subst[]	= $params['giver'];
+		}
 		if (isset($params['reserved']) && $params['reserved']) {
 			$where[]	= "`reserved` > ".TIME." AND `reserved_driver` = '%s'";
 			$subst[]	= $driver;
