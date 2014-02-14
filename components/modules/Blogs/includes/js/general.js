@@ -4,7 +4,7 @@
  * @package		Blogs
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
 */
 
@@ -36,9 +36,6 @@
           return $('html, body').stop().animate({
             scrollTop: preview.offset().top
           }, 500);
-        },
-        error: function(xhr) {
-          return alert(xhr.responseText ? cs.json_decode(xhr.responseText).error_description : cs.Language.post_preview_connection_error);
         }
       });
     });
