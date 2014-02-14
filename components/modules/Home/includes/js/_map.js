@@ -96,39 +96,49 @@
       };
       map.geoObjects.add(clusterer);
       find_goods = function() {
+        var goods;
+        goods = $('.home-page-map-goods-switcher.driver .uk-active input').val();
         return $.ajax({
           url: 'api/Home/find_goods',
           data: {
             date: filter.find('input[name=date]').val(),
             time: filter.find('[name=time]').val(),
-            goods: $('.home-page-map-goods-switcher.driver .uk-active input').val()
+            goods: goods
           },
           type: 'get',
           success: function(result) {
-            var admin, good, icon_number, placemarks, reservation, _i, _len;
+            var admin, good, icon_number, placemarks, reservation, _i, _j, _len, _len1;
             if (result && result.length) {
-              placemarks = [];
-              for (_i = 0, _len = result.length; _i < _len; _i++) {
-                good = result[_i];
-                icon_number = Math.round(Math.random() * 11);
-                if (window.driver) {
-                  reservation = window.driver === parseInt(good.reserved_driver, 10) && good.reserved > (new Date).getTime() / 1000 ? "<button class=\"reserved uk-button\" data-id=\"" + good.id + "\">Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
+              if (goods !== 'my') {
+                placemarks = [];
+                for (_i = 0, _len = result.length; _i < _len; _i++) {
+                  good = result[_i];
+                  icon_number = Math.round(Math.random() * 11);
+                  if (window.driver) {
+                    reservation = window.driver === parseInt(good.reserved_driver, 10) && good.reserved > (new Date).getTime() / 1000 ? "<button class=\"reserved uk-button\" data-id=\"" + good.id + "\">Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
+                  }
+                  admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
+                  placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
+                    hintContent: good.username + ' ' + good.phone
+                  }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
+                    iconImageSize: [60, 58],
+                    iconImageOffset: [-24, -58],
+                    iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
+                    iconImageShape: map.icons_shape,
+                    balloonLayout: window.driver ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
+                  }));
                 }
-                admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
-                placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
-                  hintContent: good.username + ' ' + good.phone
-                }, {
-                  iconLayout: 'default#image',
-                  iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
-                  iconImageSize: [60, 58],
-                  iconImageOffset: [-24, -58],
-                  iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
-                  iconImageShape: map.icons_shape,
-                  balloonLayout: window.driver ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
-                }));
+                clusterer.removeAll();
+                clusterer.add(placemarks);
+              } else {
+                for (_j = 0, _len1 = result.length; _j < _len1; _j++) {
+                  good = result[_j];
+                  this;
+
+                }
               }
-              clusterer.removeAll();
-              return clusterer.add(placemarks);
             }
           }
         });
