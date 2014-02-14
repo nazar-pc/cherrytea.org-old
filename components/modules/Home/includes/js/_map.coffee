@@ -100,7 +100,7 @@ $ ->
 				}
 			)
 		)
-		filter	= $('.home-page-filter')
+		filter	= $('.cs-home-page-filter')
 		filter.find('input[name=date]')
 			.pickmeup(
 				format	: 'd.m.Y'
@@ -276,9 +276,8 @@ $ ->
 				if !confirm('Точно видалити?')
 					return
 				$.ajax(
-					url		: 'api/Home/delete_good'
-					data	:
-						id	: $(this).data('id')
+					url		: 'api/Home/goods/' + $(this).data('id')
+					type	: 'delete'
 					success	: ->
 						find_goods()
 				)

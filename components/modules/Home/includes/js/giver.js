@@ -15,7 +15,7 @@
     var container, coordinates, giver_map;
     giver_map = $('#add-good-map');
     if (giver_map.length) {
-      container = $('.home-page-add-goods');
+      container = $('.cs-home-page-add-goods');
       container.find('[name=date]').pickmeup({
         format: 'd.m.Y',
         mode: 'range',
@@ -50,15 +50,17 @@
           return coordinates.val(coords);
         });
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var coords;
-            coords = [position.coords.latitude, position.coords.longitude];
-            map.panTo(coords);
-            return me.geometry.setCoordinates(coords);
-          }, function() {}, {
-            enableHighAccuracy: true,
-            timeout: 120 * 1000
-          });
+          if (!container.find('[name=address]').val()) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var coords;
+              coords = [position.coords.latitude, position.coords.longitude];
+              map.panTo(coords);
+              return me.geometry.setCoordinates(coords);
+            }, function() {}, {
+              enableHighAccuracy: true,
+              timeout: 120 * 1000
+            });
+          }
           address_timeout = 0;
           return container.find('[name=address]').on('keyup change', function() {
             if ($(this).val().length < 4) {
@@ -80,16 +82,38 @@
           }).keyup();
         }
       });
-    }
-    return $('.cs-home-i-have-a-car').click(function() {
-      return $.ajax({
-        url: 'api/Home/i_have_a_car',
-        success: function() {
-          alert('Дякуємо!) Після перевірки вашого облікового запису вам буде надано персональний код водія та доступ до контактів волонтерів з речами');
-          return location.reload();
-        }
+      $('.cs-home-i-have-a-car').click(function() {
+        return $.ajax({
+          url: 'api/Home/i_have_a_car',
+          type: 'put',
+          success: function() {
+            alert('Дякуємо!) Після перевірки вашого облікового запису вам буде надано персональний код водія та доступ до контактів волонтерів з речами');
+            return location.reload();
+          }
+        });
       });
-    });
+      return container.submit(function() {
+        $.ajax({
+          url: 'api/Home/goods',
+          type: 'post',
+          data: {
+            name: container.find('[name=name]').val(),
+            phone: container.find('[name=phone]').val(),
+            address: container.find('[name=address]').val(),
+            coordinates: container.find('[name=coordinates]').val(),
+            date: container.find('[name=date]').val(),
+            time: container.find('[name=time]').val(),
+            comment: container.find('[name=comment]').val()
+          },
+          success: function() {
+            return $("<div>\n	<div class=\"uk-form\" style=\"width: 700px;margin-left: -350px;\">\n		<h2 class=\"cs-center\">Дякуємо за розміщену інформацію про наявні речі!</h2>\n		<p class=\"cs-center\">Вільний водій зв’яжеться з вами за першої нагоди.</p>\n		<p>Коли віддаватимете речі - спитайте про код, який має кожен водій. Цей код використовується задля контролю чесності та надійності водіїв.</p>\n		<p>В розділі \"мої речі\" нижче ви можете підтвердити передачу речей водію, ввівши його код.</p>\n	</div>\n</div>").appendTo('body').cs().modal('show').on('uk.modal.hide', function() {
+              return $(this).remove();
+            });
+          }
+        });
+        return false;
+      });
+    }
   });
 
 }).call(this);

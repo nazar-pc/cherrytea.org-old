@@ -60,7 +60,7 @@ if ($User->guest()) {
 					h::b($volunteer['reputation'])
 				)
 			).
-			h::{'div.home-page-add-goods'}(
+			h::{'form.cs-home-page-add-goods'}(
 				h::{'h2.cs-center'}('В мене є речі').
 				h::{'input[name=name][required]'}([
 					'placeholder'	=> 'Ваше ім’я',
@@ -120,7 +120,7 @@ if ($User->guest()) {
 				],
 				'checked'	=> 'all'
 			]).
-			h::{'div.home-page-filter.uk-form'}([
+			h::{'div.cs-home-page-filter.uk-form'}([
 				h::icon('calendar').
 				h::{'input[name=date]'}([
 					'placeholder'	=> 'Будь-яка дата'

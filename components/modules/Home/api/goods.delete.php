@@ -7,14 +7,19 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
-use			cs\Page,
+use			cs\Index,
 			cs\User;
-$User		= User::instance();
-$Goods		= Goods::instance();
+$User	= User::instance();
+$Goods	= Goods::instance();
 if (!$User->admin()) {
 	error_code(403);
 	return;
 }
-if (!$Goods->delete($_POST['id'])) {
+$Index	= Index::instance();
+if (!isset($Index->route_ids[0])) {
+	error_code(400);
+	return;
+}
+if (!$Goods->delete($Index->route_ids[0])) {
 	error_code(500);
 }

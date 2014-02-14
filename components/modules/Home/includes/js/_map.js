@@ -65,7 +65,7 @@
         iconImageShape: map.icons_shape,
         balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Книжковий магазин Свічадо</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вулиця Покровська, 6</address>\n		<time>Будні: з 10:00 до 17:00</time>\n	</article>\n</section>")
       }));
-      filter = $('.home-page-filter');
+      filter = $('.cs-home-page-filter');
       filter.find('input[name=date]').pickmeup({
         format: 'd.m.Y',
         change: function(formated) {
@@ -206,10 +206,8 @@
           return;
         }
         return $.ajax({
-          url: 'api/Home/delete_good',
-          data: {
-            id: $(this).data('id')
-          },
+          url: 'api/Home/goods/' + $(this).data('id'),
+          type: 'delete',
           success: function() {
             return find_goods();
           }
