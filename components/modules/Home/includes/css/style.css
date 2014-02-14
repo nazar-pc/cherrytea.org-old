@@ -55,19 +55,6 @@
   content: '';
   display: block; }
 
-.home-page-map-goods-switcher {
-  display: block;
-  text-align: center;
-  padding: 20px 0; }
-  .home-page-map-goods-switcher > span {
-    background: #FF7F7F;
-    border: 1px solid #ff7f7f;
-    border-radius: 4px; }
-  .home-page-map-goods-switcher label {
-    cursor: pointer;
-    height: 44px;
-    line-height: 41px; }
-
 /**
  * @package		Home
  * @category	modules
@@ -180,6 +167,18 @@
   .home-page article .cs-home-page-add-goods #add-good-map {
     height: 500px;
     width: 500px; }
+.home-page article .cs-home-page-map-goods-switcher {
+  display: block;
+  text-align: center;
+  padding: 20px 0; }
+  .home-page article .cs-home-page-map-goods-switcher > span {
+    background: #FF7F7F;
+    border: 1px solid #ff7f7f;
+    border-radius: 4px; }
+  .home-page article .cs-home-page-map-goods-switcher label {
+    cursor: pointer;
+    height: 44px;
+    line-height: 41px; }
 .home-page article .cs-home-page-filter {
   margin: auto 0;
   width: 1000px; }
@@ -205,6 +204,10 @@
     margin: 0 -30px 0 12px;
     position: relative;
     z-index: 100; }
+.home-page article .cs-home-page-my-goods aside {
+  display: inline-block;
+  vertical-align: top;
+  width: 33.33%; }
 
 /**
  * @package		Home

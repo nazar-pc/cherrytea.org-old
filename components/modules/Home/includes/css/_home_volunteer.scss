@@ -80,6 +80,24 @@
 		}
 	}
 
+	.cs-home-page-map-goods-switcher {
+		display    : block;
+		text-align : center;
+		padding    : 20px 0;
+
+		> span {
+			background    : #FF7F7F;
+			border        : 1px solid #FF7F7F;
+			border-radius : 4px;
+		}
+
+		label {
+			cursor      : pointer;
+			height      : 44px;
+			line-height : 41px;
+		}
+	}
+
 	.cs-home-page-filter {
 		margin : auto 0;
 		width  : 1000px;
@@ -117,5 +135,11 @@
 			position : relative;
 			z-index  : 100;
 		}
+	}
+
+	.cs-home-page-my-goods aside {
+		display        : inline-block;
+		vertical-align : top;
+		width          : 33.33%;
 	}
 }

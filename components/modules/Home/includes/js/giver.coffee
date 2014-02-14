@@ -122,6 +122,5 @@ $ ->
 						.cs().modal('show')
 						.on 'uk.modal.hide', ->
 							$(this).remove()
-
 			)
 			return false

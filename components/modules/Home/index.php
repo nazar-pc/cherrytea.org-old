@@ -8,7 +8,6 @@
  */
 namespace	cs\modules\Home;
 use			h,
-			cs\Index,
 			cs\Page,
 			cs\User;
 $Page		= Page::instance();
@@ -38,7 +37,7 @@ if ($User->guest()) {
 		$volunteer	= $Volunteers->get($User->id);
 	}
 	$driver		= $Volunteers->is_driver($volunteer['id']) ? $volunteer['id'] : 0;
-	$Page->js("var driver = $driver", 'code');
+	$Page->js("var driver = $driver, volunteer = '$volunteer[id]';", 'code');
 	$Page->content(
 		h::{'section.home-page article'}(
 			h::header(
@@ -107,7 +106,7 @@ if ($User->guest()) {
 				).
 				h::{'p.cs-right button[type=submit]'}('Надіслати')
 			).
-			h::{'div.home-page-map-goods-switcher.driver input[type=radio]'}([
+			h::{'div.cs-home-page-map-goods-switcher.driver input[type=radio]'}([
 				'value'		=> [
 					'all',
 					$driver ? 'reserved' : false,
@@ -140,7 +139,8 @@ if ($User->guest()) {
 				)
 			]).
 			h::{'div#map[level=0]'}().
-			h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.')
+			h::{'div.cs-home-page-my-goods'}().
+			($driver ? h::{'p.cs-center'}('Не забувайте під час збору речей брати з собою код зі сторінки профілю, він є обов’язковим для водіїв.') : '')
 		)
 	);
 } /*elseif ($driver && $driver['active'] == '0') {
@@ -205,7 +205,7 @@ if ($User->guest()) {
 					]).
 					h::{'button[type=submit]'}('Надіслати')
 				).
-				h::{'div.home-page-map-goods-switcher.giver input[type=radio]'}([
+				h::{'div.cs-home-page-map-goods-switcher.giver input[type=radio]'}([
 					'value'		=> ['map', 'my_goods'],
 					'in'		=> ['Карта', 'Мої речі'],
 					'checked'	=> 'map'

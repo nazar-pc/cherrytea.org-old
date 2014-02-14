@@ -97,7 +97,14 @@
       map.geoObjects.add(clusterer);
       find_goods = function() {
         var goods;
-        goods = $('.home-page-map-goods-switcher.driver .uk-active input').val();
+        goods = $('.cs-home-page-map-goods-switcher.driver .uk-active input').val();
+        if (goods === 'my') {
+          $('#map, .cs-home-page-filter').hide();
+          $('.cs-home-page-my-goods').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>').show();
+        } else {
+          $('#map, .cs-home-page-filter').show();
+          $('.cs-home-page-my-goods').hide().html('');
+        }
         return $.ajax({
           url: 'api/Home/find_goods',
           data: {
@@ -107,7 +114,7 @@
           },
           type: 'get',
           success: function(result) {
-            var admin, good, icon_number, placemarks, reservation, _i, _j, _len, _len1;
+            var admin, content, good, icon_number, placemarks, reservation, state, _i, _j, _len, _len1;
             if (result && result.length) {
               if (goods !== 'my') {
                 placemarks = [];
@@ -116,10 +123,12 @@
                   icon_number = Math.round(Math.random() * 11);
                   if (window.driver) {
                     reservation = window.driver === parseInt(good.reserved_driver, 10) && good.reserved > (new Date).getTime() / 1000 ? "<button class=\"reserved uk-button\" data-id=\"" + good.id + "\">Зарезервовано</button>" : "<button class=\"reservation uk-button\" data-id=\"" + good.id + "\">Заберу за 24 години</button>";
+                  } else {
+                    reservation = '';
                   }
                   admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
                   placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
-                    hintContent: good.username + ' ' + good.phone
+                    hintContent: window.driver || good.giver === window.volunteer ? good.username + ' ' + good.phone : void 0
                   }, {
                     iconLayout: 'default#image',
                     iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
@@ -127,17 +136,22 @@
                     iconImageOffset: [-24, -58],
                     iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
                     iconImageShape: map.icons_shape,
-                    balloonLayout: window.driver ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
+                    balloonLayout: window.driver || good.giver === window.volunteer ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
                   }));
                 }
                 clusterer.removeAll();
                 clusterer.add(placemarks);
               } else {
+                content = '';
                 for (_j = 0, _len1 = result.length; _j < _len1; _j++) {
                   good = result[_j];
-                  this;
-
+                  state = 'Очікує';
+                  if (good.success === '-1' && good.reserved > (new Date).getTime() / 1000) {
+                    state = 'Зарезервовано водієм';
+                  }
+                  content += "<aside>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n</aside>";
                 }
+                $('.cs-home-page-my-goods').html(content + content);
               }
             }
           }
@@ -190,11 +204,11 @@
         });
       });
       search_timeout = 0;
-      filter.on('keyup change', '[name=date], [name=time], .home-page-map-goods-switcher.driver input', function() {
+      filter.on('keyup change', '[name=date], [name=time], .cs-home-page-map-goods-switcher.driver input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
-      $('.home-page-map-goods-switcher.driver').on('keyup change', 'input', function() {
+      $('.cs-home-page-map-goods-switcher.driver').on('keyup change', 'input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
