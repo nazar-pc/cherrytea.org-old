@@ -3,7 +3,7 @@
  * @package		Static Pages
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Static_pages;
@@ -26,13 +26,11 @@ Trigger::instance()->register(
 		$Static_pages			= Static_pages::instance();
 		$structure				= $Static_pages->get_structure();
 		$categories				= array_slice($rc, 0, -1);
-		$Static_pages->title	= [];
 		if (!empty($categories)) {
 			foreach ($categories as $category) {
 				if (isset($structure['categories'][$category])) {
 					$structure				= $structure['categories'][$category];
 					$path[]					= $structure['path'];
-					$Static_pages->title[]	= $structure['title'];
 				}
 			}
 			unset($category);
