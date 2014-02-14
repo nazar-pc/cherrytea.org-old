@@ -114,7 +114,7 @@
           },
           type: 'get',
           success: function(result) {
-            var admin, content, good, icon_number, placemarks, reservation, state, _i, _j, _len, _len1;
+            var admin, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, state, _i, _j, _len, _len1;
             if (result && result.length) {
               if (goods !== 'my') {
                 placemarks = [];
@@ -145,11 +145,20 @@
                 content = '';
                 for (_j = 0, _len1 = result.length; _j < _len1; _j++) {
                   good = result[_j];
-                  state = 'Очікує';
                   if (good.success === '-1' && good.reserved > (new Date).getTime() / 1000) {
                     state = 'Зарезервовано водієм';
+                    icon_h_offset = 97;
+                  } else {
+                    if (good.success !== '-1') {
+                      state = 'Доставлено';
+                      icon_h_offset = 2 * 97;
+                    } else {
+                      state = 'Очікує';
+                      icon_h_offset = 0;
+                    }
                   }
-                  content += "<aside>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n</aside>";
+                  icon_v_offset = Math.round(Math.random() * 6) * 97;
+                  content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		<button class=\"cs-home-page-delete-good uk-button\"><i class=\"uk-icon-times\"></i></button>\n		<button class=\"cs-home-page-confirm-good uk-button\"><i class=\"uk-icon-ok\"></i> Водій забрав речі</button>\n	</p>\n</aside>";
                 }
                 $('.cs-home-page-my-goods').html(content + content);
               }

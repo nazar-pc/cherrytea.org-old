@@ -167,8 +167,39 @@
 	}
 
 	.cs-home-page-my-goods aside {
+		clear          : both;
 		display        : inline-block;
 		vertical-align : top;
 		width          : 33.33%;
+
+		h2 {
+			margin-bottom : 5px;
+		}
+
+		address {
+			margin : 5px 0;
+		}
+
+		h2,
+		span,
+		address,
+		time {
+			color : #FF7F7F;
+		}
+
+		.icon {
+			background          : url(../img/my-goods.png) no-repeat;
+			background-position : 0 0;
+			content             : '';
+			display             : inline-block;
+			float               : left;
+			height              : 97px;
+			margin              : 0 7px 7px 0;
+			width               : 97px;
+		}
+
+		.cs-home-page-delete-good {
+			background: #9c9c9c;
+		}
 	}
 }

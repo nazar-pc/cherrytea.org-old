@@ -225,9 +225,30 @@
       .home-page article .cs-home-page-filter .cs-home-page-legend .blue:before {
         background-position: -38px 0; }
 .home-page article .cs-home-page-my-goods aside {
+  clear: both;
   display: inline-block;
   vertical-align: top;
   width: 33.33%; }
+  .home-page article .cs-home-page-my-goods aside h2 {
+    margin-bottom: 5px; }
+  .home-page article .cs-home-page-my-goods aside address {
+    margin: 5px 0; }
+  .home-page article .cs-home-page-my-goods aside h2,
+  .home-page article .cs-home-page-my-goods aside span,
+  .home-page article .cs-home-page-my-goods aside address,
+  .home-page article .cs-home-page-my-goods aside time {
+    color: #FF7F7F; }
+  .home-page article .cs-home-page-my-goods aside .icon {
+    background: url(../img/my-goods.png) no-repeat;
+    background-position: 0 0;
+    content: '';
+    display: inline-block;
+    float: left;
+    height: 97px;
+    margin: 0 7px 7px 0;
+    width: 97px; }
+  .home-page article .cs-home-page-my-goods aside .cs-home-page-delete-good {
+    background: #9c9c9c; }
 
 /**
  * @package		Home

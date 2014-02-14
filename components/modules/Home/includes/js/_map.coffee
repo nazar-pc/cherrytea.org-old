@@ -207,15 +207,28 @@ $ ->
 						else
 							content	= ''
 							for good in result
-								state	= 'Очікує'
 								if good.success == '-1' && good.reserved > (new Date).getTime() / 1000
-									state	= 'Зарезервовано водієм'
-								content	+= """<aside>
+									state			= 'Зарезервовано водієм'
+									icon_h_offset	= 97
+								else
+									if good.success != '-1'
+										state			= 'Доставлено'
+										icon_h_offset	= 2 * 97
+									else
+										state			= 'Очікує'
+										icon_h_offset	= 0
+								icon_v_offset	= Math.round(Math.random() * 6) * 97
+								content			+= """<aside>
+									<div class="icon" style="background-position: -#{icon_h_offset}px -#{icon_v_offset}px"></div>
 									<h2>#{state}</h2>
 									<span>#{good.phone}</span>
 									<address>#{good.address}</address>
 									<time>#{good.date} (#{good.time})</time>
 									<p>#{good.comment}</p>
+									<p>
+										<button class="cs-home-page-delete-good uk-button"><i class="uk-icon-times"></i></button>
+										<button class="cs-home-page-confirm-good uk-button"><i class="uk-icon-ok"></i> Водій забрав речі</button>
+									</p>
 								</aside>"""
 							$('.cs-home-page-my-goods').html(content+content)
 						return
