@@ -2,7 +2,7 @@
 /**
  * @package		CleverStyle CMS
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 
@@ -17,9 +17,6 @@
  *   * cURL
  *  * MySQL				>= 5.0.7;
  */
-/*if (!in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '91.225.122.33', '176.37.215.120', '178.54.6.125', '213.160.129.206', '95.158.46.25', '213.111.76.244'])) {
-	die(file_get_contents(__DIR__.'/index_stub.html'));
-}*/
 if (version_compare(PHP_VERSION, '5.4', '<')) {
 	exit('CleverStyle CMS require PHP 5.4 or higher');
 }

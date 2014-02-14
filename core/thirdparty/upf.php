@@ -3,7 +3,7 @@
  * @package		CleverStyle CMS
  * @subpackage	UPF (Useful PHP Functions)
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 /**
@@ -105,7 +105,7 @@ function time_limit_pause ($pause = true) {
  * @param	string		$dir			Directory for searching
  * @param	bool|string	$mask			Regexp for items
  * @param	string		$mode			Mode of searching<br>
- * 										<b>f</b> - files only<br> (default)
+ * 										<b>f</b> - files only (default)<br>
  * 										<b>d</b> - directories only<br>
  * 										<b>fd</b> - both files and directories
  * @param	bool|string	$prefix_path	Path to be added to the beginning of every found item. If <b>true</b> - prefix will
@@ -297,54 +297,29 @@ function null_byte_filter ($in) {
 	return $in;
 }
 /**
- * Functions for filtering (for forms) and recursive processing of arrays
+ * Prepare text to be used as value for html attribute value
  *
  * @param string|string[]	$text
- * @param string			$mode
- * @param bool|string		$data
- * @param null|string		$data2
- * @param null|string		$data3
+ *
  * @return string|string[]
  */
-function filter ($text, $mode = '', $data = null, $data2 = null, $data3 = null) {
+function prepare_attr_value ($text) {
 	if (is_array($text)) {
-		foreach ($text as $item => &$val) {
-			$text[$item] = filter($val, $mode, $data, $data2, $data3);
+		foreach ($text as &$val) {
+			$val = prepare_attr_value($val);
 		}
 		return $text;
 	}
-	switch ($mode) {
-		case 'stripslashes':
-		case 'addslashes':
-			return $mode($text);
-		case 'trim':
-		case 'ltrim':
-		case 'rtrim':
-			return $data === null ? $mode($text) : $mode($text, $data);
-		case 'substr':
-			return $data2 === null ? $mode($text, $data) : $mode($text, $data, $data2);
-		case 'mb_substr':
-			return $data2 === null ? $mode($text, $data) : (
-			$data3 === null ? $mode($text, $data, $data2) : $mode($text, $data, $data2, $data3)
-			);
-		case 'mb_strtolower':
-		case 'mb_strtoupper':
-			return $mode($text, $data);
-		case 'strtolower':
-		case 'strtoupper':
-			return $mode($text);
-		default:
-			return strtr(
-				$text,
-				[
-					'&'		=> '&amp;',
-					'"'		=> '&quot;',
-					'\''	=> '&apos;',
-					'<'		=> '&lt;',
-					'>'		=> '&gt;'
-				]
-			);
-	}
+	return strtr(
+		$text,
+		[
+			'&'		=> '&amp;',
+			'"'		=> '&quot;',
+			'\''	=> '&apos;',
+			'<'		=> '&lt;',
+			'>'		=> '&gt;'
+		]
+	);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -354,7 +329,13 @@ function filter ($text, $mode = '', $data = null, $data2 = null, $data3 = null) 
  * @return string|string[]
  */
 function _stripslashes ($str) {
-	return filter($str, 'stripslashes');
+	if (is_array($str)) {
+		foreach ($str as &$s) {
+			$s = stripslashes($s);
+		}
+		return $str;
+	}
+	return stripslashes($str);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -364,7 +345,13 @@ function _stripslashes ($str) {
  * @return string|string[]
  */
 function _addslashes ($str) {
-	return filter($str, 'addslashes');
+	if (is_array($str)) {
+		foreach ($str as &$s) {
+			$s = addslashes($s);
+		}
+		return $str;
+	}
+	return addslashes($str);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -375,7 +362,13 @@ function _addslashes ($str) {
  * @return string|string[]
  */
 function _trim ($str, $charlist = null) {
-	return filter($str, 'trim', $charlist);
+	if (is_array($str)) {
+		foreach ($str as &$s) {
+			$s = trim($s, $charlist);
+		}
+		return $str;
+	}
+	return trim($str, $charlist);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -386,7 +379,13 @@ function _trim ($str, $charlist = null) {
  * @return string|string[]
  */
 function _ltrim ($str, $charlist = null) {
-	return filter($str, 'ltrim', $charlist);
+	if (is_array($str)) {
+		foreach ($str as &$s) {
+			$s = ltrim($s);
+		}
+		return $str;
+	}
+	return ltrim($str, $charlist);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -397,7 +396,13 @@ function _ltrim ($str, $charlist = null) {
  * @return string|string[]
  */
 function _rtrim ($str, $charlist = null) {
-	return filter($str, 'rtrim', $charlist);
+	if (is_array($str)) {
+		foreach ($str as &$s) {
+			$s = rtrim($s, $charlist);
+		}
+		return $str;
+	}
+	return rtrim($str, $charlist);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -409,7 +414,13 @@ function _rtrim ($str, $charlist = null) {
  * @return string|string[]
  */
 function _substr ($string, $start, $length = null) {
-	return filter($string, 'substr', $start, $length);
+	if (is_array($string)) {
+		foreach ($string as &$s) {
+			$s = substr($s, $start, $length);
+		}
+		return $string;
+	}
+	return substr($string, $start, $length);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -417,12 +428,17 @@ function _substr ($string, $start, $length = null) {
  * @param string|string[]	$string
  * @param int				$start
  * @param int				$length
- * @param string			$encoding
  *
  * @return string|string[]
  */
-function _mb_substr ($string, $start, $length = null, $encoding = null) {
-	return filter($string, 'substr', $start, $length, $encoding ?: mb_internal_encoding());
+function _mb_substr ($string, $start, $length = null) {
+	if (is_array($string)) {
+		foreach ($string as &$s) {
+			$s = mb_substr($s, $start, $length, 'utf-8');
+		}
+		return $string;
+	}
+	return mb_substr($string, $start, $length, 'utf-8');
 }
 /**
  * Like system function, but accept arrays of strings
@@ -432,7 +448,13 @@ function _mb_substr ($string, $start, $length = null, $encoding = null) {
  * @return string|string[]
  */
 function _strtolower ($string) {
-	return filter($string, 'strtolower');
+	if (is_array($string)) {
+		foreach ($string as &$s) {
+			$s = strtolower($s);
+		}
+		return $string;
+	}
+	return strtolower($string);
 }
 /**
  * Like system function, but accept arrays of strings
@@ -442,29 +464,45 @@ function _strtolower ($string) {
  * @return string|string[]
  */
 function _strtoupper ($string) {
-	return filter($string, 'strtoupper');
+	if (is_array($string)) {
+		foreach ($string as &$s) {
+			$s = strtoupper($s);
+		}
+		return $string;
+	}
+	return strtoupper($string);
 }
 /**
  * Like system function, but accept arrays of strings
  *
  * @param string|string[]	$string
- * @param string			$encoding
  *
  * @return string|string[]
  */
-function _mb_strtolower ($string, $encoding = null) {
-	return filter($string, 'mb_strtolower', $encoding ?: mb_internal_encoding());
+function _mb_strtolower ($string) {
+	if (is_array($string)) {
+		foreach ($string as &$s) {
+			$s = mb_strtolower($s, 'utf-8');
+		}
+		return $string;
+	}
+	return mb_strtolower($string, 'utf-8');
 }
 /**
  * Like system function, but accept arrays of strings
  *
  * @param string|string[]	$string
- * @param string			$encoding
  *
  * @return string|string[]
  */
-function _mb_strtoupper ($string, $encoding = null) {
-	return filter($string, 'mb_strtoupper', $encoding ?: mb_internal_encoding());
+function _mb_strtoupper ($string) {
+	if (is_array($string)) {
+		foreach ($string as &$s) {
+			$s = mb_strtoupper($s, 'utf-8');
+		}
+		return $string;
+	}
+	return mb_strtoupper($string, 'utf-8');
 }
 /**
  * Works similar to the system function, but adds JSON_UNESCAPED_UNICODE option
@@ -546,13 +584,15 @@ function _preg_replace ($pattern, $replacement, $subject, $limit = -1, &$count =
 /**
  * XSS Attack Protection. Returns secure string using several types of filters
  *
- * @param string|string[]	$in HTML code
+ * @param string|string[]	$in		HTML code
  * @param bool|string		$html	<b>text</b> - text at output (default)<br>
  * 									<b>true</b> - processed HTML at output<br>
  * 									<b>false</b> - HTML tags will be deleted
+ * @param bool				$iframe	Whether to allow iframes without inner content (for example, video from youtube)<br>
+ * 									Works only if <i>$html === true</i>
  * @return string|string[]
  */
-function xap ($in, $html = 'text') {
+function xap ($in, $html = 'text', $iframe = false) {
 	if (is_array($in)) {
 		foreach ($in as &$item) {
 			$item = xap($item, $html);
@@ -563,17 +603,52 @@ function xap ($in, $html = 'text') {
 	 */
 	} elseif ($html === true) {
 		$in = preg_replace(
-			'/<[^>]*(link|script|iframe|object|applet|embed)[^>]*>?(.*<\/[^>]*\\1[^>]*>)?/ims',
+			'/
+				<[^a-z=>]*(link|script|object|applet|embed)[^>]*>?	# Open tag
+				(
+					.*												# Some content
+					<\/[^>]*\\1[^>]*>								# Close tag (with reference for tag name to open tag)
+				)?													# Section is optional
+			/xims',
 			'',
 			$in
 		);
+		/**
+		 * Remove iframes (regular expression the same as previous)
+		 */
+		if (!$iframe) {
+			$in = preg_replace(
+				'/
+					<[^a-z=>]*iframe[^>]*>?		# Open tag
+					(
+						.*						# Some content
+						<\/[^>]*iframe[^>]*>	# Close tag
+					)?							# Section is optional
+				/xims',
+				'',
+				$in
+			);
+		/**
+		 * Allow iframes without inner content (for example, video from youtube)
+		 */
+		} else {
+			$in = preg_replace(
+				'/
+					(<[^a-z=>]*iframe[^>]*>\s*)	# Open tag
+					[^<\s]+						# Search if there something that is not space or < character
+					(<\/[^>]*iframe[^>]*>)?		# Optional close tag
+				/xims',
+				'',
+				$in
+			);
+		}
 		$in = preg_replace(
 			'/(script|data|vbscript):/i',
 			'\\1&#58;',
 			$in
 		);
 		$in = preg_replace(
-			'/(expression[\s\t\r\n]*)\(/i',
+			'/(expression[\s]*)\(/i',
 			'\\1&#40;',
 			$in
 		);
@@ -591,7 +666,7 @@ function xap ($in, $html = 'text') {
 	} elseif ($html === false) {
 		return strip_tags($in);
 	} else {
-		return htmlspecialchars($in, ENT_QUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE);
+		return htmlspecialchars($in, ENT_NOQUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE | ENT_HTML5);
 	}
 }
 /**
@@ -620,7 +695,7 @@ function ip2hex ($ip) {
 			$part = str_pad(dechex($part), 2, '0', STR_PAD_LEFT);
 		}
 		unset($part);
-		$ip			= '::'.$parts[0].$parts[1].':'.$parts[2].$parts[3];
+		$ip			= "::$parts[0]$parts[1]:$parts[2]$parts[3]";
 		$hex		= implode('', $parts);
 	/**
 	 * IPv6 format
@@ -968,7 +1043,7 @@ function code_header ($code) {
 		break;
 	}
 	if ($string_code) {
-		header($_SERVER['SERVER_PROTOCOL'].' '.$string_code, true, $code);
+		header("$_SERVER[SERVER_PROTOCOL] $string_code", true, $code);
 	}
 	return $string_code;
 }
@@ -1079,7 +1154,7 @@ function array_flip_3d ($array) {
  * @return string					Trimmed string
  */
 function truncate ($text, $length = 1024, $ending = '...', $exact = false, $considerHtml = true) {
-	$open_tags = [];
+	$open_tags	= [];
 	if ($considerHtml) {
 		// if the plain text is shorter than the maximum length, return the whole text
 		if (strlen(preg_replace('/<.*?>/', '', $text)) <= $length) {
@@ -1087,8 +1162,8 @@ function truncate ($text, $length = 1024, $ending = '...', $exact = false, $cons
 		}
 		// splits all html-tags to scanable lines
 		preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
-		$total_length = mb_strlen($ending);
-		$truncate = '';
+		$total_length	= mb_strlen($ending);
+		$truncate		= '';
 		foreach ($lines as $line_matchings) {
 			// if there is any html-tag in this line, handle it and add it (uncounted) to the output
 			if (!empty($line_matchings[1])) {
@@ -1112,7 +1187,7 @@ function truncate ($text, $length = 1024, $ending = '...', $exact = false, $cons
 			}
 			// calculate the length of the plain text part of the line; handle entities as one character
 			$content_length = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
-			if ($total_length+$content_length> $length) {
+			if ($total_length + $content_length > $length) {
 				// the number of characters which are left
 				$left = $length - $total_length;
 				$entities_length = 0;
@@ -1133,11 +1208,11 @@ function truncate ($text, $length = 1024, $ending = '...', $exact = false, $cons
 				// maximum length is reached, so get off the loop
 				break;
 			} else {
-				$truncate .= $line_matchings[2];
-				$total_length += $content_length;
+				$truncate		.= $line_matchings[2];
+				$total_length	+= $content_length;
 			}
 			// if the maximum length is reached, get off the loop
-			if($total_length>= $length) {
+			if($total_length >= $length) {
 				break;
 			}
 		}
@@ -1162,13 +1237,15 @@ function truncate ($text, $length = 1024, $ending = '...', $exact = false, $cons
 	if($considerHtml) {
 		// close all unclosed html-tags
 		foreach ($open_tags as $tag) {
-			$truncate .= '</' . $tag . '>';
+			$truncate .= "</$tag>";
 		}
 	}
 	return $truncate;
 }
 /**
  * Prepare string to use as url path
+ *
+ * Special THREE-PER-EM SPACE is used in order to prevent transformation spaces in URL into %20
  *
  * @param string	$text
  *
@@ -1178,9 +1255,12 @@ function path ($text) {
 	return strtr(
 		trim($text),
 		[
-			' '		=> '_',
-			'/'		=> '_',
-			'\\'	=> '_'
+			' '		=> ' ',
+			'('		=> ' ',
+			')'		=> ' ',
+			'/'		=> ' ',
+			'\\'	=> ' ',
+			'#'		=> ''
 		]
 	);
 }

@@ -4,7 +4,7 @@
  * @subpackage	System module
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 /**
@@ -579,7 +579,7 @@ foreach ($Config->components['modules'] as $module => &$mdata) {
 					$tag = 'div';
 				}
 				$addition_state .= h::{'div.cs-dialog'}(
-					h::$tag($tag == 'pre' ? filter(file_get_contents($file)) : file_get_contents($file)),
+					h::$tag($tag == 'pre' ? prepare_attr_value(file_get_contents($file)) : file_get_contents($file)),
 					[
 						'id'			=> "{$module}_api",
 						'title'			=> "$module » $L->api"
@@ -606,7 +606,7 @@ foreach ($Config->components['modules'] as $module => &$mdata) {
 				$tag = 'div';
 			}
 			$uniqid			= uniqid('module_info_');
-			$Page->replace($uniqid, $tag == 'pre' ? filter(file_get_contents($file)) : file_get_contents($file));
+			$Page->replace($uniqid, $tag == 'pre' ? prepare_attr_value(file_get_contents($file)) : file_get_contents($file));
 			$addition_state .= h::{'div.cs-dialog'}(
 				h::$tag($uniqid),
 				[
@@ -709,14 +709,14 @@ foreach ($Config->components['modules'] as $module => &$mdata) {
 			}
 			if ($module != $Config->core['default_module']) {
 				$action		.= h::{'a.cs-button-compact'}(
-					h::icon($mdata['active'] == 1 ? 'check-minus' : 'check'),
+					h::icon($mdata['active'] == 1 ? 'minus' : 'check'),
 					[
 						'href'			=> $a->action.($mdata['active'] == 1 ? '/disable/' : '/enable/').$module,
 						'data-title'	=> $mdata['active'] == 1 ? $L->disable : $L->enable
 					]
 				).
 				h::{'a.cs-button-compact'}(
-					h::icon('trash'),
+					h::icon('trash-o'),
 					[
 						'href'			=> "$a->action/uninstall/$module",
 						'data-title'	=> $L->uninstall
@@ -729,7 +729,7 @@ foreach ($Config->components['modules'] as $module => &$mdata) {
 	 */
 	} else {
 		$action .= h::{'a.cs-button-compact'}(
-			h::icon('download-alt'),
+			h::icon('download'),
 			[
 				'href'			=> "$a->action/install/$module",
 				'data-title'	=> $L->install
@@ -768,9 +768,9 @@ foreach ($Config->components['modules'] as $module => &$mdata) {
 		),
 		h::icon(
 			$mdata['active'] == 1 ? (
-				$module == $Config->core['default_module'] ? 'home' : 'ok'
+				$module == $Config->core['default_module'] ? 'home' : 'check'
 			) : (
-				$mdata['active'] == 0 ? 'minus' : 'remove'
+				$mdata['active'] == 0 ? 'minus' : 'times'
 			),
 			[
 				'data-title'	=> $mdata['active'] == 1 ? (
@@ -802,7 +802,7 @@ $a->content(
 	h::p(
 		h::{'input[type=file][name=upload_module]'}().
 		h::{'button[type=submit]'}(
-			$L->upload_and_install_update_module,
+			h::icon('upload').$L->upload_and_install_update_module,
 			[
 				'formaction'	=>  "$a->action/install/upload"
 			]
@@ -811,14 +811,14 @@ $a->content(
 	h::p(
 		h::{'input[type=file][name=upload_system]'}().
 		h::{'button[type=submit]'}(
-			$L->upload_and_update_system,
+			h::icon('upload').$L->upload_and_update_system,
 			[
 				'formaction'	=>  "$a->action/update_system"
 			]
 		)
 	).
 	h::{'button[type=submit]'}(
-		$L->update_modules_list,
+		h::icon('refresh').$L->update_modules_list,
 		[
 			'data-title'	=> $L->update_modules_list_info,
 			'name'			=> 'update_modules_list'

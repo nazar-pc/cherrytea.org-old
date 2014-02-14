@@ -2,7 +2,7 @@
 /**
  * @package		CleverStyle CMS
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 /**
@@ -24,6 +24,7 @@ use	cs\Cache,
  * Auto Loading of classes
  */
 spl_autoload_register(function ($class) {
+	$class	= ltrim($class, '\\');
 	if (substr($class, 0, 3) == 'cs\\') {
 		$class	= substr($class, 3);
 	}
@@ -32,15 +33,15 @@ spl_autoload_register(function ($class) {
 		'namespace'	=> count($class) > 1 ? implode('/', array_slice($class, 0, -1)) : '',
 		'name'		=> array_pop($class)
 	];
-	return	_require_once(CLASSES."/$class[namespace]/$class[name].php", false) ||
-			_require_once(TRAITS."/$class[namespace]/$class[name].php", false) ||
-			_require_once(ENGINES."/$class[namespace]/$class[name].php", false) ||
-			(
-				mb_strpos($class['namespace'], "modules/") === 0 && _require_once(MODULES."/../$class[namespace]/$class[name].php", false)
-			) ||
-			(
-				mb_strpos($class['namespace'], "plugins/") === 0 && _require_once(PLUGINS."/../$class[namespace]/$class[name].php", false)
-			);
+	/**
+	 * Try to load classes from different places. If not found in one place - try in another.
+	 */
+	return
+		_require_once(CLASSES."/$class[namespace]/$class[name].php", false) ||		//Core classes
+		_require_once(THIRDPARTY."/$class[namespace]/$class[name].php", false) ||	//Third party classes
+		_require_once(TRAITS."/$class[namespace]/$class[name].php", false) ||		//Core traits
+		_require_once(ENGINES."/$class[namespace]/$class[name].php", false) ||		//Core engines
+		_require_once(MODULES."/../$class[namespace]/$class[name].php", false);		//Classes in modules and plugins
 }, true, true);
 /**
  * Correct termination
@@ -144,6 +145,9 @@ function clean_pcache () {
  * @return string
  */
 function format_time ($time) {
+	if (!is_numeric($time)) {
+		return $time;
+	}
 	$L		= Language::instance();
 	$res	= [];
 	if ($time >= 31536000) {
@@ -185,6 +189,9 @@ function format_time ($time) {
  * @return float|string
  */
 function format_filesize ($size, $round = false) {
+	if (!is_numeric($size)) {
+		return $size;
+	}
 	$L		= Language::instance();
 	$unit	= '';
 	if($size >= 1099511627776) {
@@ -202,7 +209,7 @@ function format_filesize ($size, $round = false) {
 	} else {
 		$size = "$size $L->Bytes";
 	}
-	return $round ? round($size, $round).$unit : $size;
+	return $round ? round($size, $round).$unit : $size.$unit;
 }
 /**
  * Function for setting cookies on all mirrors and taking into account cookies prefix. Parameters like in system function, but $path, $domain and $secure
@@ -717,7 +724,6 @@ function pages_buttons ($page, $total, $url = false) {
 function error_code ($code) {
 	!defined('ERROR_CODE') && define('ERROR_CODE', $code);
 }
-
 /**
  * Checks whether specified functionality available or not
  *

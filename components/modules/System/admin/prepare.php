@@ -4,7 +4,7 @@
  * @subpackage	System module
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\System;
@@ -31,8 +31,6 @@ function core_input ($item, $type = 'text', $info_item = null, $disabled = false
 				$value	= $Config->core[$item];
 			break;
 			case 'name':
-			case 'keywords':
-			case 'description':
 			case 'closed_title':
 			case 'mail_from_name':
 				$value	= get_core_ml_text($item);

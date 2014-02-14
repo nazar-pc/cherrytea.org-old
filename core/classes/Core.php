@@ -2,7 +2,7 @@
 /**
  * @package		CleverStyle CMS
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs;
@@ -23,14 +23,34 @@ class Core {
 	 */
 	protected function construct () {
 		if (!file_exists(CONFIG.'/main.json')) {
-			code_header(404);
+			error_code(500);
+			Page::instance()->error(
+				h::p('Config file not found, is system installed properly?').
+				h::a(
+					'How to install CleverStyle CMS',
+					[
+						'href'	=> 'https://github.com/nazar-pc/CleverStyle-CMS/wiki/Installation'
+					]
+				)
+			);
 			exit;
 		}
-		$this->config		= _json_decode_nocomments(file_get_contents(CONFIG.'/main.json'));
+		$this->config	= _json_decode_nocomments(file_get_contents(CONFIG.'/main.json'));
 		_include_once(CONFIG.'/main.php', false);
 		defined('DEBUG') || define('DEBUG', false);
 		define('DOMAIN', $this->config['domain']);
 		date_default_timezone_set($this->config['timezone']);
+		if ($clangs = Cache::instance()->{'languages/clangs'}) {
+			if (is_array($clangs) && !empty($clangs)) {
+				$clang	= explode('/', trim($_SERVER['REQUEST_URI'], '/'), 2)[0];
+				if (in_array($clang, $clangs)) {
+					$this->set('language', array_flip($clangs)[$clang]);
+					define('FIXED_LANGUAGE', true);
+				}
+				unset($clang);
+			}
+		}
+		unset($clangs);
 		if (!is_dir(STORAGE)) {
 			@mkdir(STORAGE, 0755);
 			file_put_contents(

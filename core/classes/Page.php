@@ -2,7 +2,7 @@
 /**
  * @package		CleverStyle CMS
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs;
@@ -25,7 +25,6 @@ class Page {
 				$interface			= true,
 				$pre_Html			= '',
 				$Html 				= '',
-					$Keywords			= '',
 					$Description		= '',
 					$Title				= [],
 				$debug_info			= '',
@@ -75,20 +74,16 @@ class Page {
 				$og_type			= '',
 				$canonical_url		= false;
 	/**
-	 * Initialization: setting of title, keywords, description, theme and color scheme according to specified parameters
+	 * Initialization: setting of title, theme and color scheme according to specified parameters
 	 *
 	 * @param string	$title
-	 * @param string	$keywords
-	 * @param string	$description
 	 * @param string	$theme
 	 * @param string	$color_scheme
 	 *
 	 * @return Page
 	 */
-	function init ($title, $keywords, $description, $theme, $color_scheme) {
+	function init ($title, $theme, $color_scheme) {
 		$this->Title[0] = htmlentities($title, ENT_COMPAT, 'utf-8');
-		$this->Keywords = $keywords;
-		$this->Description = $description;
 		$this->set_theme($theme);
 		$this->set_color_scheme($color_scheme);
 		return $this;
@@ -226,6 +221,47 @@ class Page {
 			$this->Title = $this->Title[0];
 		}
 		/**
+		 * Core JS
+		 */
+		if ($Config) {
+			$Index	= Index::instance();
+			$User	= User::instance();
+			$this->js_internal(
+				'window.cs	= '._json_encode([
+					'base_url'			=> $Config->base_url(),
+					'current_base_url'	=> $Config->base_url().'/'.(defined('IN_ADMIN') && IN_ADMIN ? 'admin/' : '').MODULE,
+					'public_key'		=> Core::instance()->public_key,
+					'module'			=> MODULE,
+					'in_admin'			=> (int)(defined('IN_ADMIN') && IN_ADMIN),
+					'is_admin'			=> (int)$User->admin(),
+					'is_user'			=> (int)$User->user(),
+					'is_guest'			=> (int)$User->guest(),
+					'debug'				=> (int)$User->guest(),
+					'cookie_prefix'		=> $Config->core['cookie_prefix'],
+					'cookie_domain'		=> $Config->core['cookie_domain'],
+					'cookie_path'		=> $Config->core['cookie_path'],
+					'protocol'			=> $Config->server['protocol'],
+					'route'				=> $Config->route,
+					'route_path'		=> $Index->route_path,
+					'route_ids'			=> $Index->route_ids
+				]).';',
+				'code',
+				true
+			);
+			if ($User->guest()) {
+				$this->js(
+					'cs.rules_text = '._json_encode(get_core_ml_text('rules')).';',
+					'code'
+				);
+			}
+			if (!$Config->core['cache_compress_js_css']) {
+				$this->js(
+					'cs.Language = '._json_encode(Language::instance()).';',
+					'code'
+				);
+			}
+		}
+		/**
 		 * Forming <head> content
 		 */
 		$this->core_css[0]	= implode('', array_unique($this->core_css[0]));
@@ -236,18 +272,6 @@ class Page {
 		$this->core_js[1]	= implode('', array_unique($this->core_js[1]));
 		$this->js[0]		= implode('', array_unique($this->js[0]));
 		$this->js[1]		= implode('', array_unique($this->js[1]));
-		if ($this->core_css[1]) {
-			$this->core_css[1]	= h::style($this->core_css[1]);
-		}
-		if ($this->css[1]) {
-			$this->css[1]		= h::style($this->css[1]);
-		}
-		if ($this->core_js[1]) {
-			$this->core_js[1]	= h::script($this->core_js[1]);
-		}
-		if ($this->js[1]) {
-			$this->js[1]		= h::script($this->js[1]);
-		}
 		if (file_exists(THEMES."/$this->theme/$this->color_scheme/img/favicon.png")) {
 			$favicon	= "themes/$this->theme/$this->color_scheme/img/favicon.png";
 		} elseif (file_exists(THEMES."/$this->theme/$this->color_scheme/img/favicon.ico")) {
@@ -264,19 +288,15 @@ class Page {
 				[
 					'charset'		=> 'utf-8'
 				],
-				[
-					'name'			=> 'keywords',
-					'content'		=> $this->Keywords
-				],
-				[
+				$this->Description ? [
 					'name'			=> 'description',
 					'content'		=> $this->Description
-				],
+				] : false,
 				[
 					'name'			=> 'generator',
 					'content'		=> base64_decode('Q2xldmVyU3R5bGUgQ01TIGJ5IE1va3J5bnNreWkgTmF6YXI=')
 				],
-				ADMIN || API ? [
+				(defined('ADMIN') && ADMIN) || (defined('API') && API) ? [
 					'name'			=> 'robots',
 					'content'		=> 'noindex,nofollow'
 				] : false
@@ -294,10 +314,9 @@ class Page {
 				],
 				$this->link ?: false
 			).
-			implode('', $this->core_css).
-			implode('', $this->css).
-			$this->core_js[1].
-			$this->js[1];
+			$this->core_css[0].$this->css[0].
+			h::style($this->core_css[1].$this->css[1]).
+			h::script($this->core_js[1].$this->js[1]);
 		if ($Config->core['put_js_after_body']) {
 			$this->post_Body	.= $this->core_js[0].$this->js[0];
 		} else {
@@ -629,7 +648,12 @@ class Page {
 		if (!isset($og['title']) || empty($og['title'])) {
 			$this->og('title', $this->Title);
 		}
-		if (!isset($og['description']) || empty($og['description'])) {
+		if (
+			(
+				!isset($og['description']) || empty($og['description'])
+			) &&
+			$this->Description
+		) {
 			$this->og('description', $this->Description);
 		}
 		if (!isset($og['url']) || empty($og['url'])) {
@@ -914,11 +938,40 @@ class Page {
 		$cwd	= getcwd();
 		chdir(dirname($file));
 		/**
-		 * Simple minification, removes comments, newlines, tabs and unnecessary spaces
+		 * Remove comments, tabs and new lines
 		 */
 		$data	= preg_replace('#(/\*.*?\*/)|\t|\n|\r#s', '', $data);
-		$data	= preg_replace('#\s*([,:;+>{}])\s*#s', '$1', $data);
+		/**
+		 * Remove unnecessary spaces
+		 */
+		$data	= preg_replace('#\s*([,:;+>{}\(\)])\s*#s', '$1', $data);
+		/**
+		 * Remove unnecessary trailing semicolons
+		 */
 		$data	= str_replace(';}', '}', $data);
+		/**
+		 * Minify repeated colors declarations
+		 */
+		$data	= preg_replace('/#([0-9a-f])\1([0-9a-f])\2([0-9a-f])\3/is', '#$1$2$3', $data);
+		/**
+		 * Minify rgb colors declarations
+		 */
+		$data	= preg_replace_callback(
+			'/rgb\(([0-9,\.]+)\)/is',
+			function ($rgb) {
+				$rgb	= explode(',', $rgb[1]);
+				return
+					'#'.
+					str_pad(dechex($rgb[0]), 2, 0, STR_PAD_LEFT).
+					str_pad(dechex($rgb[1]), 2, 0, STR_PAD_LEFT).
+					str_pad(dechex($rgb[2]), 2, 0, STR_PAD_LEFT);
+			},
+			$data
+		);
+		/**
+		 * Remove unnecessary zeros
+		 */
+		$data	= preg_replace('/([^0-9])0\.([0-9]+)/is', '$1.$2', $data);
 		/**
 		 * Includes processing
 		 */
@@ -1128,15 +1181,17 @@ class Page {
 		if (!defined('ERROR_CODE')) {
 			error_code(500);
 		}
-		if (!API && ERROR_CODE == 403 && _getcookie('sign_out')) {
+		if (defined('API') && !API && ERROR_CODE == 403 && _getcookie('sign_out')) {
 			header('Location: '.Config::instance()->base_url(), true, 302);
 			$this->Content	= '';
 			exit;
 		}
 		interface_off();
-		$error_text	= code_header(ERROR_CODE);
-		$error_text	= $custom_text ?: $error_text;
-		if (API || $json) {
+		$error_text	= $custom_text ?: code_header(ERROR_CODE);
+		if (
+			(defined('API') && API) ||
+			$json
+		) {
 			if ($json) {
 				header('Content-Type: application/json', true);
 				interface_off();
@@ -1152,13 +1207,11 @@ class Page {
 				!_include_once(THEMES."/$this->theme/error.php", false)
 			) {
 				echo "<!doctype html>\n".
-					h::title($error_text ?: ERROR_CODE).
+					h::title(code_header(ERROR_CODE)).
 					 ($error_text ?: ERROR_CODE);
 			}
 			$this->Content	= ob_get_clean();
 		}
-		Page::instance()->__finish();
-		User::instance(true)->__finish();
 		exit;
 	}
 	/**
@@ -1175,7 +1228,7 @@ class Page {
 				h::b(
 					"$L->hello, ".$User->username().'! '.
 					h::{'icon.cs-header-sign-out-process'}(
-						'power-off',
+						'sign-out',
 						[
 							'style'			=> 'cursor: pointer;',
 							'data-title'	=> $L->sign_out
@@ -1211,7 +1264,7 @@ class Page {
 			$this->header_info			= h::{'div.cs-header-guest-form'}(
 				h::b("$L->hello, $L->guest!").
 				h::div(
-					h::{'button.cs-header-sign-in-slide.cs-button-compact.uk-icon-signin'}($L->sign_in).
+					h::{'button.cs-header-sign-in-slide.cs-button-compact.uk-icon-sign-in'}($L->sign_in).
 					h::{'button.cs-header-registration-slide.cs-button-compact.uk-icon-pencil'}(
 						$L->sign_up,
 						[
@@ -1256,7 +1309,7 @@ class Page {
 					'style'	=> 'display: none;'
 				]
 			).
-			h::{'div.cs-header-sign-in-form'}(
+			h::{'form.cs-header-sign-in-form.cs-no-ui'}(
 				h::{'input.cs-no-ui.cs-header-sign-in-email[tabindex=1]'}([
 					'placeholder'		=> $L->login_or_email,
 					'autocapitalize'	=> 'off',
@@ -1266,7 +1319,7 @@ class Page {
 					'placeholder'	=> $L->password
 				]).
 				h::br().
-				h::{'button.cs-header-sign-in-process.cs-button-compact.uk-icon-signin[tabindex=3]'}($L->sign_in).
+				h::{'button.cs-button-compact.uk-icon-sign-in[tabindex=3][type=submit]'}($L->sign_in).
 				h::{'button.cs-button-compact.cs-header-back[tabindex=5]'}(
 					h::icon('chevron-down'),
 					[

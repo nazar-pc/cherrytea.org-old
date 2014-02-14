@@ -4,7 +4,7 @@
  * @subpackage	System module
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 /**
@@ -28,8 +28,6 @@ if ($_POST['edit_settings'] == 'apply' || $_POST['edit_settings'] == 'save') {
 			foreach ($_POST[$part] as $item => $value) {
 				switch ($item) {
 					case 'name':
-					case 'keywords':
-					case 'description':
 					case 'closed_title':
 					case 'closed_text':
 					case 'footer_text':

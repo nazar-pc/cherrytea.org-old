@@ -2,7 +2,7 @@
 /**
  * @package		CleverStyle CMS
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 /**
@@ -407,7 +407,7 @@ class User {
 			 * If there are missing values - get them from the database
 			 */
 			$new_items	= '`'.implode('`, `', $new_items).'`';
-			$res = $this->db()->qf(
+			$res		= $this->db()->qf(
 				"SELECT $new_items
 				FROM `[prefix]users`
 				WHERE `id` = '$user'
@@ -415,9 +415,9 @@ class User {
 			);
 			unset($new_items);
 			if (is_array($res)) {
-				$this->update_cache[$user] = true;
-				$data = array_merge((array)$data, $res);
-				$result = array_merge($result, $res);
+				$this->update_cache[$user]	= true;
+				$data						= array_merge($res, $data ?: []);
+				$result						= array_merge($result, $res);
 				/**
 				 * Sorting the resulting array in the same manner as the input array
 				 */
@@ -450,7 +450,7 @@ class User {
 				 * Update the local cache
 				 */
 				if (is_array($new_data)) {
-					$data = array_merge((array)$data, $new_data);
+					$data = array_merge($new_data, $data ?: []);
 				}
 				/**
 				 * New attempt of getting the data
@@ -464,7 +464,7 @@ class User {
 					LIMIT 1"
 				);
 				if ($new_data !== false) {
-					$this->update_cache[$user] = true;
+					$this->update_cache[$user]	= true;
 					return $data[$item] = $new_data;
 				}
 			}
@@ -514,7 +514,7 @@ class User {
 				$this->data[$user][$item.'_hash']		= hash('sha224', $value);
 				$this->data_set[$user][$item.'_hash']	= hash('sha224', $value);
 				unset($this->cache->{hash('sha224', $this->$item)});
-			} elseif ($item == 'password_hash') {
+			} elseif ($item == 'password_hash' || ($item == 'status' && $value == 0)) {
 				$this->del_all_sessions($user);
 			}
 		}
@@ -630,24 +630,27 @@ class User {
 			return false;
 		}
 		if (is_array($item)) {
-			$inserts		= [];
-			$inserts_data	= [];
+			$params	= [];
 			foreach ($item as $i => $v) {
-				$inserts[]		= "($user, '%s', '%s')";
-				$inserts_data[]	= $i;
-				$inserts_data[]	= _json_encode($v);
+				$params[]	= [
+					$i,
+					_json_encode($v)
+				];
 			}
 			unset($i, $v);
-			$inserts		= implode(',', $inserts);
-			$result			= $this->db_prime()->q(
+			$result			= $this->db_prime()->insert(
 				"INSERT INTO `[prefix]users_data`
 					(
 						`id`,
 						`item`,
 						`value`
-					) VALUES $inserts
+					) VALUES (
+						$user,
+						'%s',
+						'%s'
+					)
 				ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)",
-				$inserts_data
+				$params
 			);
 		} else {
 			$result	= $this->db_prime()->q(
@@ -939,11 +942,31 @@ class User {
 		return $this->del_any_permissions_all($user, 'user');
 	}
 	/**
-	 * Get user groups
+	 * Add user's groups
+	 *
+	 * @param int|int[]		$group	Group id
+	 * @param bool|int		$user	If not specified - current user assumed
+	 *
+	 * @return bool
+	 */
+	function add_groups ($group, $user = false) {
+		$user	= (int)($user ?: $this->id);
+		if (!$user || $user == self::GUEST_ID) {
+			return false;
+		}
+		$groups	= $this->get_groups($user);
+		foreach ((array)_int($group) as $g) {
+			$groups[]	= $g;
+		}
+		unset($g);
+;		return $this->set_groups($groups, $user);
+	}
+	/**
+	 * Get user's groups
 	 *
 	 * @param bool|int		$user	If not specified - current user assumed
 	 *
-	 * @return array|bool
+	 * @return bool|int[]
 	 */
 	function get_groups ($user = false) {
 		$user	= (int)($user ?: $this->id);
@@ -960,31 +983,31 @@ class User {
 		});
 	}
 	/**
-	 * Set user groups
+	 * Set user's groups
 	 *
-	 * @param array		$data
+	 * @param int[]		$groups
 	 * @param bool|int	$user
 	 *
 	 * @return bool
 	 */
-	function set_groups ($data, $user = false) {
+	function set_groups ($groups, $user = false) {
 		$user		= (int)($user ?: $this->id);
 		if (!$user) {
 			return false;
 		}
-		if (!empty($data) && is_array_indexed($data)) {
-			foreach ($data as $i => &$group) {
+		if (!empty($groups) && is_array_indexed($groups)) {
+			foreach ($groups as $i => &$group) {
 				if (!($group = (int)$group)) {
-					unset($data[$i]);
+					unset($groups[$i]);
 				}
 			}
 		}
 		unset($i, $group);
-		$exiting	= $this->get_groups($user);
+		$existing	= $this->get_groups($user);
 		$return		= true;
-		$insert		= array_diff($data, $exiting);
-		$delete		= array_diff($exiting, $data);
-		unset($exiting);
+		$insert		= array_diff($groups, $existing);
+		$delete		= array_diff($existing, $groups);
+		unset($existing);
 		if (!empty($delete)) {
 			$delete	= implode(', ', $delete);
 			$return	= $return && $this->db_prime()->q(
@@ -1014,7 +1037,7 @@ class User {
 			unset($q);
 		}
 		$update		= [];
-		foreach ($data as $i => $group) {
+		foreach ($groups as $i => $group) {
 			$update[] =
 				"UPDATE `[prefix]users_groups`
 				SET `priority` = '$i'
@@ -1030,6 +1053,25 @@ class User {
 			$Cache->{"permissions/$user"}
 		);
 		return $return;
+	}
+	/**
+	 * Delete user's groups
+	 *
+	 * @param int|int[]		$group	Group id
+	 * @param bool|int		$user	If not specified - current user assumed
+	 *
+	 * @return bool
+	 */
+	function del_groups ($group, $user = false) {
+		$user	= (int)($user ?: $this->id);
+		if (!$user || $user == self::GUEST_ID) {
+			return false;
+		}
+		$groups	= array_diff(
+			$this->get_groups($user),
+			(array)_int($group)
+		);
+;		return $this->set_groups($groups, $user);
 	}
 	/**
 	 * Returns current session id
@@ -1382,10 +1424,10 @@ class User {
 				unset($this->cache->{"sessions/$session"});
 			}
 			unset($session);
-			$sessions	= implode(',', $sessions);
+			$sessions	= implode("','", $sessions);
 			return $this->db_prime()->q(
 				"DELETE FROM `[prefix]sessions`
-				WHERE `id` IN($sessions)"
+				WHERE `id` IN('$sessions')"
 			);
 		}
 		return true;
@@ -2054,8 +2096,8 @@ class User {
 		 */
 		foreach ($this->data as $id => &$data) {
 			if (isset($this->update_cache[$id]) && $this->update_cache[$id]) {
-				$data['id'] = $id;
-				$this->cache->$id = $data;
+				$data['id']			= $id;
+				$this->cache->$id	= $data;
 			}
 		}
 		$this->update_cache = [];

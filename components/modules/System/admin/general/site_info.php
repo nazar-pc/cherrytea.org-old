@@ -4,7 +4,7 @@
  * @subpackage	System module
  * @category	modules
  * @author		Nazar Mokrynskyi <nazar@mokrynskyi.com>
- * @copyright	Copyright (c) 2011-2013, Nazar Mokrynskyi
+ * @copyright	Copyright (c) 2011-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\System;
@@ -56,8 +56,6 @@ Index::instance()->content(
 				]
 			)
 		] : false,
-		core_input('keywords'),
-		core_input('description'),
 		[
 			h::info('timezone'),
 			h::select(
@@ -72,7 +70,6 @@ Index::instance()->content(
 				]
 			)
 		],
-		core_input('admin_email', 'email'),
-		core_input('admin_phone', 'tel')
+		core_input('admin_email', 'email')
 	)
 );
