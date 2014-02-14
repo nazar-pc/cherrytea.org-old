@@ -10,8 +10,8 @@ body > footer {
 	background : #3c3c3c;
 	color      : #ffffff;
 	margin     : -128px auto 0;
-	padding    : 15px 75px;
-	width      : 1100px;
+	padding    : 15px 0;
+	width      : 1000px;
 
 	&:before {
 		background : #3c3c3c;
@@ -35,10 +35,10 @@ body > footer {
 	}
 
 	nav {
-		display      : inline-block;
-		margin-right : -442px;
-		right        : 50%;
-		top          : 55px;
+		display  : inline-block;
+		margin   : 40px -520px 0 0;
+		position : absolute;
+		right    : 50%;
 
 		a {
 			padding : 0 20px;
