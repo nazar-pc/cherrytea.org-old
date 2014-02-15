@@ -230,8 +230,10 @@ $ ->
 										<button class="cs-home-page-confirm-good uk-button" data-id="#{good.id}"><i class="uk-icon-check"></i> Водій забрав речі</button>
 									</p>
 								</aside>"""
-							$('.cs-home-page-my-goods').html(content+content)
-						return
+							$('.cs-home-page-my-goods').html(content)
+					else
+						clusterer.removeAll()
+					return
 			)
 		find_goods()
 		filter

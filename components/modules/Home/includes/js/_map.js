@@ -160,8 +160,10 @@
                   icon_v_offset = Math.round(Math.random() * 6) * 97;
                   content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		<!--<button class=\"cs-home-page-delete-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-times\"></i></button>-->\n		<button class=\"cs-home-page-confirm-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-check\"></i> Водій забрав речі</button>\n	</p>\n</aside>";
                 }
-                $('.cs-home-page-my-goods').html(content + content);
+                $('.cs-home-page-my-goods').html(content);
               }
+            } else {
+              clusterer.removeAll();
             }
           }
         });
