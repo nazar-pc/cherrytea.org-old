@@ -30,7 +30,7 @@ $ ->
 		if navigator.geolocation
 			navigator.geolocation.getCurrentPosition(
 				(position) ->
-					#map.setCenter([position.coords.latitude, position.coords.longitude])
+					map.setCenter([position.coords.latitude, position.coords.longitude])
 				->
 				{
 					enableHighAccuracy	: true
