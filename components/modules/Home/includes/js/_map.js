@@ -108,7 +108,7 @@
           $('.cs-home-page-my-goods').hide().html('');
         }
         return $.ajax({
-          url: 'api/Home/find_goods',
+          url: 'api/Home/goods',
           data: {
             date: filter.find('input[name=date]').val(),
             time: filter.find('[name=time]').val(),
