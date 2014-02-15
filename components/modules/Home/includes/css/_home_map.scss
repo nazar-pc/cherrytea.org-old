@@ -92,6 +92,11 @@
 		}
 	}
 }
+
+.ymaps-b-cluster-tabs__menu-item-text .delete-good {
+	display: none;
+}
+
 .ymaps-b-cluster-tabs__item-header.ymaps-b-cluster-content__header {
 	background : #ff7f7f;
 	color      : #fff;
@@ -105,6 +110,7 @@
 		top          : 21px;
 	}
 }
+
 .ymaps-b-cluster-tabs__content-item .home-page-map-balloon-container {
 	box-shadow : none;
 	position   : static;

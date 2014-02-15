@@ -315,6 +315,9 @@
   .home-page-map-balloon-container.centers article time {
     color: #0097fc; }
 
+.ymaps-b-cluster-tabs__menu-item-text .delete-good {
+  display: none; }
+
 .ymaps-b-cluster-tabs__item-header.ymaps-b-cluster-content__header {
   background: #ff7f7f;
   color: #fff;
