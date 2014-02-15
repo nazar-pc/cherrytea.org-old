@@ -58,7 +58,7 @@ class Volunteers {
 		);
 	}
 	/**
-	 * Add new driver (inactive by default)
+	 * Add new giver
 	 *
 	 * @param int		$user
 	 *
@@ -79,7 +79,7 @@ class Volunteers {
 			$user,
 			$code,
 			substr(md5(MICROTIME.uniqid()), 0, 6),
-			-1,
+			'undefined',
 			0
 		]);
 	}
@@ -92,7 +92,7 @@ class Volunteers {
 	 */
 	function is_driver ($user) {
 		$driver	= $this->get($user);
-		return (bool)($driver && $driver['active'] === 'yes');
+		return (bool)($driver && $driver['driver'] === 'yes');
 	}
 	/**
 	 * Set driver, allows to activate or deactivate driver, or send request for driver access
@@ -170,7 +170,7 @@ class Volunteers {
 			FROM `$this->table` AS `d`
 			LEFT JOIN `[prefix]users_social_integration` AS `s`
 			ON `d`.`id` = `s`.`id`
-			WHERE `d`.`driver` = '1'
+			WHERE `d`.`driver` IN('yes','no','requested')
 			GROUP BY `d`.`id`
 			ORDER BY `d`.`id` DESC"
 		);

@@ -25,8 +25,8 @@ $Index->content(
 		).
 		h::{'tbody tr'}(array_map(
 			function ($driver) use ($User) {
-				switch ($driver['active']) {
-					case '1':
+				switch ($driver['driver']) {
+					case 'yes':
 						$class	= 'uk-alert-success';
 						$action	= h::{'button[type=submit][name=driver_deactivate]'}(
 							'Деактивувати',
@@ -35,7 +35,7 @@ $Index->content(
 							]
 						);
 					break;
-					case '0':
+					case 'no':
 						$class = 'uk-alert-danger';
 						$action	= h::{'button[type=submit][name=driver_activate]'}(
 							'Активувати',
@@ -72,13 +72,7 @@ $Index->content(
 							]
 						),
 						$driver['reputation'],
-						$action.
-						h::{'button[type=submit][name=not_driver]'}(
-							'Не водій',
-							[
-								'value'	=> $driver['id']
-							]
-						)
+						$action
 					]),
 					[
 						'class'	=> $class
