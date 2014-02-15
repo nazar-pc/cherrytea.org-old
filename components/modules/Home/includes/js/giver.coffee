@@ -135,20 +135,23 @@ $ ->
 				'click'
 				'.cs-home-page-confirm-good'
 				->
-					$.cs.simple_modal(
+					id		= $(@).data('id')
+					modal	= $.cs.simple_modal(
 						"""
 							<p>Введіть код, який ви отримали від водія, щоб ми знали, хто відвозить ваші речі</p>
-							<input placeholder="Код водія">
+							<input placeholder="Код водія" autofocus>
 							<button class="uk-button">Готово</button>
 						"""
 						true
 						500
 					)
-						.find('button')
+					modal.find('button')
 							.click ->
 								$.ajax(
-									url		: 'api/Home/goods/' + $(@).data('id') + '/confirm'
+									url		: "api/Home/goods/#{id}/confirm"
 									type	: 'post'
+									data	:
+										confirmation_code	: modal.find('input').val()
 									success	: ->
 										alert 'Дякуємо, що творите добрі справи!'
 										location.reload()

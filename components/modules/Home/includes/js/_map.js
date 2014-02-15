@@ -12,7 +12,9 @@
 (function() {
 
   $(function() {
-    if (!$('#map').length) {
+    var map_container;
+    map_container = $('#map');
+    if (!map_container.length) {
       return;
     }
     return ymaps.ready(function() {
@@ -114,7 +116,7 @@
           },
           type: 'get',
           success: function(result) {
-            var admin, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, state, _i, _j, _len, _len1;
+            var admin, confirm, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, state, _i, _j, _len, _len1;
             if (result && result.length) {
               if (goods !== 'my') {
                 placemarks = [];
@@ -157,8 +159,9 @@
                       icon_h_offset = 0;
                     }
                   }
-                  icon_v_offset = Math.round(Math.random() * 6) * 97;
-                  content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		<!--<button class=\"cs-home-page-delete-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-times\"></i></button>-->\n		<button class=\"cs-home-page-confirm-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-check\"></i> Водій забрав речі</button>\n	</p>\n</aside>";
+                  icon_v_offset = Math.round(Math.random() * 5) * 97;
+                  confirm = good.given === '0' && good.success === '-1' ? "<button class=\"cs-home-page-confirm-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-check\"></i> Водій забрав речі</button>" : '';
+                  content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		<!--<button class=\"cs-home-page-delete-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-times\"></i></button>-->\n		" + confirm + "\n	</p>\n</aside>";
                 }
                 $('.cs-home-page-my-goods').html(content);
               }
@@ -169,7 +172,7 @@
         });
       };
       find_goods();
-      filter.on('click', '.reservation', function() {
+      map_container.on('click', '.reservation', function() {
         var reservation;
         reservation = $(this);
         return $.ajax({
@@ -223,7 +226,7 @@
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
-      return $('#map').on('click', '.delete-good', function() {
+      return map_container.on('click', '.delete-good', function() {
         if (!window.cs.is_admin) {
           return;
         }

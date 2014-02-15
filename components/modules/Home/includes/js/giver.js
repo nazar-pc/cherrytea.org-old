@@ -114,10 +114,16 @@
         return false;
       });
       return $('.cs-home-page-my-goods').on('click', '.cs-home-page-delete-good', function() {}).on('click', '.cs-home-page-confirm-good', function() {
-        return $.cs.simple_modal("<p>Введіть код, який ви отримали від водія, щоб ми знали, хто відвозить ваші речі</p>\n<input placeholder=\"Код водія\">\n<button class=\"uk-button\">Готово</button>", true, 500).find('button').click(function() {
+        var id, modal;
+        id = $(this).data('id');
+        modal = $.cs.simple_modal("<p>Введіть код, який ви отримали від водія, щоб ми знали, хто відвозить ваші речі</p>\n<input placeholder=\"Код водія\" autofocus>\n<button class=\"uk-button\">Готово</button>", true, 500);
+        return modal.find('button').click(function() {
           return $.ajax({
-            url: 'api/Home/goods/' + $(this).data('id') + '/confirm',
+            url: "api/Home/goods/" + id + "/confirm",
             type: 'post',
+            data: {
+              confirmation_code: modal.find('input').val()
+            },
             success: function() {
               alert('Дякуємо, що творите добрі справи!');
               return location.reload();

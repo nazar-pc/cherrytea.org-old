@@ -21,7 +21,7 @@ if (!isset($Index->route_ids[0], $_POST['confirmation_code'])) {
 	return;
 }
 $Goods		= Goods::instance();
-$added_by	= array_column($Goods->added_by($User->id), 'id');
+$added_by	= array_column($Goods->unconfirmed($User->id), 'id');
 if (!in_array($Index->route_ids[0], $added_by)) {
 	error_code(403);
 	return;

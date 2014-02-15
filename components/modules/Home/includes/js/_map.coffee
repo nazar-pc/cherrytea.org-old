@@ -6,7 +6,8 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
-	if !$('#map').length
+	map_container	= $('#map')
+	if !map_container.length
 		return
 	ymaps.ready ->
 		# Map resizing on initialization and window resize
@@ -217,7 +218,8 @@ $ ->
 									else
 										state			= 'Очікує'
 										icon_h_offset	= 0
-								icon_v_offset	= Math.round(Math.random() * 6) * 97
+								icon_v_offset	= Math.round(Math.random() * 5) * 97
+								confirm			= if good.given == '0' && good.success == '-1' then """<button class="cs-home-page-confirm-good uk-button" data-id="#{good.id}"><i class="uk-icon-check"></i> Водій забрав речі</button>""" else ''
 								content			+= """<aside>
 									<div class="icon" style="background-position: -#{icon_h_offset}px -#{icon_v_offset}px"></div>
 									<h2>#{state}</h2>
@@ -227,7 +229,7 @@ $ ->
 									<p>#{good.comment}</p>
 									<p>
 										<!--<button class="cs-home-page-delete-good uk-button" data-id="#{good.id}"><i class="uk-icon-times"></i></button>-->
-										<button class="cs-home-page-confirm-good uk-button" data-id="#{good.id}"><i class="uk-icon-check"></i> Водій забрав речі</button>
+										#{confirm}
 									</p>
 								</aside>"""
 							$('.cs-home-page-my-goods').html(content)
@@ -236,7 +238,7 @@ $ ->
 					return
 			)
 		find_goods()
-		filter
+		map_container
 			.on(
 				'click'
 				'.reservation'
@@ -300,7 +302,7 @@ $ ->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_goods, 300)
 		)
-		$('#map').on(
+		map_container.on(
 			'click'
 			'.delete-good'
 			->

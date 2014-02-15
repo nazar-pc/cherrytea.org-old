@@ -164,7 +164,7 @@ class Goods {
 	 *
 	 * @return array[]|bool
 	 */
-	function added_by ($giver) {
+	function unconfirmed ($giver) {
 		return $this->get(
 			$this->db()->qfas([
 				"SELECT `id`
@@ -172,8 +172,7 @@ class Goods {
 				WHERE
 					`giver`		= '%s' AND
 					`given`		= '0' AND
-					`success`	= '-1'
-				LIMIT 1",
+					`success`	= '-1'",
 				$giver
 			])
 		);
@@ -254,24 +253,22 @@ class Goods {
 		if (isset($params['giver']) && $params['giver']) {
 			$where[]	= "`giver` = '%s'";
 			$subst[]	= $params['giver'];
-		}
-		if (isset($params['reserved']) && $params['reserved']) {
-			$where[]	= "`reserved` > ".TIME." AND `reserved_driver` = '%s'";
-			$subst[]	= $driver;
 		} else {
-			$where[]	= '`reserved` < '.TIME;
+			$where[]	= "`given` = 0 AND  `success` = '-1'";
+			if (isset($params['reserved']) && $params['reserved']) {
+				$where[]	= "`reserved` > ".TIME." AND `reserved_driver` = '%s'";
+				$subst[]	= $driver;
+			} else {
+				$where[]	= '`reserved` < '.TIME;
+			}
 		}
-		if ($where) {
-			$where	= 'WHERE '.implode(' AND ', $where).' AND ';
-		} else {
-			$where	= 'WHERE ';
-		}
-		$where	.= "`given` = 0 AND  `success` = '-1'";
+		$where	= 'WHERE '.implode(' AND ', $where);
 		return $this->get(
 			$this->db()->qfas([
 				"SELECT `id`
 				FROM `$this->table`
-				$where",
+				$where
+				ORDER BY `id` DESC",
 				$subst
 			])
 		);
