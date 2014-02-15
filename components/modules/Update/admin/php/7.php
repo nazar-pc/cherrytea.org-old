@@ -20,5 +20,8 @@ $givers	= $cdb->qfa(
 );
 $Volunteers	= Volunteers::instance();
 foreach ($givers as $g) {
+	if (!$Volunteers->get($g['giver'])) {
+		$Volunteers->add($g['giver']);
+	}
 	$Volunteers->change_reputation($g['giver'], $g['count']);
 }
