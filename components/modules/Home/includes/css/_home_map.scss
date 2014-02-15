@@ -12,7 +12,7 @@
 	width  : 1000px;
 
 	[class*='uk-icon-'] {
-		color    : #d7d7d7;
+		color : #d7d7d7;
 	}
 }
 
@@ -91,4 +91,13 @@
 			}
 		}
 	}
+}
+.ymaps-b-cluster-tabs__item-header.ymaps-b-cluster-content__header {
+	background : #ff7f7f;
+	color      : #fff;
+	padding    : 10px;
+}
+.ymaps-b-cluster-tabs__content-item .home-page-map-balloon-container {
+	box-shadow : none;
+	position   : static;
 }

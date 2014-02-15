@@ -30,7 +30,7 @@ $ ->
 		if navigator.geolocation
 			navigator.geolocation.getCurrentPosition(
 				(position) ->
-					map.panTo([position.coords.latitude, position.coords.longitude])
+					#map.setCenter([position.coords.latitude, position.coords.longitude])
 				->
 				{
 					enableHighAccuracy	: true
@@ -180,7 +180,16 @@ $ ->
 											good.lng
 										]
 										{
-											hintContent	: if window.driver || good.giver == window.volunteer then good.username + ' ' + good.phone else undefined
+											hintContent				: if window.driver || good.giver == window.volunteer then good.username + ' ' + good.phone else undefined
+											balloonContentHeader	: if window.driver || good.giver == window.volunteer then good.username + ' ' + good.phone else undefined
+											balloonContentBody		: """<section class="home-page-map-balloon-container">
+												<article>
+													<address>#{good.address}</address>
+													<time>#{good.date} (#{good.time})</time>
+													<p>#{good.comment}</p>
+												</article>
+												<footer>#{reservation}</footer>
+											</section>"""
 										}
 										{
 											iconLayout			: 'default#image'
