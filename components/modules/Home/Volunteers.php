@@ -79,7 +79,7 @@ class Volunteers {
 			$user,
 			$code,
 			substr(md5(MICROTIME.uniqid()), 0, 6),
-			'undefined',
+			'unknown',
 			0
 		]);
 	}
@@ -171,6 +171,24 @@ class Volunteers {
 			LEFT JOIN `[prefix]users_social_integration` AS `s`
 			ON `d`.`id` = `s`.`id`
 			WHERE `d`.`driver` IN('yes','no','requested')
+			GROUP BY `d`.`id`
+			ORDER BY `d`.`id` DESC"
+		);
+	}
+	/**
+	 * Get list of all givers
+	 *
+	 * @return array|bool|string
+	 */
+	function get_givers () {
+		return $this->db()->qfa(
+			"SELECT
+				`d`.*,
+				`s`.`profile`
+			FROM `$this->table` AS `d`
+			LEFT JOIN `[prefix]users_social_integration` AS `s`
+			ON `d`.`id` = `s`.`id`
+			WHERE `d`.`driver` = 'unknown'
 			GROUP BY `d`.`id`
 			ORDER BY `d`.`id` DESC"
 		);
