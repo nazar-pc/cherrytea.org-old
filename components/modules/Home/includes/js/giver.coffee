@@ -121,6 +121,8 @@ $ ->
 						.appendTo('body')
 						.cs().modal('show')
 						.on 'uk.modal.hide', ->
+							$(window).scrollTop(0)
+							location.reload()
 							$(this).remove()
 			)
 			return false

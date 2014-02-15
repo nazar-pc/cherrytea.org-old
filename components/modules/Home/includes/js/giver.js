@@ -107,6 +107,8 @@
           },
           success: function() {
             return $("<div>\n	<div class=\"uk-form\" style=\"width: 700px;margin-left: -350px;\">\n		<h2 class=\"cs-center\">Дякуємо за розміщену інформацію про наявні речі!</h2>\n		<p class=\"cs-center\">Вільний водій зв’яжеться з вами за першої нагоди.</p>\n		<p>Коли віддаватимете речі - спитайте про код, який має кожен водій. Цей код використовується задля контролю чесності та надійності водіїв.</p>\n		<p>В розділі \"Мої речі\" нижче ви можете підтвердити передачу речей водію, ввівши його код.</p>\n	</div>\n</div>").appendTo('body').cs().modal('show').on('uk.modal.hide', function() {
+              $(window).scrollTop(0);
+              location.reload();
               return $(this).remove();
             });
           }
