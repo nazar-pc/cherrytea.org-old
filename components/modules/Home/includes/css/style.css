@@ -172,7 +172,7 @@
   text-align: center;
   padding: 20px 0;
   position: relative;
-  z-index: -1; }
+  z-index: 0; }
   .home-page article .cs-home-page-map-goods-switcher > span {
     background: #FF7F7F;
     border: 1px solid #ff7f7f;

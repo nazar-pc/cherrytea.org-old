@@ -84,8 +84,8 @@
 		display    : block;
 		text-align : center;
 		padding    : 20px 0;
-		position : relative;
-		z-index  : -1;
+		position   : relative;
+		z-index    : 0;
 
 		> span {
 			background    : #FF7F7F;
@@ -201,7 +201,7 @@
 		}
 
 		.cs-home-page-delete-good {
-			background: #9c9c9c;
+			background : #9c9c9c;
 		}
 	}
 }
