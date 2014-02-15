@@ -386,7 +386,7 @@ body {
   body > p {
     margin: 0 auto;
     min-height: 100%;
-    padding: 138px 0 128px;
+    padding: 148px 0 128px;
     width: 1000px; }
   body.HybridAuth form {
     padding: 0;
@@ -566,12 +566,8 @@ body > footer {
  * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.cs-blogs-post-latest,
-.cs-blogs-post {
-  padding: 20px 0; }
-  .cs-blogs-post-latest article a,
-  .cs-blogs-post article a {
-    text-decoration: underline !important; }
+.cs-blogs-post article a {
+  text-decoration: underline !important; }
 
 .cs-blogs-new-post-content a {
   text-decoration: underline !important; }
