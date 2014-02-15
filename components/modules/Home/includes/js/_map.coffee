@@ -170,7 +170,7 @@ $ ->
 									reservation	= ''
 								admin		=
 									if window.cs.is_admin
-										"""<span class="uk-icon-trash delete-good" data-id="#{good.id}"></span>"""
+										"""<span class="uk-icon-trash-o delete-good" data-id="#{good.id}"></span>"""
 									else
 										''
 								placemarks.push(
@@ -181,7 +181,7 @@ $ ->
 										]
 										{
 											hintContent				: if window.driver || good.giver == window.volunteer then good.username + ' ' + good.phone else undefined
-											balloonContentHeader	: if window.driver || good.giver == window.volunteer then good.username + ' ' + good.phone else undefined
+											balloonContentHeader	: if window.driver || good.giver == window.volunteer then admin + good.username + ' ' + good.phone else undefined
 											balloonContentBody		: """<section class="home-page-map-balloon-container">
 												<article>
 													<address>#{good.address}</address>

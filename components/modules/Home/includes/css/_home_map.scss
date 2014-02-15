@@ -42,7 +42,7 @@
 			margin-right : 0 !important;
 			position     : absolute !important;
 			right        : 30px;
-			top          : 12px;
+			top          : 15px;
 		}
 
 		.uk-close {
@@ -96,6 +96,14 @@
 	background : #ff7f7f;
 	color      : #fff;
 	padding    : 10px;
+
+	.delete-good {
+		cursor       : pointer;
+		margin-right : 0 !important;
+		position     : absolute !important;
+		right        : 15px;
+		top          : 21px;
+	}
 }
 .ymaps-b-cluster-tabs__content-item .home-page-map-balloon-container {
 	box-shadow : none;

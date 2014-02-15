@@ -126,10 +126,10 @@
                   } else {
                     reservation = '';
                   }
-                  admin = window.cs.is_admin ? "<span class=\"uk-icon-trash delete-good\" data-id=\"" + good.id + "\"></span>" : '';
+                  admin = window.cs.is_admin ? "<span class=\"uk-icon-trash-o delete-good\" data-id=\"" + good.id + "\"></span>" : '';
                   placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
                     hintContent: window.driver || good.giver === window.volunteer ? good.username + ' ' + good.phone : void 0,
-                    balloonContentHeader: window.driver || good.giver === window.volunteer ? good.username + ' ' + good.phone : void 0,
+                    balloonContentHeader: window.driver || good.giver === window.volunteer ? admin + good.username + ' ' + good.phone : void 0,
                     balloonContentBody: "<section class=\"home-page-map-balloon-container\">\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>"
                   }, {
                     iconLayout: 'default#image',
