@@ -84,6 +84,8 @@
 		display    : block;
 		text-align : center;
 		padding    : 20px 0;
+		position : relative;
+		z-index  : -1;
 
 		> span {
 			background    : #FF7F7F;
