@@ -39,7 +39,9 @@
       });
       map.behaviors.disable('scrollZoom');
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {}, function() {}, {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          return map.setCenter([position.coords.latitude, position.coords.longitude]);
+        }, function() {}, {
           enableHighAccuracy: true,
           timeout: 30 * 60 * 1000
         });
