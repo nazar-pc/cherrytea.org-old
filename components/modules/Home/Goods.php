@@ -162,11 +162,11 @@ class Goods {
 	 *
 	 * @param int			$giver
 	 *
-	 * @return array|bool
+	 * @return array[]|bool
 	 */
 	function added_by ($giver) {
 		return $this->get(
-			$this->db()->qfs([
+			$this->db()->qfas([
 				"SELECT `id`
 				FROM `$this->table`
 				WHERE

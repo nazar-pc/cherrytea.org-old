@@ -226,8 +226,8 @@ $ ->
 									<time>#{good.date} (#{good.time})</time>
 									<p>#{good.comment}</p>
 									<p>
-										<button class="cs-home-page-delete-good uk-button"><i class="uk-icon-times"></i></button>
-										<button class="cs-home-page-confirm-good uk-button"><i class="uk-icon-check"></i> Водій забрав речі</button>
+										<!--<button class="cs-home-page-delete-good uk-button" data-id="#{good.id}"><i class="uk-icon-times"></i></button>-->
+										<button class="cs-home-page-confirm-good uk-button" data-id="#{good.id}"><i class="uk-icon-check"></i> Водій забрав речі</button>
 									</p>
 								</aside>"""
 							$('.cs-home-page-my-goods').html(content+content)

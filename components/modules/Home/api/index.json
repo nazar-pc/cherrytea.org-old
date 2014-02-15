@@ -1,7 +1,10 @@
-[
-	"blank",
-	"i_have_a_car",
-	"find_goods",
-	"reservation",
-	"goods"
-]
+{
+	"blank"			: [],
+	"i_have_a_car"	: [],
+	"find_goods"	: [],
+	"reservation"	: [],
+	"goods"			: [
+		"index",
+		"confirm"
+	]
+}

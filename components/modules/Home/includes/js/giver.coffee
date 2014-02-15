@@ -124,3 +124,33 @@ $ ->
 							$(this).remove()
 			)
 			return false
+		$('.cs-home-page-my-goods')
+			.on(
+				'click'
+				'.cs-home-page-delete-good'
+				->
+					#
+			)
+			.on(
+				'click'
+				'.cs-home-page-confirm-good'
+				->
+					$.cs.simple_modal(
+						"""
+							<p>Введіть код, який ви отримали від водія, щоб ми знали, хто відвозить ваші речі</p>
+							<input placeholder="Код водія">
+							<button class="uk-button">Готово</button>
+						"""
+						true
+						500
+					)
+						.find('button')
+							.click ->
+								$.ajax(
+									url		: 'api/Home/goods/' + $(@).data('id') + '/confirm'
+									type	: 'post'
+									success	: ->
+										alert 'Дякуємо, що творите добрі справи!'
+										location.reload()
+								)
+			)
