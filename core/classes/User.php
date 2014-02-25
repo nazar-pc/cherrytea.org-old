@@ -360,7 +360,8 @@ class User {
 			case 'ip':
 				return $_SERVER['REMOTE_ADDR'];
 			case 'forwarded_for':
-				return isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? preg_replace('/[^a-f0-9\.:]/i', '', array_pop($tmp = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']))) : false;
+				$tmp	= explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+				return isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? preg_replace('/[^a-f0-9\.:]/i', '', array_pop($tmp)) : false;
 			case 'client_ip':
 				return isset($_SERVER['HTTP_CLIENT_IP']) ? preg_replace('/[^a-f0-9\.:]/i', '', $_SERVER['HTTP_CLIENT_IP']) : false;
 		}
@@ -866,12 +867,18 @@ class User {
 					if (is_array($groups)) {
 						$Group	= Group::instance();
 						foreach ($groups as $group_id) {
-							$permissions = array_merge($permissions ?: [], $Group->get_permissions($group_id) ?: []);
+							foreach ($Group->get_permissions($group_id) ?: [] as $p => $v) {
+								$permissions[$p]	= $v;
+							}
+							unset($p, $v);
 						}
 					}
 					unset($groups, $group_id);
 				}
-				return array_merge($permissions ?: [], $this->get_permissions($user) ?: []);
+				foreach ($this->get_permissions($user) ?: [] as $p => $v) {
+					$permissions[$p]	= $v;
+				}
+				return $permissions;
 			});
 		}
 		$all_permission	= Cache::instance()->{'permissions/all'} ?: Permission::instance()->get_all();
@@ -1040,23 +1047,23 @@ class User {
 		}
 		unset($delete);
 		if (!empty($insert)) {
-			$q		= [];
-			foreach ($insert as $group) {
-				$q[] = $user."', '".$group;
+			foreach ($insert as &$i) {
+				$i = [$user, $i];
 			}
-			unset($group, $insert);
-			$q		= implode('), (', $q);
-			$return	= $return && $this->db_prime()->q(
+			unset($i);
+			$return	= $return && $this->db_prime()->insert(
 				"INSERT INTO `[prefix]users_groups`
 					(
 						`id`,
 						`group`
 					) VALUES (
-						'$q'
-					)"
+						'%s',
+						'%s'
+					)",
+				$insert
 			);
-			unset($q);
 		}
+		unset($insert);
 		$update		= [];
 		foreach ($groups as $i => $group) {
 			$update[] =

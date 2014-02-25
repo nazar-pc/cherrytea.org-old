@@ -33,7 +33,10 @@ class Goods {
 		'given'				=> 'int:0',
 		'reserved'			=> 'int:0',
 		'reserved_driver'	=> 'int:0',
-		'success'			=> 'int:-1..1'
+		'success'			=> 'int:-1..1',
+		'address'			=> 'text',
+		'coordinates'		=> 'text',
+		'phone'				=> 'text'
 	];
 
 	protected function cdb () {
@@ -51,10 +54,6 @@ class Goods {
 		$User	= User::instance();
 		if (is_array($id)) {
 			foreach ($result as &$r) {
-				$r	+= $User->get_data([
-					'phone',
-					'address'
-				], $r['giver']);
 				$r['username']	= $User->username($r['giver']);
 				$r['date']		= date('d.m', $r['date_from']).' - '.date('d.m', $r['date_to']);
 				$r['time']		=
@@ -114,7 +113,10 @@ class Goods {
 			0,
 			0,
 			0,
-			-1
+			-1,
+			$address,
+			$coordinates,
+			$phone
 		]);
 	}
 	/**

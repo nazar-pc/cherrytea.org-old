@@ -1187,6 +1187,7 @@ class Page {
 			exit;
 		}
 		interface_off();
+		code_header(ERROR_CODE);
 		$error_text	= $custom_text ?: code_header(ERROR_CODE);
 		if (
 			(defined('API') && API) ||
@@ -1212,6 +1213,7 @@ class Page {
 			}
 			$this->Content	= ob_get_clean();
 		}
+		$this->__finish();
 		exit;
 	}
 	/**
@@ -1344,6 +1346,11 @@ class Page {
 	 * Page generation
 	 */
 	function __finish () {
+		static $executed = false;
+		if ($executed) {
+			return;
+		}
+		$executed	= true;
 		/**
 		 * Cleaning of output
 		 */

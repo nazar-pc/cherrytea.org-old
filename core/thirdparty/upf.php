@@ -330,10 +330,7 @@ function prepare_attr_value ($text) {
  */
 function _stripslashes ($str) {
 	if (is_array($str)) {
-		foreach ($str as &$s) {
-			$s = stripslashes($s);
-		}
-		return $str;
+		return array_map('stripslashes', $str);
 	}
 	return stripslashes($str);
 }
@@ -346,10 +343,7 @@ function _stripslashes ($str) {
  */
 function _addslashes ($str) {
 	if (is_array($str)) {
-		foreach ($str as &$s) {
-			$s = addslashes($s);
-		}
-		return $str;
+		return array_map('addslashes', $str);
 	}
 	return addslashes($str);
 }
@@ -361,7 +355,7 @@ function _addslashes ($str) {
  *
  * @return string|string[]
  */
-function _trim ($str, $charlist = null) {
+function _trim ($str, $charlist = " \t\n\r\0\x0B") {
 	if (is_array($str)) {
 		foreach ($str as &$s) {
 			$s = trim($s, $charlist);
@@ -378,7 +372,7 @@ function _trim ($str, $charlist = null) {
  *
  * @return string|string[]
  */
-function _ltrim ($str, $charlist = null) {
+function _ltrim ($str, $charlist = " \t\n\r\0\x0B") {
 	if (is_array($str)) {
 		foreach ($str as &$s) {
 			$s = ltrim($s);
@@ -395,7 +389,7 @@ function _ltrim ($str, $charlist = null) {
  *
  * @return string|string[]
  */
-function _rtrim ($str, $charlist = null) {
+function _rtrim ($str, $charlist = " \t\n\r\0\x0B") {
 	if (is_array($str)) {
 		foreach ($str as &$s) {
 			$s = rtrim($s, $charlist);
@@ -449,10 +443,7 @@ function _mb_substr ($string, $start, $length = null) {
  */
 function _strtolower ($string) {
 	if (is_array($string)) {
-		foreach ($string as &$s) {
-			$s = strtolower($s);
-		}
-		return $string;
+		return array_map('strtolower', $string);
 	}
 	return strtolower($string);
 }
@@ -465,10 +456,7 @@ function _strtolower ($string) {
  */
 function _strtoupper ($string) {
 	if (is_array($string)) {
-		foreach ($string as &$s) {
-			$s = strtoupper($s);
-		}
-		return $string;
+		return array_map('strtoupper', $string);
 	}
 	return strtoupper($string);
 }
@@ -1252,17 +1240,9 @@ function truncate ($text, $length = 1024, $ending = '...', $exact = false, $cons
  * @return string
  */
 function path ($text) {
-	return strtr(
-		trim($text),
-		[
-			' '		=> ' ',
-			'('		=> ' ',
-			')'		=> ' ',
-			'/'		=> ' ',
-			'\\'	=> ' ',
-			'#'		=> ''
-		]
-	);
+	$text	= preg_replace('/[\s\(\)\/\\#]+/', '_', $text);
+	$text	= preg_replace('/_+/', '_', $text);
+	return trim($text, '_');
 }
 /**
  * Prepare string to use in keywords meta tag
