@@ -261,7 +261,7 @@
  */
 #map {
   height: 500px;
-  margin: 20px auto 0 auto;
+  margin: 20px auto;
   width: 1000px; }
   #map [class*='uk-icon-'] {
     color: #d7d7d7; }
