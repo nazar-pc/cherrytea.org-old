@@ -1,0 +1,14 @@
+{
+	"package"		: "Home",
+	"category"		: "modules",
+	"version"		: "0.001",
+	"description"	: "CherryTea home page",
+	"author"		: "Nazar Mokrynskyi",
+	"website"		: "cleverstyle.org/cms",
+	"license"		: "MIT License",
+	"db_support"	: [
+		"MySQLi"
+	],
+	"provide"		: "cherrytea_home",
+	"require"		: "Update_CherryTea"
+}

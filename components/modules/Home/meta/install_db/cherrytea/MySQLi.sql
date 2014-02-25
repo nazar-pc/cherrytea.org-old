@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS `8b842_goods` (
+	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	`giver` int(10) unsigned NOT NULL,
+	`comment` text NOT NULL,
+	`date_from` bigint(20) unsigned NOT NULL,
+	`date_to` bigint(20) unsigned NOT NULL,
+	`time_from` float unsigned NOT NULL,
+	`time_to` float unsigned NOT NULL,
+	`lat` float NOT NULL,
+	`lng` float NOT NULL,
+	`added` bigint(20) unsigned NOT NULL,
+	`driver` int(10) unsigned NOT NULL,
+	`given` bigint(20) unsigned NOT NULL,
+	`reserved` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'Time till which good is reserved',
+	`reserved_driver` int(10) unsigned NOT NULL,
+	`success` set('-1','0','1') NOT NULL DEFAULT '-1' COMMENT '-1 - undefined',
+	`address` varchar(255) NOT NULL,
+	`phone` varchar(255) NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `date_from` (`date_from`),
+	KEY `date_to` (`date_to`),
+	KEY `time_from` (`time_from`),
+	KEY `time_to` (`time_to`),
+	KEY `coords` (`lat`,`lng`),
+	KEY `reserved` (`reserved`),
+	KEY `reserved_driver` (`reserved_driver`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `8b842_volunteers` (
+	`id` int(10) unsigned NOT NULL,
+	`code` varchar(6) NOT NULL,
+	`password` varchar(255) NOT NULL COMMENT 'Password for confirmation',
+	`driver` set('unknown','requested','no','yes') NOT NULL DEFAULT 'unknown',
+	`reputation` float NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
