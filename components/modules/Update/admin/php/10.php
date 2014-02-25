@@ -7,21 +7,26 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs;
-use			cs\modules\Home\Volunteers;
+use			cs\User;
 /**
  *	@var \cs\DB\_Abstract $cdb
  */
 $cdb	= DB::instance();
+$User	= User::instance();
 $givers	= $cdb->qfa(
-	"SELECT `giver`, COUNT(`id`) AS `count`
-	FROM `[prefix]goods`
-	WHERE `success` = '1'
-	GROUP BY `giver`"
+	"SELECT `id`, `giver`
+	FROM `[prefix]goods`"
 );
-$Volunteers	= Volunteers::instance();
 foreach ($givers as $g) {
-	if (!$Volunteers->get($g['giver'])) {
-		$Volunteers->add($g['giver']);
-	}
-	$Volunteers->change_reputation($g['giver'], $g['count']);
+	$cdb->q(
+		"UPDATE `[prefix]goods`
+		SET
+			`phone`		= '%s',
+			`address`	= '%s'
+		WHERE `id` = '%s'
+		LIMIT 1",
+		$User->get_data('phone', $g['giver']) ?: '',
+		$User->get_data('address', $g['giver']) ?: '',
+		$g['id']
+	);
 }

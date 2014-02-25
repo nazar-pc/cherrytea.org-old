@@ -35,7 +35,6 @@ class Goods {
 		'reserved_driver'	=> 'int:0',
 		'success'			=> 'int:-1..1',
 		'address'			=> 'text',
-		'coordinates'		=> 'text',
 		'phone'				=> 'text'
 	];
 
@@ -84,9 +83,7 @@ class Goods {
 		$User->set_data([
 			'phone'			=> xap($phone),
 			'address'		=> xap($address),
-			'coordinates'	=> $coordinates,
-			'date'			=> $date,
-			'time'			=> $time
+			'coordinates'	=> $coordinates
 		], null, $giver);
 		$date			= _trim(explode('-', $date));
 		$date			= [
@@ -115,7 +112,6 @@ class Goods {
 			0,
 			-1,
 			$address,
-			$coordinates,
 			$phone
 		]);
 	}
