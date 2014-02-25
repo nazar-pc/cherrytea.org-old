@@ -73,6 +73,7 @@ if ($User->guest()) {
 					'placeholder'	=> 'Ваша адреса',
 					'value'			=> isset($_POST['address']) ? $_POST['address'] : ($User->get_data('address') ?: '')
 				]).
+				h::p('Будь ласка, перевірте, чи ваша адреса відповідає місцю на мапі? Якщо ні, пересуньте позначку в правильне місце.').
 				h::{'input[type=hidden][name=coordinates][required]'}([
 					'value'			=> isset($_POST['coordinates']) ? $_POST['coordinates'] : (is_array($User->get_data('coordinates')) ? $User->get_data('coordinates') : '[50.4505, 30.523]')
 				]).
