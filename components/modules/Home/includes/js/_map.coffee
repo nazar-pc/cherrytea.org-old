@@ -173,6 +173,11 @@ $ ->
 										"""<span class="uk-icon-trash-o delete-good" data-id="#{good.id}"></span>"""
 									else
 										''
+								username	=
+									if good.profile_link
+										"""<a href="#{good.profile_link}" target="_blank">#{good.username}</a>"""
+									else
+										good.username
 								placemarks.push(
 									new ymaps.Placemark(
 										[
@@ -200,7 +205,7 @@ $ ->
 											iconImageShape		: map.icons_shape
 											balloonLayout		: if window.driver || good.giver == window.volunteer then ymaps.templateLayoutFactory.createClass(
 												"""<section class="home-page-map-balloon-container">
-													<header><h1>#{good.username} <small>#{good.phone}</small></h1> #{admin}<a class="uk-close" onclick="map.balloon.close()"></a></header>
+													<header><h1>#{username} <small>#{good.phone}</small></h1> #{admin}<a class="uk-close" onclick="map.balloon.close()"></a></header>
 													<article>
 														<address>#{good.address}</address>
 														<time>#{good.date} (#{good.time})</time>

@@ -53,15 +53,33 @@ class Goods {
 		$User	= User::instance();
 		if (is_array($id)) {
 			foreach ($result as &$r) {
-				$r['username']	= $User->username($r['giver']);
-				$r['date']		= date('d.m', $r['date_from']).' - '.date('d.m', $r['date_to']);
-				$r['time']		=
-					str_replace('.', ':', str_pad(str_pad($r['time_from'], 3, ':'), 5, '0')).
-					' - '.
-					str_replace('.', ':', str_pad(str_pad($r['time_to'], 3, ':'), 5, '0'));
+				$this->prepare_get_data($r, $User);
 			}
+		} else {
+			$this->prepare_get_data($result, $User);
 		}
 		return $result;
+	}
+	/**
+	 * @param array	$r
+	 * @param User	$User
+	 */
+	protected function prepare_get_data (&$r, $User) {
+		$r['username']	= $User->username($r['giver']);
+		$r['date']		= date('d.m', $r['date_from']).' - '.date('d.m', $r['date_to']);
+		$r['time']		=
+			str_replace('.', ':', str_pad(str_pad($r['time_from'], 3, ':'), 5, '0')).
+			' - '.
+			str_replace('.', ':', str_pad(str_pad($r['time_to'], 3, ':'), 5, '0'));
+		if ($User->admin()) {
+			$r['profile_link'] = $this->db()->qfs([
+				"SELECT `profile`
+				FROM `[prefix]users_social_integration`
+				WHERE `id` = '%s'
+				LIMIT 1",
+				$User->id
+			]);
+		}
 	}
 	/**
 	 * Add new good

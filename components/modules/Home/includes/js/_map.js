@@ -116,7 +116,7 @@
           },
           type: 'get',
           success: function(result) {
-            var admin, confirm, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, state, _i, _j, _len, _len1;
+            var admin, confirm, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, state, username, _i, _j, _len, _len1;
             if (result && result.length) {
               if (goods !== 'my') {
                 placemarks = [];
@@ -129,6 +129,7 @@
                     reservation = '';
                   }
                   admin = window.cs.is_admin ? "<span class=\"uk-icon-trash-o delete-good\" data-id=\"" + good.id + "\"></span>" : '';
+                  username = good.profile_link ? "<a href=\"" + good.profile_link + "\" target=\"_blank\">" + good.username + "</a>" : good.username;
                   placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
                     hintContent: window.driver || good.giver === window.volunteer ? good.username + ' ' + good.phone : void 0,
                     balloonContentHeader: window.driver || good.giver === window.volunteer ? admin + good.username + ' ' + good.phone : void 0,
@@ -140,7 +141,7 @@
                     iconImageOffset: [-24, -58],
                     iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
                     iconImageShape: map.icons_shape,
-                    balloonLayout: window.driver || good.giver === window.volunteer ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + good.username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
+                    balloonLayout: window.driver || good.giver === window.volunteer ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
                   }));
                 }
                 clusterer.removeAll();
