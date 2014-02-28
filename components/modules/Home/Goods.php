@@ -77,7 +77,7 @@ class Goods {
 				FROM `[prefix]users_social_integration`
 				WHERE `id` = '%s'
 				LIMIT 1",
-				$User->id
+				$r['giver']
 			]);
 		}
 	}
