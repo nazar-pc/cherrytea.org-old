@@ -178,6 +178,7 @@ $ ->
 										"""<a href="#{good.profile_link}" target="_blank">#{good.username}</a>"""
 									else
 										good.username
+								show_details	= window.driver || (window.volunteer && good.giver == window.volunteer)
 								placemarks.push(
 									new ymaps.Placemark(
 										[
@@ -185,16 +186,16 @@ $ ->
 											good.lng
 										]
 										{
-											hintContent				: if window.driver || good.giver == window.volunteer then good.username + ' ' + good.phone else undefined
-											balloonContentHeader	: if window.driver || good.giver == window.volunteer then admin + good.username + ' ' + good.phone else undefined
-											balloonContentBody		: """<section class="home-page-map-balloon-container">
+											hintContent				: if show_details then good.username + ' ' + good.phone else undefined
+											balloonContentHeader	: if show_details then admin + good.username + ' ' + good.phone else undefined
+											balloonContentBody		: if show_details then """<section class="home-page-map-balloon-container">
 												<article>
 													<address>#{good.address}</address>
 													<time>#{good.date} (#{good.time})</time>
 													<p>#{good.comment}</p>
 												</article>
 												<footer>#{reservation}</footer>
-											</section>"""
+											</section>""" else undefined
 										}
 										{
 											iconLayout			: 'default#image'
@@ -203,7 +204,7 @@ $ ->
 											iconImageOffset		: [-24, -58]
 											iconImageClipRect	: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
 											iconImageShape		: map.icons_shape
-											balloonLayout		: if window.driver || good.giver == window.volunteer then ymaps.templateLayoutFactory.createClass(
+											balloonLayout		: if show_details then ymaps.templateLayoutFactory.createClass(
 												"""<section class="home-page-map-balloon-container">
 													<header><h1>#{username} <small>#{good.phone}</small></h1> #{admin}<a class="uk-close" onclick="map.balloon.close()"></a></header>
 													<article>
