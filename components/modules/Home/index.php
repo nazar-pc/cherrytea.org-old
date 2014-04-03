@@ -125,7 +125,7 @@ if ($User->guest()) {
 				h::{'input[name=date]'}([
 					'placeholder'	=> 'Будь-яка дата'
 				]).
-				h::icon('time').
+				h::icon('clock-o').
 				h::{'div.uk-button-dropdown[data-uk-dropdown={mode:\'click\'}]'}(
 					h::{'input[name=time]'}([
 						'placeholder'	=> 'Будь-який час'
