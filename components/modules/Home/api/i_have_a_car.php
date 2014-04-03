@@ -7,7 +7,10 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
-use	cs\User;
+use			cs\Config,
+			cs\Mail,
+			cs\User,
+			h;
 $User	= User::instance();
 if ($User->guest()) {
 	error_code(403);
@@ -20,3 +23,8 @@ if (in_array($volunteer['driver'], ['no', 'yes'])) {
 	return;
 }
 $Volunteers->set_driver($User->id, 'requested');
+Mail::instance()->send_to(
+	Config::instance()->core['admin_email'],
+	'На CherryTea.org новий водій!)',
+	h::p('На <a href="http://cherrytea.org">CherryTea.org</a> <b>'.$User->username().'</b> виявив(ла) бажання стати водієм, потрібно активувати!')
+);
