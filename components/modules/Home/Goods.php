@@ -142,7 +142,7 @@ class Goods {
 	 * @return bool
 	 */
 	function set_driver ($id, $driver) {
-		$data	= $this->get($id);
+		$data	= $this->read_simple($id);
 		if (!$data || $data['driver']) {
 			return false;
 		}
@@ -159,7 +159,7 @@ class Goods {
 	 * @return bool
 	 */
 	function set_success ($id, $success) {
-		$data	= $this->get($id);
+		$data	= $this->read_simple($id);
 		if (!$data) {
 			return false;
 		}
