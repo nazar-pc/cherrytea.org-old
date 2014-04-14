@@ -527,22 +527,6 @@ body > footer {
  * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
-.social-block {
-  background: rgba(255, 255, 255, 0.4) url(../img/social-share-temp.png) no-repeat;
-  color: #fff;
-  height: 297px;
-  right: 0;
-  margin-right: 20px;
-  position: fixed;
-  top: 300px;
-  width: 85px; }
-  .social-block .fb {
-    cursor: pointer; }
-  .social-block > * {
-    height: 99px;
-    padding: 7px 5px;
-    text-align: center; }
-
 /**
  * @package		CherryTea
  * @category	themes
