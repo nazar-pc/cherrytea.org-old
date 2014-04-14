@@ -96,7 +96,7 @@ Index::instance()->content(
 						]
 					]
 				) : (
-					$User->id == $post['user'] && !$module_data->new_posts_only_from_admins ? ' '.h::{'a.cs-button-compact'}(
+					$User->id == $post['user'] ? ' '.h::{'a.cs-button-compact'}(
 						h::icon('pencil'),
 						[
 							'href'			=> "$module/edit_post/$post[id]",
@@ -138,11 +138,10 @@ Index::instance()->content(
 					', ',
 					array_map(
 						function ($tag) use ($L, $module) {
-							return h::a(
+							return h::{'a[level=0][rel=tag]'}(
 								$tag,
 								[
-									'href'	=> "$module/".path($L->tag)."/$tag",
-									'rel'	=> 'tag'
+									'href'	=> "$module/".path($L->tag)."/$tag"
 								]
 							);
 						},

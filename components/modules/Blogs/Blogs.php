@@ -15,9 +15,7 @@ use			cs\Trigger,
 			cs\User,
 			cs\DB\Accessor,
 			cs\Singleton;
-/**
- * @method static \cs\modules\Blogs\Blogs instance($check = false)
- */
+
 class Blogs {
 	use Accessor,
 		Singleton;
@@ -46,6 +44,12 @@ class Blogs {
 	 * @return array|bool
 	 */
 	function get ($id) {
+		if (is_array($id)) {
+			foreach ($id as &$i) {
+				$i	= $this->get($i);
+			}
+			return $id;
+		}
 		$L			= Language::instance();
 		$id			= (int)$id;
 		$data		= $this->cache->get("posts/$id/$L->clang", function () use($id, $L) {
@@ -479,7 +483,7 @@ class Blogs {
 		$structure['sections']	= [];
 		if (!empty($sections)) {
 			foreach ($sections as $section) {
-				$structure['sections'][$section['path']]	= $this->get_sections_structure_internal($section['id']);
+				$structure['sections'][$this->ml_process($section['path'])]	= $this->get_sections_structure_internal($section['id']);
 			}
 		}
 		return $structure;
@@ -492,6 +496,12 @@ class Blogs {
 	 * @return array|bool
 	 */
 	function get_section ($id) {
+		if (is_array($id)) {
+			foreach ($id as &$i) {
+				$i	= $this->get_section($i);
+			}
+			return $id;
+		}
 		$L		= Language::instance();
 		$id		= (int)$id;
 		return $this->cache->get("sections/$id/$L->clang", function () use ($id) {
@@ -724,7 +734,11 @@ class Blogs {
 	 */
 	private function add_tag ($tag, $clean_cache = true) {
 		$tag	= trim(xap($tag));
-		if (($id = array_search($tag, $this->get_tags_list())) === false) {
+		$id		= array_search(
+			mb_strtolower($tag),
+			_mb_strtolower($this->get_tags_list())
+		);
+		if ($id === false) {
 			if ($this->db_prime()->q(
 				"INSERT INTO `[prefix]blogs_tags`
 					(`text`)
