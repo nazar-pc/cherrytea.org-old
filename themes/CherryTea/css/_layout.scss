@@ -7,8 +7,9 @@
  */
 @import "common_config";
 html {
-	font-size : $base-font-size;
-	height    : 100%;
+	font-size  : $base-font-size;
+	min-height : 100%;
+	position   : relative;
 }
 //Whole body
 body {
@@ -17,8 +18,7 @@ body {
 		family : $base-font-family;
 		size   : $base-font-size;
 	}
-	height     : 100%;
-	margin     : 0;
+	margin     : 0 0 128px;
 	overflow-x : hidden;
 	padding    : 0;
 	width      : 100%;
@@ -28,7 +28,7 @@ body {
 	> p {
 		margin     : -0 auto;
 		min-height : 100%;
-		padding    : 148px 0 128px;
+		padding    : 148px 0 0;
 		width      : 1000px;
 	}
 
