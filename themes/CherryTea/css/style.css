@@ -494,7 +494,7 @@ body > footer {
   color: #ffffff;
   margin: -128px auto 0;
   padding: 15px 0;
-  width: 1000px; }
+  width: 1100px; }
   body > footer:before {
     background: #3c3c3c;
     bottom: 0;
@@ -502,10 +502,10 @@ body > footer {
     display: block;
     height: 128px;
     left: -2500px;
+    margin: -15px 0 -113px;
     position: relative;
     width: 5000px;
-    z-index: -2;
-    margin: -15px 0 -113px; }
+    z-index: -2; }
   body > footer > a {
     background: url(../img/logo-footer.png) no-repeat;
     display: inline-block;
