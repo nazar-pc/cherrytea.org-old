@@ -180,9 +180,9 @@ $ ->
 											"""<button class="reservation uk-button" data-id="#{good.id}">Заберу за 24 години</button>"""
 								else
 									reservation	= ''
-								admin		=
-									if window.cs.is_admin
-										"""<span class="uk-icon-trash-o delete-good" data-id="#{good.id}"></span>"""
+								delete_button		=
+									if window.cs.is_admin || (window.volunteer && good.giver == window.volunteer)
+										"""<span class="uk-icon-trash-o cs-home-page-delete-good" data-id="#{good.id}"></span>"""
 									else
 										''
 								username	=
@@ -199,7 +199,7 @@ $ ->
 										]
 										{
 											hintContent				: if show_details then good.username + ' ' + good.phone else undefined
-											balloonContentHeader	: if show_details then admin + good.username + ' ' + good.phone else undefined
+											balloonContentHeader	: if show_details then delete_button + good.username + ' ' + good.phone else undefined
 											balloonContentBody		: if show_details then """<section class="home-page-map-balloon-container">
 												<article>
 													<address>#{good.address}</address>
@@ -218,7 +218,7 @@ $ ->
 											iconImageShape		: map.icons_shape
 											balloonLayout		: if show_details then ymaps.templateLayoutFactory.createClass(
 												"""<section class="home-page-map-balloon-container">
-													<header><h1>#{username} <small>#{good.phone}</small></h1> #{admin}<a class="uk-close" onclick="map.balloon.close()"></a></header>
+													<header><h1>#{username} <small>#{good.phone}</small></h1> #{delete_button}<a class="uk-close" onclick="map.balloon.close()"></a></header>
 													<article>
 														<address>#{good.address}</address>
 														<time>#{good.date} (#{good.time})</time>
@@ -255,8 +255,8 @@ $ ->
 									<time>#{good.date} (#{good.time})</time>
 									<p>#{good.comment}</p>
 									<p>
-										<!--<button class="cs-home-page-delete-good uk-button" data-id="#{good.id}"><i class="uk-icon-times"></i></button>-->
 										#{confirm}
+										<button class="cs-home-page-delete-good uk-button" data-id="#{good.id}"><i class="uk-icon-times"></i></button>
 									</p>
 								</aside>"""
 							$('.cs-home-page-my-goods-list').html(content)
@@ -330,12 +330,10 @@ $ ->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_goods, 300)
 		)
-		map_container.on(
+		$(document).on(
 			'click'
-			'.delete-good'
+			'.cs-home-page-delete-good'
 			->
-				if !window.cs.is_admin
-					return
 				if !confirm('Точно видалити?')
 					return
 				$.ajax(

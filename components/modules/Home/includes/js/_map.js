@@ -128,7 +128,7 @@
           },
           type: 'get',
           success: function(result) {
-            var admin, confirm, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, show_details, state, username, _i, _j, _len, _len1;
+            var confirm, content, delete_button, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, show_details, state, username, _i, _j, _len, _len1;
             if (result && result.length) {
               if (show_goods !== 'my') {
                 placemarks = [];
@@ -140,12 +140,12 @@
                   } else {
                     reservation = '';
                   }
-                  admin = window.cs.is_admin ? "<span class=\"uk-icon-trash-o delete-good\" data-id=\"" + good.id + "\"></span>" : '';
+                  delete_button = window.cs.is_admin || (window.volunteer && good.giver === window.volunteer) ? "<span class=\"uk-icon-trash-o cs-home-page-delete-good\" data-id=\"" + good.id + "\"></span>" : '';
                   username = good.profile_link ? "<a href=\"" + good.profile_link + "\" target=\"_blank\">" + good.username + "</a>" : good.username;
                   show_details = window.driver || (window.volunteer && good.giver === window.volunteer);
                   placemarks.push(new ymaps.Placemark([good.lat, good.lng], {
                     hintContent: show_details ? good.username + ' ' + good.phone : void 0,
-                    balloonContentHeader: show_details ? admin + good.username + ' ' + good.phone : void 0,
+                    balloonContentHeader: show_details ? delete_button + good.username + ' ' + good.phone : void 0,
                     balloonContentBody: show_details ? "<section class=\"home-page-map-balloon-container\">\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>" : void 0
                   }, {
                     iconLayout: 'default#image',
@@ -154,7 +154,7 @@
                     iconImageOffset: [-24, -58],
                     iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
                     iconImageShape: map.icons_shape,
-                    balloonLayout: show_details ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + username + " <small>" + good.phone + "</small></h1> " + admin + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
+                    balloonLayout: show_details ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + username + " <small>" + good.phone + "</small></h1> " + delete_button + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
                   }));
                 }
                 clusterer.removeAll();
@@ -177,7 +177,7 @@
                   }
                   icon_v_offset = Math.round(Math.random() * 5) * 97;
                   confirm = good.given === '0' && good.success === '-1' ? "<button class=\"cs-home-page-confirm-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-check\"></i> Водій забрав речі</button>" : '';
-                  content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		<!--<button class=\"cs-home-page-delete-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-times\"></i></button>-->\n		" + confirm + "\n	</p>\n</aside>";
+                  content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		" + confirm + "\n		<button class=\"cs-home-page-delete-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-times\"></i></button>\n	</p>\n</aside>";
                 }
                 $('.cs-home-page-my-goods-list').html(content);
               }
@@ -243,10 +243,7 @@
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
-      return map_container.on('click', '.delete-good', function() {
-        if (!window.cs.is_admin) {
-          return;
-        }
+      return $(document).on('click', '.cs-home-page-delete-good', function() {
         if (!confirm('Точно видалити?')) {
           return;
         }

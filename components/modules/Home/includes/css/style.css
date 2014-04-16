@@ -252,6 +252,8 @@
     width: 97px; }
   .home-page article .cs-home-page-my-goods aside .cs-home-page-delete-good {
     background: #9c9c9c; }
+    .home-page article .cs-home-page-my-goods aside .cs-home-page-delete-good:hover, .home-page article .cs-home-page-my-goods aside .cs-home-page-delete-good:focus {
+      color: #cccccc; }
 
 /**
  * @package		Home
@@ -284,7 +286,7 @@
       color: #fff;
       font-size: 16px;
       padding-left: 10px; }
-    .home-page-map-balloon-container header .delete-good {
+    .home-page-map-balloon-container header .cs-home-page-delete-good {
       cursor: pointer;
       margin-right: 0 !important;
       position: absolute !important;
@@ -316,14 +318,14 @@
   .home-page-map-balloon-container.centers article time {
     color: #0097fc; }
 
-.ymaps-b-cluster-tabs__menu-item-text .delete-good {
+.ymaps-b-cluster-tabs__menu-item-text .cs-home-page-delete-good {
   display: none; }
 
 .ymaps-b-cluster-tabs__item-header.ymaps-b-cluster-content__header {
   background: #ff7f7f;
   color: #fff;
   padding: 10px; }
-  .ymaps-b-cluster-tabs__item-header.ymaps-b-cluster-content__header .delete-good {
+  .ymaps-b-cluster-tabs__item-header.ymaps-b-cluster-content__header .cs-home-page-delete-good {
     cursor: pointer;
     margin-right: 0 !important;
     position: absolute !important;
