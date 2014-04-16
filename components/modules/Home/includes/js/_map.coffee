@@ -148,15 +148,17 @@ $ ->
 			cluster
 		map.geoObjects.add(clusterer)
 		find_goods	= ->
-			show_goods	= $('.cs-home-page-map-goods-switcher.driver .uk-active input').val()
+			show_goods	= $('.cs-home-page-map-goods-switcher .uk-active input').val()
 			if $('.cs-home-page-filter-reservation').data('value') == 1
 				show_goods = 'reserved'
 			if show_goods == 'my'
 				$('#map, .cs-home-page-filter').hide()
-				$('.cs-home-page-my-goods').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>').show()
+				$('.cs-home-page-my-goods-list').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>')
+				$('.cs-home-page-my-goods').show()
 			else
 				$('#map, .cs-home-page-filter').show()
-				$('.cs-home-page-my-goods').hide().html('')
+				$('.cs-home-page-my-goods-list').html('')
+				$('.cs-home-page-my-goods').hide()
 			$.ajax(
 				url		: 'api/Home/goods'
 				data	:
@@ -257,9 +259,10 @@ $ ->
 										#{confirm}
 									</p>
 								</aside>"""
-							$('.cs-home-page-my-goods').html(content)
+							$('.cs-home-page-my-goods-list').html(content)
 					else
 						clusterer.removeAll()
+						$('.cs-home-page-my-goods-list').html('Речей не знайдено')
 					return
 			)
 		find_goods()
@@ -315,12 +318,12 @@ $ ->
 		search_timeout	= 0
 		filter.on(
 			'keyup change'
-			'[name=date], [name=time], .cs-home-page-map-goods-switcher.driver input'
+			'[name=date], [name=time], .cs-home-page-map-goods-switcher input'
 			->
 				clearTimeout(search_timeout)
 				search_timeout = setTimeout(find_goods, 300)
 		)
-		$('.cs-home-page-map-goods-switcher.driver').on(
+		$('.cs-home-page-map-goods-switcher').on(
 			'keyup change'
 			'input'
 			->

@@ -6,9 +6,14 @@
  * @license		MIT License, see license.txt
  */
 .home-page article {
+	.cs-home-page-add-goods-button a {
+		border-bottom : dashed 1px #444;
+	}
+
 	.cs-home-page-add-goods {
-		margin : 10px auto;
-		width  : 500px;
+		display : none;
+		margin  : 10px auto;
+		width   : 500px;
 
 		> header {
 			margin-left : -250px;
@@ -104,12 +109,6 @@
 		margin : auto 0;
 		width  : 1000px;
 
-		.uk-button-dropdown > button {
-			background   : #fff;
-			border-color : #A4B4BB;
-			color        : inherit;
-		}
-
 		button,
 		input {
 			height     : 41px;
@@ -118,7 +117,8 @@
 			text-align : left;
 		}
 
-		> button {
+		button {
+			padding    : 5px 16px !important;
 			text-align : center;
 			width      : auto;
 		}

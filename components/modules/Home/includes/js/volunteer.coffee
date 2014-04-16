@@ -6,8 +6,8 @@
  * @license		MIT License, see license.txt
 ###
 $ ->
-	giver_map	= $('#add-good-map')
-	if giver_map.length
+	add_good_map	= $('#add-good-map')
+	if add_good_map.length
 		container	= $('.cs-home-page-add-goods')
 		container
 			.find('[name=date]')
@@ -34,6 +34,7 @@ $ ->
 				zoom		: 13
 				controls	: ['zoomControl']
 			}
+			add_good_map.data('map', map)
 			icon_number	= Math.round(Math.random() * 11)
 			me			= new ymaps.Placemark cs.json_decode(coordinates.val()), {}, {
 				draggable			: true
@@ -126,7 +127,17 @@ $ ->
 							$(this).remove()
 			)
 			return false
-		$('.cs-home-page-my-goods')
+		$('.cs-home-page-add-goods-button').click ->
+			$('.cs-home-page-add-goods').slideToggle(->
+				add_good_map = $('#add-good-map').data('map')
+				add_good_map.setBounds(add_good_map.getBounds())
+			)
+			$this = $(@)
+			if $this.find('.uk-icon-caret-down').length
+				$this.find('.uk-icon-caret-down').removeClass('uk-icon-caret-down').addClass('uk-icon-caret-up')
+			else
+				$this.find('.uk-icon-caret-up').removeClass('uk-icon-caret-up').addClass('uk-icon-caret-down')
+		$('.cs-home-page-my-goods-list')
 			.on(
 				'click'
 				'.cs-home-page-delete-good'

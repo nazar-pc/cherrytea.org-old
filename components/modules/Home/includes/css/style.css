@@ -119,7 +119,10 @@
  * @copyright	Copyright (c) 2013-2014, Nazar Mokrynskyi
  * @license		MIT License, see license.txt
  */
+.home-page article .cs-home-page-add-goods-button a {
+  border-bottom: dashed 1px #444; }
 .home-page article .cs-home-page-add-goods {
+  display: none;
   margin: 10px auto;
   width: 500px; }
   .home-page article .cs-home-page-add-goods > header {
@@ -184,17 +187,14 @@
 .home-page article .cs-home-page-filter {
   margin: auto 0;
   width: 1000px; }
-  .home-page article .cs-home-page-filter .uk-button-dropdown > button {
-    background: #fff;
-    border-color: #A4B4BB;
-    color: inherit; }
   .home-page article .cs-home-page-filter button,
   .home-page article .cs-home-page-filter input {
     height: 41px;
     min-width: 200px;
     padding: 5px 16px 5px 28px !important;
     text-align: left; }
-  .home-page article .cs-home-page-filter > button {
+  .home-page article .cs-home-page-filter button {
+    padding: 5px 16px !important;
     text-align: center;
     width: auto; }
   .home-page article .cs-home-page-filter input {

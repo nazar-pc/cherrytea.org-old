@@ -106,16 +106,18 @@
       map.geoObjects.add(clusterer);
       find_goods = function() {
         var show_goods;
-        show_goods = $('.cs-home-page-map-goods-switcher.driver .uk-active input').val();
+        show_goods = $('.cs-home-page-map-goods-switcher .uk-active input').val();
         if ($('.cs-home-page-filter-reservation').data('value') === 1) {
           show_goods = 'reserved';
         }
         if (show_goods === 'my') {
           $('#map, .cs-home-page-filter').hide();
-          $('.cs-home-page-my-goods').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>').show();
+          $('.cs-home-page-my-goods-list').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>');
+          $('.cs-home-page-my-goods').show();
         } else {
           $('#map, .cs-home-page-filter').show();
-          $('.cs-home-page-my-goods').hide().html('');
+          $('.cs-home-page-my-goods-list').html('');
+          $('.cs-home-page-my-goods').hide();
         }
         return $.ajax({
           url: 'api/Home/goods',
@@ -177,10 +179,11 @@
                   confirm = good.given === '0' && good.success === '-1' ? "<button class=\"cs-home-page-confirm-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-check\"></i> Водій забрав речі</button>" : '';
                   content += "<aside>\n	<div class=\"icon\" style=\"background-position: -" + icon_h_offset + "px -" + icon_v_offset + "px\"></div>\n	<h2>" + state + "</h2>\n	<span>" + good.phone + "</span>\n	<address>" + good.address + "</address>\n	<time>" + good.date + " (" + good.time + ")</time>\n	<p>" + good.comment + "</p>\n	<p>\n		<!--<button class=\"cs-home-page-delete-good uk-button\" data-id=\"" + good.id + "\"><i class=\"uk-icon-times\"></i></button>-->\n		" + confirm + "\n	</p>\n</aside>";
                 }
-                $('.cs-home-page-my-goods').html(content);
+                $('.cs-home-page-my-goods-list').html(content);
               }
             } else {
               clusterer.removeAll();
+              $('.cs-home-page-my-goods-list').html('Речей не знайдено');
             }
           }
         });
@@ -232,11 +235,11 @@
         });
       });
       search_timeout = 0;
-      filter.on('keyup change', '[name=date], [name=time], .cs-home-page-map-goods-switcher.driver input', function() {
+      filter.on('keyup change', '[name=date], [name=time], .cs-home-page-map-goods-switcher input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });
-      $('.cs-home-page-map-goods-switcher.driver').on('keyup change', 'input', function() {
+      $('.cs-home-page-map-goods-switcher').on('keyup change', 'input', function() {
         clearTimeout(search_timeout);
         return search_timeout = setTimeout(find_goods, 300);
       });

@@ -12,9 +12,9 @@
 (function() {
 
   $(function() {
-    var container, coordinates, giver_map;
-    giver_map = $('#add-good-map');
-    if (giver_map.length) {
+    var add_good_map, container, coordinates;
+    add_good_map = $('#add-good-map');
+    if (add_good_map.length) {
       container = $('.cs-home-page-add-goods');
       container.find('[name=date]').pickmeup({
         format: 'd.m.Y',
@@ -34,6 +34,7 @@
           zoom: 13,
           controls: ['zoomControl']
         });
+        add_good_map.data('map', map);
         icon_number = Math.round(Math.random() * 11);
         me = new ymaps.Placemark(cs.json_decode(coordinates.val()), {}, {
           draggable: true,
@@ -115,7 +116,20 @@
         });
         return false;
       });
-      return $('.cs-home-page-my-goods').on('click', '.cs-home-page-delete-good', function() {}).on('click', '.cs-home-page-confirm-good', function() {
+      $('.cs-home-page-add-goods-button').click(function() {
+        var $this;
+        $('.cs-home-page-add-goods').slideToggle(function() {
+          add_good_map = $('#add-good-map').data('map');
+          return add_good_map.setBounds(add_good_map.getBounds());
+        });
+        $this = $(this);
+        if ($this.find('.uk-icon-caret-down').length) {
+          return $this.find('.uk-icon-caret-down').removeClass('uk-icon-caret-down').addClass('uk-icon-caret-up');
+        } else {
+          return $this.find('.uk-icon-caret-up').removeClass('uk-icon-caret-up').addClass('uk-icon-caret-down');
+        }
+      });
+      return $('.cs-home-page-my-goods-list').on('click', '.cs-home-page-delete-good', function() {}).on('click', '.cs-home-page-confirm-good', function() {
         var id, modal;
         id = $(this).data('id');
         modal = $.cs.simple_modal("<p>Введіть код, який ви отримали від водія, щоб ми знали, хто відвозить ваші речі</p>\n<input placeholder=\"Код водія\" autofocus>\n<button class=\"uk-button\">Готово</button>", true, 500);
