@@ -264,7 +264,7 @@ $ ->
 							$('.cs-home-page-my-goods-list').html(content)
 					else
 						clusterer.removeAll()
-						$('.cs-home-page-my-goods-list').html('Речей не знайдено')
+						$('.cs-home-page-my-goods-list').html('<p class="cs-center">Речей не знайдено</p>')
 					return
 			)
 		find_goods()
