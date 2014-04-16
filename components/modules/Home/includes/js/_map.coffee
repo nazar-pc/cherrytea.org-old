@@ -235,13 +235,15 @@ $ ->
 						else
 							content	= ''
 							for good in result
+								show_delete_button	= true
 								if good.success == '-1' && good.reserved > (new Date).getTime() / 1000
 									state			= 'Зарезервовано водієм'
 									icon_h_offset	= 97
 								else
 									if good.success != '-1'
 										state			= 'Доставлено'
-										icon_h_offset	= 2 * 97
+										icon_h_offset		= 2 * 97
+										show_delete_button	= false
 									else
 										state			= 'Очікує'
 										icon_h_offset	= 0
@@ -256,7 +258,7 @@ $ ->
 									<p>#{good.comment}</p>
 									<p>
 										#{confirm}
-										<button class="cs-home-page-delete-good uk-button" data-id="#{good.id}"><i class="uk-icon-times"></i></button>
+										""" + (if show_delete_button then """ <button class="cs-home-page-delete-good uk-button" data-id="#{good.id}"><i class="uk-icon-times"></i></button>""" else '') + """
 									</p>
 								</aside>"""
 							$('.cs-home-page-my-goods-list').html(content)
