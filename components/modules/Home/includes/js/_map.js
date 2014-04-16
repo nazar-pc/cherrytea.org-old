@@ -148,23 +148,36 @@
                     balloonContentHeader: show_details ? delete_button + good.username + ' ' + good.phone : void 0,
                     balloonContentBody: show_details ? "<section class=\"home-page-map-balloon-container\">\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>" : void 0
                   }, {
+                    cursor: cs.is_user ? 'pointer' : 'default',
                     iconLayout: 'default#image',
-                    iconImageHref: '/components/modules/Home/includes/img/map-icons.png',
-                    iconImageSize: [60, 58],
-                    iconImageOffset: [-24, -58],
-                    iconImageClipRect: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
+                    iconImageHref: good.success !== '-1' ? '/components/modules/Home/includes/img/finished-icon.png' : '/components/modules/Home/includes/img/map-icons.png',
+                    iconImageSize: good.success !== '-1' ? [29, 29] : [60, 58],
+                    iconImageOffset: good.success !== '-1' ? [-8, -29] : [-24, -58],
+                    iconImageClipRect: good.success !== '-1' ? [0, 0] : [[60 * icon_number, 0], [60 * (icon_number + 1), 58]],
                     iconImageShape: map.icons_shape,
                     balloonLayout: show_details ? ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container\">\n	<header><h1>" + username + " <small>" + good.phone + "</small></h1> " + delete_button + "<a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>" + good.address + "</address>\n		<time>" + good.date + " (" + good.time + ")</time>\n		<p>" + good.comment + "</p>\n	</article>\n	<footer>" + reservation + "</footer>\n</section>") : void 0
                   }));
                 }
                 clusterer.removeAll();
-                clusterer.add(placemarks);
+                if (cs.is_guest) {
+                  (function() {
+                    var placemark, _results;
+                    _results = [];
+                    for (placemark in placemarks) {
+                      placemark = placemarks[placemark];
+                      _results.push(map.geoObjects.add(placemark));
+                    }
+                    return _results;
+                  })();
+                } else {
+                  clusterer.add(placemarks);
+                }
               } else {
                 content = '';
                 for (_j = 0, _len1 = result.length; _j < _len1; _j++) {
                   good = result[_j];
                   show_delete_button = true;
-                  if (good.success === '-1' && good.reserved > (new Date).getTime() / 1000) {
+                  if (good.given === '0' && good.success === '-1' && good.reserved > (new Date).getTime() / 1000) {
                     state = 'Зарезервовано водієм';
                     icon_h_offset = 97;
                   } else {

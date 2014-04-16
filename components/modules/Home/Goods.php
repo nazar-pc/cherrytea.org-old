@@ -269,7 +269,7 @@ class Goods {
 		if (isset($params['giver']) && $params['giver']) {
 			$where[]	= "`giver` = '%s'";
 			$subst[]	= $params['giver'];
-		} else {
+		} elseif ($driver != User::GUEST_ID) {
 			$where[]	= "`given` = 0 AND  `success` = '-1'";
 			if (isset($params['reserved']) && $params['reserved']) {
 				$where[]	= "`reserved` > ".TIME." AND `reserved_driver` = '%s'";
@@ -278,7 +278,7 @@ class Goods {
 				$where[]	= '`reserved` < '.TIME;
 			}
 		}
-		$where	= 'WHERE '.implode(' AND ', $where);
+		$where	= $where ? 'WHERE '.implode(' AND ', $where) : '';
 		return $this->get(
 			$this->db()->qfas([
 				"SELECT `id`

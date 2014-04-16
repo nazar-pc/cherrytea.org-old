@@ -26,7 +26,12 @@ if ($User->guest()) {
 					'Увійти через VK'
 				)
 			).
-			h::{'div#map'}()
+			h::{'div.cs-home-page-legend'}(
+				h::{'span.finished'}(' - забрані речі').
+				h::{'span.red'}('- речі що необхідно забрати').
+				h::{'span.blue'}(' - пункти прийому')
+			).
+			h::{'div#map[level=0]'}()
 		)
 	);
 } else {

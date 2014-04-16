@@ -138,33 +138,39 @@
 			position : relative;
 			z-index  : 100;
 		}
+	}
 
-		.cs-home-page-legend {
+	.cs-home-page-legend {
+		display     : inline-block;
+		margin-left : 45px;
+
+		.red,
+		.blue,
+		.finished {
 			display     : inline-block;
-			margin-left : 45px;
+			margin-left : 20px;
 
-			.red,
-			.blue {
-				display : inline-block;
-
-				&:before {
-					background          : url(../img/legend.png) no-repeat;
-					background-position : 0 0;
-					content             : '';
-					display             : inline-block;
-					height              : 46px;
-					margin-right        : 5px;
-					vertical-align      : middle;
-					width               : 38px;
-				}
+			&:before {
+				background          : url(../img/legend.png) no-repeat;
+				background-position : 0 0;
+				content             : '';
+				display             : inline-block;
+				height              : 46px;
+				margin-right        : 5px;
+				vertical-align      : middle;
+				width               : 38px;
 			}
+		}
 
-			.blue {
-				margin-left : 20px;
+		.blue:before {
+			background-position : -38px 0;
+		}
 
-				&:before {
-					background-position : -38px 0;
-				}
+		.finished {
+			margin-left : 0;
+
+			&:before {
+				background-position : -76px 0;
 			}
 		}
 	}

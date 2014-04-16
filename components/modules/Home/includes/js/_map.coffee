@@ -210,11 +210,12 @@ $ ->
 											</section>""" else undefined
 										}
 										{
+											cursor				: if cs.is_user then 'pointer' else 'default'
 											iconLayout			: 'default#image'
-											iconImageHref		: '/components/modules/Home/includes/img/map-icons.png'
-											iconImageSize		: [60, 58]
-											iconImageOffset		: [-24, -58]
-											iconImageClipRect	: [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
+											iconImageHref		: if good.success != '-1' then '/components/modules/Home/includes/img/finished-icon.png' else '/components/modules/Home/includes/img/map-icons.png'
+											iconImageSize		: if good.success != '-1' then [29, 29] else [60, 58]
+											iconImageOffset		: if good.success != '-1' then [-8, -29] else [-24, -58]
+											iconImageClipRect	: if good.success != '-1' then [0, 0] else [[60 * icon_number, 0], [60 * (icon_number + 1), 58]]
 											iconImageShape		: map.icons_shape
 											balloonLayout		: if show_details then ymaps.templateLayoutFactory.createClass(
 												"""<section class="home-page-map-balloon-container">
@@ -231,12 +232,17 @@ $ ->
 									)
 								)
 							clusterer.removeAll()
-							clusterer.add(placemarks)
+							if cs.is_guest
+								do ->
+									for placemark, placemark of placemarks
+										map.geoObjects.add(placemark)
+							else
+								clusterer.add(placemarks)
 						else
 							content	= ''
 							for good in result
 								show_delete_button	= true
-								if good.success == '-1' && good.reserved > (new Date).getTime() / 1000
+								if good.given == '0' && good.success == '-1' && good.reserved > (new Date).getTime() / 1000
 									state			= 'Зарезервовано водієм'
 									icon_h_offset	= 97
 								else

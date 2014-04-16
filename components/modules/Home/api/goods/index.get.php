@@ -34,11 +34,15 @@ $goods		= Goods::instance()->search($params, $User->id);
 if (
 	!$User->admin() && !$Volunteers->is_driver($User->id)
 ) {
-	foreach ($goods as &$good) {
+	foreach ($goods as $i => &$good) {
+		if ($good['success'] == -1 && $good['reserved'] > TIME && $User->guest()) {
+			unset($goods[$i]);
+		}
 		$good	= [
-			'lat'	=> $good['lat'],
-			'lng'	=> $good['lng']
+			'lat'		=> $good['lat'],
+			'lng'		=> $good['lng'],
+			'success'	=> "$good[success]"
 		];
 	}
 }
-$Page->json($goods);
+$Page->json(array_values($goods));
