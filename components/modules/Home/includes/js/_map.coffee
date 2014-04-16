@@ -149,7 +149,7 @@ $ ->
 		map.geoObjects.add(clusterer)
 		find_goods	= ->
 			show_goods	= $('.cs-home-page-map-goods-switcher .uk-active input').val()
-			if $('.cs-home-page-filter-reservation').data('value') == 1
+			if show_goods == 'all' && $('.cs-home-page-filter-reservation').data('value') == 1
 				show_goods = 'reserved'
 			if show_goods == 'my'
 				$('#map, .cs-home-page-filter').hide()

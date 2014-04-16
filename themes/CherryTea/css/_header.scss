@@ -8,7 +8,6 @@
 
 //Header
 body {
-	margin : 0 0 148px;
 	> header {
 		color   : #ffffff;
 		margin  : 0 auto -138px;
@@ -117,6 +116,14 @@ body {
 			position      : absolute;
 			top           : 225px;
 			width         : 0px;
+		}
+
+		& + * {
+			display    : block;
+			margin     : 0 auto !important;
+			min-height : 100%;
+			padding    : 148px 0 0;
+			width      : 1000px !important;
 		}
 	}
 

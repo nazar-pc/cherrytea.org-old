@@ -23,15 +23,6 @@ body {
 	padding    : 0;
 	width      : 100%;
 
-	> section,
-	> form,
-	> p {
-		margin     : -0 auto;
-		min-height : 100%;
-		padding    : 148px 0 0;
-		width      : 1000px;
-	}
-
 	&.HybridAuth form {
 		padding : 0;
 		width   : 500px;
