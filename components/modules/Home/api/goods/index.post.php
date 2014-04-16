@@ -7,7 +7,10 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs\modules\Home;
-use			cs\User;
+use			cs\Config,
+			cs\Mail,
+			cs\User,
+			h;
 $User	= User::instance();
 $Goods	= Goods::instance();
 if ($User->guest()) {
@@ -30,3 +33,11 @@ if (!$Goods->add(
 )) {
 	error_code(500);
 }
+Mail::instance()->send_to(
+	Config::instance()->core['admin_email'],
+	'На CherryTea.org з’явились нові речі!)',
+	h::p('На <a href="http://cherrytea.org">CherryTea.org</a> <b>'.xap($_POST['name']).'</b> додав нові речі!').
+	h::p(xap($_POST['phone'])).
+	h::p(xap($_POST['address'])).
+	h::p(xap($_POST['comment']))
+);
