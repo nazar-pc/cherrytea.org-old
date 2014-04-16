@@ -120,6 +120,14 @@ $ ->
 							.find('[name=time]')
 								.val($(@).text())
 								.change()
+		filter.find('.cs-home-page-filter-reservation a').click ->
+			$this	= $(@)
+			root	= $('.cs-home-page-filter-reservation')
+			root
+				.data('value', $this.data('value'))
+				.find('button')
+					.html($this.html())
+			find_goods()
 		clusterer	= new ymaps.Clusterer()
 		clusterer.createCluster	= (center, geoObjects) ->
 			cluster	= ymaps.Clusterer.prototype.createCluster.call(this, center, geoObjects)
@@ -140,8 +148,10 @@ $ ->
 			cluster
 		map.geoObjects.add(clusterer)
 		find_goods	= ->
-			goods	= $('.cs-home-page-map-goods-switcher.driver .uk-active input').val()
-			if goods == 'my'
+			show_goods	= $('.cs-home-page-map-goods-switcher.driver .uk-active input').val()
+			if $('.cs-home-page-filter-reservation').data('value') == 1
+				show_goods = 'reserved'
+			if show_goods == 'my'
 				$('#map, .cs-home-page-filter').hide()
 				$('.cs-home-page-my-goods').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>').show()
 			else
@@ -152,11 +162,11 @@ $ ->
 				data	:
 					date		: filter.find('input[name=date]').val()
 					time		: filter.find('[name=time]').val()
-					goods		: goods
+					show_goods	: show_goods
 				type	: 'get'
 				success	: (result) ->
 					if result && result.length
-						if goods != 'my'
+						if show_goods != 'my'
 							placemarks	= []
 							for good in result
 								icon_number	= Math.round(Math.random() * 11)

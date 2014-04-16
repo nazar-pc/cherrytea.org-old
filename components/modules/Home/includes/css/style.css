@@ -175,7 +175,7 @@
   z-index: 0; }
   .home-page article .cs-home-page-map-goods-switcher > span {
     background: #FF7F7F;
-    border: 1px solid #ff7f7f;
+    border: 1px solid #FF7F7F;
     border-radius: 4px; }
   .home-page article .cs-home-page-map-goods-switcher label {
     cursor: pointer;
@@ -198,7 +198,8 @@
     text-align: center;
     width: auto; }
   .home-page article .cs-home-page-filter input {
-    width: auto !important; }
+    min-width: 0;
+    width: 170px !important; }
   .home-page article .cs-home-page-filter .uk-dropdown-width-4 {
     width: 400px; }
   .home-page article .cs-home-page-filter [class*='uk-icon-'] {
@@ -270,7 +271,7 @@
   background: #fff;
   border-radius: 5px;
   bottom: 100px;
-  box-shadow: 0 0 3px #7c7c7c;
+  box-shadow: 0 0 3px #7C7C7C;
   font-size: 14px;
   left: -150px;
   position: relative;

@@ -77,6 +77,13 @@
       filter.find('[name=time]').next().find('a').click(function() {
         return filter.find('[name=time]').val($(this).text()).change();
       });
+      filter.find('.cs-home-page-filter-reservation a').click(function() {
+        var $this, root;
+        $this = $(this);
+        root = $('.cs-home-page-filter-reservation');
+        root.data('value', $this.data('value')).find('button').html($this.html());
+        return find_goods();
+      });
       clusterer = new ymaps.Clusterer();
       clusterer.createCluster = function(center, geoObjects) {
         var cluster;
@@ -98,9 +105,12 @@
       };
       map.geoObjects.add(clusterer);
       find_goods = function() {
-        var goods;
-        goods = $('.cs-home-page-map-goods-switcher.driver .uk-active input').val();
-        if (goods === 'my') {
+        var show_goods;
+        show_goods = $('.cs-home-page-map-goods-switcher.driver .uk-active input').val();
+        if ($('.cs-home-page-filter-reservation').data('value') === 1) {
+          show_goods = 'reserved';
+        }
+        if (show_goods === 'my') {
           $('#map, .cs-home-page-filter').hide();
           $('.cs-home-page-my-goods').html('<p class="uk-margin cs-center"><i class="uk-icon-spin uk-icon-spinner"></i></p>').show();
         } else {
@@ -112,13 +122,13 @@
           data: {
             date: filter.find('input[name=date]').val(),
             time: filter.find('[name=time]').val(),
-            goods: goods
+            show_goods: show_goods
           },
           type: 'get',
           success: function(result) {
             var admin, confirm, content, good, icon_h_offset, icon_number, icon_v_offset, placemarks, reservation, show_details, state, username, _i, _j, _len, _len1;
             if (result && result.length) {
-              if (goods !== 'my') {
+              if (show_goods !== 'my') {
                 placemarks = [];
                 for (_i = 0, _len = result.length; _i < _len; _i++) {
                   good = result[_i];

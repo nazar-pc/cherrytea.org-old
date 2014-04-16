@@ -21,8 +21,8 @@ if (isset($_GET['date']) && $_GET['date']) {
 if (isset($_GET['time']) && $_GET['time']) {
 	$params['time']	= _trim(explode('-', str_replace(':', '.', $_GET['time'])));
 }
-if (isset($_GET['goods']) && $_GET['goods']) {
-	switch ($_GET['goods']) {
+if (isset($_GET['show_goods']) && $_GET['show_goods']) {
+	switch ($_GET['show_goods']) {
 		case 'reserved':
 			$params['reserved']	= 1;
 		break;

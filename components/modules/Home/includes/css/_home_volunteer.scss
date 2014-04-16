@@ -124,7 +124,8 @@
 		}
 
 		input {
-			width : auto !important;
+			min-width : 0;
+			width     : 170px !important;
 		}
 
 		.uk-dropdown-width-4 {
