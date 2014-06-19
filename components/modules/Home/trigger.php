@@ -31,8 +31,8 @@ Trigger::instance()
 			$Volunteers->set_driver($data['id'], 'yes');
 			Mail::instance()->send_to(
 				Config::instance()->core['admin_email'],
-				'На CherryTea.org зареєструвався новий водій!)',
-				h::p('На <a href="http://cherrytea.org">CherryTea.org</a> зареєструвався новий водій <b>'.User::instance()->username($data['id']).'</b>!')
+				'На CherryTea.org зареєструвався новий користувач!)',
+				h::p('На <a href="http://cherrytea.org">CherryTea.org</a> зареєструвався новий користувач <b>'.User::instance()->username($data['id']).'</b>!')
 			);
 		}
 	);
