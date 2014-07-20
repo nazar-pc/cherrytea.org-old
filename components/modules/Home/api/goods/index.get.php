@@ -39,6 +39,7 @@ if (
 			unset($goods[$i]);
 		}
 		$good	= [
+			'id'		=> $good['id'],
 			'lat'		=> $good['lat'],
 			'lng'		=> $good['lng'],
 			'success'	=> "$good[success]"
