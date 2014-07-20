@@ -7,7 +7,7 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs;
-if (!isset($_GET['facebook_id'], $_GET['facebook_profile_link'])) {
+if (!isset($_GET['facebook_id'], $_GET['facebook_profile_link'], $_GET['user_email']) || !filter_var($_GET['user_email'], FILTER_VALIDATE_EMAIL)) {
 	error_code(400);
 }
 $cdb		= DB::instance()->{'0'}();
@@ -28,7 +28,7 @@ $user_id	= $cdb->qfs([
 	$_GET['facebook_profile_link']
 ]);
 if (!$user_id) {
-	$result	= $User->registration(xap($_GET['facebook_id']).'@facebook.com', false, false);
+	$result	= $User->registration($_GET['user_email'], false, false);
 	if (!is_array($result)) {
 		error_code(500);
 		return;
