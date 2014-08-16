@@ -366,7 +366,6 @@ body {
   padding: 0;
   width: 100%; }
   body.HybridAuth form {
-    padding: 0;
     width: 500px; }
     body.HybridAuth form p > input {
       margin-top: 10px; }
