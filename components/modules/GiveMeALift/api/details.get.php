@@ -24,7 +24,6 @@ unset(
 	$good['reserved'],
 	$good['reserved_driver'],
 	$good['success'],
-	$good['username'],
 	$good['profile_link']
 );
 $Page->json([

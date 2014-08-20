@@ -38,7 +38,13 @@ class Volunteers {
 	 * @return array|bool
 	 */
 	function get ($user) {
-		return $this->read_simple($user);
+		$data	= $this->read_simple($user);
+		if (!$data) {
+			$this->add($user);
+			$this->set_driver($user, 'yes');
+			$data	= $this->get($user);
+		}
+		return $data;
 	}
 	/**
 	 * Find driver by his code

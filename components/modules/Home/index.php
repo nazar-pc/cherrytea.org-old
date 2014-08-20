@@ -37,11 +37,6 @@ if ($User->guest()) {
 } else {
 	$Volunteers	= Volunteers::instance();
 	$volunteer	= $Volunteers->get($User->id);
-	if (!$volunteer) {
-		$Volunteers->add($User->id);
-		$Volunteers->set_driver($User->id, 'yes');
-		$volunteer	= $Volunteers->get($User->id);
-	}
 	$driver		= $Volunteers->is_driver($volunteer['id']) ? $volunteer['id'] : 0;
 	$Page->js("var driver = $driver, volunteer = '$volunteer[id]';", 'code');
 	$Page->content(
