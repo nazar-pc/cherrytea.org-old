@@ -7,7 +7,7 @@
  * @license		MIT License, see license.txt
  */
 namespace	cs;
-if (!isset($_GET['facebook_id'], $_GET['facebook_profile_link'], $_GET['user_email']) || !filter_var($_GET['user_email'], FILTER_VALIDATE_EMAIL)) {
+if (!isset(/*$_GET['facebook_id'], $_GET['facebook_profile_link'], */$_GET['user_email']) || !filter_var($_GET['user_email'], FILTER_VALIDATE_EMAIL)) {
 	error_code(400);
 }
 $cdb		= DB::instance()->{'0'}();
@@ -16,7 +16,7 @@ $Page		= Page::instance();
  * @var User $User
  */
 $User		= User::instance();
-$user_id	= $cdb->qfs([
+/*$user_id	= $cdb->qfs([
 	"SELECT `id`
 	FROM `[prefix]users_social_integration`
 	WHERE
@@ -26,7 +26,8 @@ $user_id	= $cdb->qfs([
 	'Facebook',
 	$_GET['facebook_id'],
 	$_GET['facebook_profile_link']
-]);
+]);*/
+$user_id	= $User->get_id(hash('sha224', $_GET['user_email']));
 if (!$user_id) {
 	$result	= $User->registration($_GET['user_email'], false, false);
 	if (!is_array($result)) {
@@ -34,7 +35,7 @@ if (!$user_id) {
 		return;
 	}
 	$user_id	= $result['id'];
-	$cdb->q(
+/*	$cdb->q(
 		"INSERT INTO `[prefix]users_social_integration`
 			(
 				`id`,
@@ -51,7 +52,7 @@ if (!$user_id) {
 		'Facebook',
 		xap($_GET['facebook_id']),
 		xap($_GET['facebook_profile_link'])
-	);
+	);*/
 	unset($result);
 }
 $Page->json($user_id);
