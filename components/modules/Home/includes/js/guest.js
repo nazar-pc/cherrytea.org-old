@@ -15,7 +15,7 @@
     if (!$('#map').length) {
       return;
     }
-    return $('.home-page-sign-in a').click(function() {
+    return $('.home-page-sign-in a:not(.gp)').click(function() {
       return location.href = 'HybridAuth/' + ($(this).hasClass('fb') ? 'Facebook' : 'Vkontakte');
     });
   });

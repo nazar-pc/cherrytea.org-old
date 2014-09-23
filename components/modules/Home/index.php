@@ -24,6 +24,17 @@ if ($User->guest()) {
 				h::{'a.vk'}(
 					h::icon('vk').
 					'Увійти через VK'
+				).
+				h::div('або').
+				h::{'a.gp'}(
+					h::{'span img'}([
+						'src'	=> '/components/modules/Home/includes/img/google-play.svg'
+					]).
+					'Завантажити Android додаток',
+					[
+						'href'		=> 'https://play.google.com/store/apps/details?id=net.givemealift',
+						'target'	=> '_blank'
+					]
 				)
 			).
 			h::{'div.cs-home-page-legend'}(

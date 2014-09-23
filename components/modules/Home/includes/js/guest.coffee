@@ -8,5 +8,5 @@
 $ ->
 	if !$('#map').length
 		return
-	$('.home-page-sign-in a').click ->
+	$('.home-page-sign-in a:not(.gp)').click ->
 		location.href	= 'HybridAuth/' + (if $(@).hasClass('fb') then 'Facebook' else 'Vkontakte')
