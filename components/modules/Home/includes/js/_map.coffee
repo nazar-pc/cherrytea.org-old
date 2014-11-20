@@ -101,6 +101,30 @@ $ ->
 				}
 			)
 		)
+		map.geoObjects.add(
+			new ymaps.Placemark(
+				[46.475433,30.719122]
+				{
+					hintContent	: 'Благодійний фонд Карітас-Одеса'
+				}
+				{
+					iconLayout			: 'default#image'
+					iconImageHref		: '/components/modules/Home/includes/img/destination.png'
+					iconImageSize		: [60, 58]
+					iconImageOffset		: [-24, -58]
+					iconImageShape		: map.icons_shape
+					balloonLayout		: ymaps.templateLayoutFactory.createClass(
+						"""<section class="home-page-map-balloon-container centers">
+							<header><h1>Благодійний фонд Карітас-Одеса</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
+							<article>
+								<address>вул. Південна, 40/1</address>
+								<time>Будні: з 09:00 до 18:00</time>
+							</article>
+						</section>"""
+					)
+				}
+			)
+		)
 		filter	= $('.cs-home-page-filter')
 		filter.find('input[name=date]')
 			.pickmeup(

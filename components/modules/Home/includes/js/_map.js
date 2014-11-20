@@ -67,6 +67,16 @@
         iconImageShape: map.icons_shape,
         balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Книжковий магазин Свічадо</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вулиця Покровська, 6</address>\n		<time>Будні: з 10:00 до 17:00</time>\n	</article>\n</section>")
       }));
+      map.geoObjects.add(new ymaps.Placemark([46.475433, 30.719122], {
+        hintContent: 'Благодійний фонд Карітас-Одеса'
+      }, {
+        iconLayout: 'default#image',
+        iconImageHref: '/components/modules/Home/includes/img/destination.png',
+        iconImageSize: [60, 58],
+        iconImageOffset: [-24, -58],
+        iconImageShape: map.icons_shape,
+        balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Благодійний фонд Карітас-Одеса</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вул. Південна, 40/1</address>\n		<time>Будні: з 09:00 до 18:00</time>\n	</article>\n</section>")
+      }));
       filter = $('.cs-home-page-filter');
       filter.find('input[name=date]').pickmeup({
         format: 'd.m.Y',
