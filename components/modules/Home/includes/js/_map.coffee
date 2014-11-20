@@ -115,7 +115,7 @@ $ ->
 					iconImageShape		: map.icons_shape
 					balloonLayout		: ymaps.templateLayoutFactory.createClass(
 						"""<section class="home-page-map-balloon-container centers">
-							<header><h1>Благодійний фонд Карітас Одеса</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
+							<header><h1>Карітас Одеса</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
 							<article>
 								<address>вул. Південна, 40/1</address>
 								<time>Будні: з 09:00 до 18:00</time>
