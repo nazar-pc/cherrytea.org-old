@@ -67,7 +67,7 @@ $ ->
 					iconImageShape		: map.icons_shape
 					balloonLayout		: ymaps.templateLayoutFactory.createClass(
 						"""<section class="home-page-map-balloon-container centers">
-							<header><h1>Благодійний фонд Карітас-Київ</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
+							<header><h1>Благодійний фонд Карітас Київ</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
 							<article>
 								<address>вулиця Івана Микитенка, 7б</address>
 								<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>
@@ -115,10 +115,12 @@ $ ->
 					iconImageShape		: map.icons_shape
 					balloonLayout		: ymaps.templateLayoutFactory.createClass(
 						"""<section class="home-page-map-balloon-container centers">
-							<header><h1>Благодійний фонд Карітас-Одеса</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
+							<header><h1>Благодійний фонд Карітас Одеса</h1> <a class="uk-close" onclick="map.balloon.close()"></a></header>
 							<article>
 								<address>вул. Південна, 40/1</address>
 								<time>Будні: з 09:00 до 18:00</time>
+								<p style="color:#0097fc">тел./факс: +38 048 712 38 60</p>
+								<p style="color:#0097fc">e-mail: <a href="mailto:caritasodessa@ukr.net">caritasodessa@ukr.net</a></p>
 							</article>
 						</section>"""
 					)

@@ -55,7 +55,7 @@
         iconImageSize: [60, 58],
         iconImageOffset: [-24, -58],
         iconImageShape: map.icons_shape,
-        balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Благодійний фонд Карітас-Київ</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вулиця Івана Микитенка, 7б</address>\n		<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>\n	</article>\n</section>")
+        balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Благодійний фонд Карітас Київ</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вулиця Івана Микитенка, 7б</address>\n		<time>Будні: з 9:00 до 18:00<br>Вихідні: з 10:00 до 15:00</time>\n	</article>\n</section>")
       }));
       map.geoObjects.add(new ymaps.Placemark([50.461404, 30.519216], {
         hintContent: 'Книжковий магазин Свічадо'
@@ -75,7 +75,7 @@
         iconImageSize: [60, 58],
         iconImageOffset: [-24, -58],
         iconImageShape: map.icons_shape,
-        balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Благодійний фонд Карітас-Одеса</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вул. Південна, 40/1</address>\n		<time>Будні: з 09:00 до 18:00</time>\n	</article>\n</section>")
+        balloonLayout: ymaps.templateLayoutFactory.createClass("<section class=\"home-page-map-balloon-container centers\">\n	<header><h1>Благодійний фонд Карітас Одеса</h1> <a class=\"uk-close\" onclick=\"map.balloon.close()\"></a></header>\n	<article>\n		<address>вул. Південна, 40/1</address>\n		<time>Будні: з 09:00 до 18:00</time>\n		<p style=\"color:#0097fc\">тел./факс: +38 048 712 38 60</p>\n		<p style=\"color:#0097fc\">e-mail: <a href=\"mailto:caritasodessa@ukr.net\">caritasodessa@ukr.net</a></p>\n	</article>\n</section>")
       }));
       filter = $('.cs-home-page-filter');
       filter.find('input[name=date]').pickmeup({
