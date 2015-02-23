@@ -135,7 +135,7 @@ class Volunteers {
 	 * @return bool
 	 */
 	function change_reputation ($user, $value) {
-		$value	= (int)$value;
+		$value	= (float)$value;
 		return $this->db_prime()->q(
 			"UPDATE `$this->table`
 			SET `reputation` = `reputation` + $value
